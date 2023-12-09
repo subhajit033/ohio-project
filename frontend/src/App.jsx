@@ -1,7 +1,15 @@
-
-
+import Login from './components/Login/Login';
+import Registration from './components/Registration/Registration';
+import HomePage from './components/HomePage/HomePage';
+import UploadDoc from './components/UploadDoc/UploadDoc';
+import UploadNav from './components/UploadNav/UploadNav';
 const App = () => {
-  return <h1 className='text-3xl font-bold underline'>Hello world!</h1>;
+  return (
+    <>
+      <HomePage />
+      <UploadNav />
+    </>
+  );
 };
 
 export default App;
