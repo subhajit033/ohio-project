@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { IoCloudUploadOutline } from 'react-icons/io5';
 import { PiFilesLight } from 'react-icons/pi';
+import UploadDoc from '../UploadDoc/UploadDoc';
 
 const UploadNav = () => {
   const [activeNav, setActiveNav] = useState('#Upload');
@@ -31,12 +32,9 @@ const UploadNav = () => {
         </button>
       </div>
       <div
-        className={`shadow-xl  border border-gray-100 font-light p-8 rounded text-gray-500 bg-white mt-6`}
+        className={` border border-gray-100 font-light p-8 rounded text-gray-500 bg-white mt-6`}
       >
-        Raw denim you probably haven't heard of them jean shorts Austin.
-        Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache
-        cliche tempor, williamsburg carles vegan helvetica. Reprehenderit
-        butcher retro keffiyeh dreamcatcher synth.
+       <UploadDoc />
       </div>
     </div>
   );

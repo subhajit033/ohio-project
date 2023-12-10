@@ -6,10 +6,8 @@ const Registration = () => {
   return (
     <div className="max-w-4xl mx-auto font-[sans-serif] text-[#333] p-6">
       <div className="text-center mb-16">
-        {/* <a href=""><img
-          src="https://readymadeui.com/readymadeui.svg" alt="logo" className='w-52 inline-block' />
-        </a> */}
-        <h4 className="text-base font-semibold mt-3">Sign up into your account</h4>
+        
+        <h4 className="text-xl font-semibold mt-3">Sign up into your account</h4>
       </div>
       <form>
         <div className="grid sm:grid-cols-2 gap-y-7 gap-x-12">

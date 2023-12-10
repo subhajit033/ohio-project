@@ -1,15 +1,39 @@
 import Login from './components/Login/Login';
 import Registration from './components/Registration/Registration';
-import HomePage from './components/HomePage/HomePage';
-import UploadDoc from './components/UploadDoc/UploadDoc';
+import Verifaication from './components/Verification/Verifaication';
 import UploadNav from './components/UploadNav/UploadNav';
+import Layout from './Layout/Layout';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 const App = () => {
   return (
     <>
-      <HomePage />
-      <UploadNav />
+      <RouterProvider router={appRouter} />
     </>
   );
 };
 
+const appRouter = createBrowserRouter([
+  {
+    path: '/',
+    element: <Layout />,
+    children: [
+      {
+        path: '',
+        element: <UploadNav />,
+      },
+      {
+        path: '/verification',
+        element: <Verifaication />,
+      },
+      {
+        path: '/signup',
+        element: <Registration />,
+      },
+      {
+        path: '/login',
+        element: <Login />,
+      },
+    ],
+  },
+]);
 export default App;

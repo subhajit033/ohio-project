@@ -1,1 +1,0 @@
-import upload from './upload.svg'
