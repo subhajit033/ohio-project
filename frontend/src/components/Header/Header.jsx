@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useState } from 'react';
 const HomePage = () => {
-    const[isPosupVisible, setIsPosupVisible] = useState(false);
-    const popUp = ()=>{
-        setIsPosupVisible(!isPosupVisible);
-    }
-    
+  const [isPosupVisible, setIsPosupVisible] = useState(false);
+  const popUp = () => {
+    setIsPosupVisible(!isPosupVisible);
+  };
+
   return (
     <nav className='flex dark:bg-slate-900 items-center relative justify-between bg-white px-5 py-6 w-full'>
       <div>
@@ -42,7 +42,7 @@ const HomePage = () => {
         role='menu'
         className='sm:gap-3 transition-left ease-[cubic-bezier(0.4, 0.0, 0.2, 1)] delay-150  sm:flex  flex flex-col cursor-pointer absolute min-h-screen -left-48 sm:static w-48 top-0 bg-white sm:shadow-none shadow-xl sm:bg-transparent sm:flex-row sm:w-auto sm:min-h-0 dark:bg-slate-900  '
       >
-        <div className='sm:hidden p-6 mb-5 flex items-center justify-center'>
+        <div className='sm:hidden p-6 mb-5 flex items-center justify-center gap-6'>
           <svg
             width='41'
             height='39'
@@ -70,24 +70,38 @@ const HomePage = () => {
         </div>
         <li className='font-medium text-sm p-3 hover:bg-slate-300 dark:hover:bg-slate-800 sm:p-0 sm:hover:bg-transparent text-primary'>
           <a href='#' className='dark:text-white'>
-            Men
+            Home
           </a>
         </li>
         <li className='font-medium text-sm p-3 cursor-pointer hover:bg-slate-300 dark:hover:bg-slate-800 sm:p-0 sm:hover:bg-transparent text-gray-600 hover:text-primary transition-colors'>
           <a href='#' className='dark:text-white'>
-            Women
+            About us
           </a>
         </li>
         <li className='font-medium text-sm p-3 cursor-pointer hover:bg-slate-300 dark:hover:bg-slate-800 sm:p-0 sm:hover:bg-transparent text-gray-600 hover:text-primary transition-colors'>
           <a href='#' className='dark:text-white'>
-            Kids
+            Contact us
           </a>
         </li>
       </ul>
-      <div className='flex gap-3 items-center'>       
-
-        <div onClick={popUp} className="h-10 w-10 hover:ring-4 user cursor-pointer relative ring-blue-700/30 rounded-full bg-cover bg-center bg-[url('https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80')]">
-          <div className={`drop-down ${isPosupVisible? 'block': 'hidden'}  w-48 overflow-hidden bg-white rounded-md shadow absolute top-12 right-3`}>
+      <div className='flex lg:order-1 max-sm:ml-auto'>
+        <button className='px-4 py-2 text-sm rounded-xl font-bold text-white border-2 border-[#007bff] bg-indigo-500 transition-all ease-in-out duration-300 hover:bg-transparent hover:text-[#007bff]'>
+          Login
+        </button>
+        <button className='px-4 py-2 text-sm rounded-xl font-bold text-white border-2 border-[#007bff] bg-indigo-500 transition-all ease-in-out duration-300 hover:bg-transparent hover:text-[#007bff] ml-3'>
+          Join
+        </button>
+      </div>
+      {/* <div className='flex gap-3 items-center'>
+        <div
+          onClick={popUp}
+          className="h-10 w-10 hover:ring-4 user cursor-pointer relative ring-blue-700/30 rounded-full bg-cover bg-center bg-[url('https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80')]"
+        >
+          <div
+            className={`drop-down ${
+              isPosupVisible ? 'block' : 'hidden'
+            }  w-48 overflow-hidden bg-white rounded-md shadow absolute z-50 top-12 right-3`}
+          >
             <ul>
               <li className='px-3 py-3 text-sm font-medium flex items-center space-x-2 hover:bg-slate-400'>
                 <span>
@@ -155,8 +169,7 @@ const HomePage = () => {
             </ul>
           </div>
         </div>
-       
-      </div>
+      </div> */}
     </nav>
   );
 };

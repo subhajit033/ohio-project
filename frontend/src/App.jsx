@@ -3,6 +3,7 @@ import Registration from './components/Registration/Registration';
 import Verifaication from './components/Verification/Verifaication';
 import UploadNav from './components/UploadNav/UploadNav';
 import Layout from './Layout/Layout';
+import Home from './components/Home/Home';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 const App = () => {
   return (
@@ -19,7 +20,7 @@ const appRouter = createBrowserRouter([
     children: [
       {
         path: '',
-        element: <UploadNav />,
+        element: <Home />,
       },
       {
         path: '/verification',
