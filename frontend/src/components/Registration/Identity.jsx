@@ -1,16 +1,16 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { MdNavigateNext } from 'react-icons/md';
-import { GrFormPrevious } from 'react-icons/gr';
+
 import {
   setFormData,
-  prevStep,
+  
   nextStep,
 } from '../../redux/Slices/registration';
 const Identity = () => {
   const dispatch = useDispatch();
   const formData = useSelector((store) => store.registration.formData);
-  const step = useSelector((store) => store.registration.step);
+  
   const [DOB, setDOB] = useState('');
   const [personType, setPersonType] = useState('');
 

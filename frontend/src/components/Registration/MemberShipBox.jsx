@@ -1,9 +1,23 @@
 import React from 'react';
+import { toggleCheckbox } from '../../redux/Slices/registration';
+import { useDispatch, useSelector } from 'react-redux';
 
-const MemberShipBox = ({value}) => {
+const MemberShipBox = ({ value }) => {
+  const dispatch = useDispatch();
+  const handleCheckboxToggle = (value) => {
+    dispatch(toggleCheckbox(value));
+  };
+  const selectedCheckboxes = useSelector((store)=> store.registration.formData.selectedCheckboxes);
   return (
     <div className='flex items-center'>
-      <input id={value} type='checkbox' className='hidden peer'/>
+      <input
+        id={value}
+        value={value}
+        type='checkbox'
+        checked={selectedCheckboxes.includes(value)}
+        onChange={() => handleCheckboxToggle(value)}
+        className='hidden peer'
+      />
       <label
         htmlFor={value}
         className='relative flex items-center justify-center p-1 peer-checked:before:hidden before:block before:absolute before:w-full before:h-full before:bg-white w-6 h-6 cursor-pointer bg-green-500 border rounded overflow-hidden'
