@@ -1,5 +1,5 @@
 import Login from './components/Login/Login';
-import Identity from './components/Registration/Identity';
+import Registration from './components/Registration/Registration';
 import Verifaication from './components/Verification/Verifaication';
 import UploadNav from './components/UploadNav/UploadNav';
 import Layout from './Layout/Layout';
@@ -28,7 +28,7 @@ const appRouter = createBrowserRouter([
       },
       {
         path: '/signup',
-        element: <Identity />,
+        element: <Registration />,
       },
       {
         path: '/login',

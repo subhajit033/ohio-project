@@ -1,18 +1,51 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { MdNavigateNext } from "react-icons/md";
-import { GrFormPrevious } from "react-icons/gr";
-import { setFormData } from '../../redux/Slices/registration';
+import { MdNavigateNext } from 'react-icons/md';
+import { GrFormPrevious } from 'react-icons/gr';
+import {
+  setFormData,
+  prevStep,
+  nextStep,
+} from '../../redux/Slices/registration';
 const Identity = () => {
   const dispatch = useDispatch();
   const formData = useSelector((store) => store.registration.formData);
+  const step = useSelector((store) => store.registration.step);
+  const [DOB, setDOB] = useState('');
+  const [personType, setPersonType] = useState('');
+
+  useEffect(() => {
+    if (DOB) {
+      calculateAgeFromDOB(DOB);
+    }
+  }, [DOB]);
+
+  function calculateAgeFromDOB(dob) {
+    const today = new Date();
+    const birthDate = new Date(dob);
+
+    let age = today.getFullYear() - birthDate.getFullYear();
+
+    // Check if the birthday has occurred this year
+    if (
+      today.getMonth() < birthDate.getMonth() ||
+      (today.getMonth() === birthDate.getMonth() &&
+        today.getDate() < birthDate.getDate())
+    ) {
+      age--;
+    }
+    setPersonType(age >= 18 ? 'Adult' : 'Minor');
+  }
+
+  const handleSubmit = (e)=>{
+    e.preventDefault();
+    dispatch(nextStep());
+
+  } 
 
   return (
     <div className='max-w-4xl mx-auto font-[sans-serif] text-[#333] p-6'>
-      <div className='text-center mb-16'>
-        <h4 className='text-xl font-semibold mt-3'>Personal Details</h4>
-      </div>
-      <form>
+      <form onSubmit={handleSubmit}>
         <div className='grid sm:grid-cols-2 gap-y-7 gap-x-12'>
           <div>
             <label className='text-sm mb-2 block'>First Name *</label>
@@ -22,6 +55,7 @@ const Identity = () => {
               className='bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500'
               placeholder='First Name'
               value={formData.firstName}
+              required
               onChange={(e) =>
                 dispatch(setFormData({ firstName: e.target.value }))
               }
@@ -48,6 +82,7 @@ const Identity = () => {
               className='bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500'
               placeholder='Last name'
               value={formData.lastName}
+              required
               onChange={(e) =>
                 dispatch(setFormData({ lastName: e.target.value }))
               }
@@ -60,12 +95,41 @@ const Identity = () => {
               name='cpassword'
               type='date'
               className='bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500'
+              required
               placeholder='Enter DOB'
               value={formData.dob}
-              onChange={(e) => dispatch(setFormData({ dob: e.target.value }))}
+              onChange={(e) => {
+                dispatch(setFormData({ dob: e.target.value }));
+                setDOB(e.target.value);
+              }}
             />
           </div>
 
+          <div>
+            <label className='text-sm mb-2 block'>Sex *</label>
+            <select
+              className='bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500'
+              name='sex'
+              id='sex'
+              required
+              onChange={(e) => dispatch(setFormData({ sex: e.target.value }))}
+            >
+              <option>Select your gender</option>
+              <option value='Male'>Male</option>
+              <option value='Female'>Female</option>
+            </select>
+          </div>
+          <div>
+            <label className='text-sm mb-2 block'>Adult/Minor</label>
+            <input
+              name='lname'
+              type='text'
+              className='bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500'
+              placeholder='Adult/Minor'
+              value={personType}
+              disabled
+            />
+          </div>
           <div>
             <label className='text-sm mb-2 block'>Photo</label>
             <input
@@ -74,7 +138,6 @@ const Identity = () => {
               className='bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500'
               accept='image/*'
               placeholder='select photo'
-              
               onChange={(e) =>
                 dispatch(setFormData({ photo: e.target.files[0] }))
               }
@@ -88,23 +151,17 @@ const Identity = () => {
               className='bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500'
               accept='image/*'
               placeholder='select image'
-              
               onChange={(e) =>
                 dispatch(setFormData({ seal: e.target.files[0] }))
               }
             />
           </div>
         </div>
-        <div className='!mt-10 flex justify-between'>
+        <div className='!mt-10 flex justify-end'>
           <button
-            type='button'
+            type='submit'
             className=' shadow-xl py-2.5 px-4 text-sm font-semibold rounded text-white bg-[#333] hover:bg-black focus:outline-none flex items-center gap-1'
-          >
-            <GrFormPrevious /> Previous
-          </button>
-          <button
-            type='button'
-            className=' shadow-xl py-2.5 px-4 text-sm font-semibold rounded text-white bg-[#333] hover:bg-black focus:outline-none flex items-center gap-1'
+            
           >
             Next <MdNavigateNext />
           </button>

@@ -1,16 +1,31 @@
+import { useSelector, useDispatch } from 'react-redux';
+import { MdNavigateNext } from 'react-icons/md';
+import { GrFormPrevious } from 'react-icons/gr';
+import {
+  setFormData,
+  prevStep,
+  nextStep,
+} from '../../redux/Slices/registration';
 const Contact = () => {
+  const dispatch = useDispatch();
+  const formData = useSelector((store) => store.registration.formData);
+  const step = useSelector((store) => store.registration.step);
+  const handleSubmit = (e)=>{
+    e.preventDefault();
+    dispatch(nextStep());
+
+  } 
   return (
     <div className='max-w-4xl mx-auto font-[sans-serif] text-[#333] p-6'>
-      <div className='text-center mb-16'>
-        <h4 className='text-xl font-semibold mt-3'>Fill Contact details</h4>
-      </div>
-      <form>
+      
+      <form onSubmit={handleSubmit}>
         <div className='grid sm:grid-cols-2 gap-y-7 gap-x-12'>
           <div>
-            <label className='text-sm mb-2 block'>Mailing address</label>
+            <label className='text-sm mb-2 block'>Mailing address *</label>
             <input
               name='lname'
               type='text'
+              required
               className='bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500'
               placeholder='mailing address'
             />
@@ -26,10 +41,21 @@ const Contact = () => {
           </div>
 
           <div>
-            <label className='text-sm mb-2 block'>County</label>
+            <label className='text-sm mb-2 block'>Mailing City *</label>
             <input
               name='lname'
               type='text'
+              required
+              className='bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500'
+              placeholder='County'
+            />
+          </div>
+          <div>
+            <label className='text-sm mb-2 block'>County *</label>
+            <input
+              name='lname'
+              type='text'
+              required
               className='bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500'
               placeholder='County'
             />
@@ -41,6 +67,7 @@ const Contact = () => {
               type='text'
               className='bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500'
               placeholder='Enter mailing state'
+              value="Ohio"
             />
           </div>
           <div>
@@ -50,6 +77,7 @@ const Contact = () => {
               type='text'
               className='bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500'
               placeholder='Postal code'
+              required
             />
           </div>
           <div>
@@ -59,6 +87,7 @@ const Contact = () => {
               type='text'
               className='bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500'
               placeholder='Enter Phone no'
+              required
             />
           </div>
           <div>
@@ -68,6 +97,7 @@ const Contact = () => {
               type='text'
               className='bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500'
               placeholder='Enter email'
+              required
             />
           </div>
           <div>
@@ -77,6 +107,7 @@ const Contact = () => {
               type='text'
               className='bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500'
               placeholder='Confirm email'
+              required
             />
           </div>
           <div>
@@ -90,37 +121,40 @@ const Contact = () => {
           </div>
 
           <div>
-            <label className='text-sm mb-2 block'>Password</label>
+            <label className='text-sm mb-2 block'>Password *</label>
             <input
               name='password'
               type='password'
               className='bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500'
               placeholder='Enter password'
+              required
             />
           </div>
           <div>
-            <label className='text-sm mb-2 block'>Confirm Password</label>
+            <label className='text-sm mb-2 block'>Confirm Password *</label>
             <input
               name='cpassword'
               type='password'
               className='bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500'
               placeholder='confirm password'
+              required
             />
           </div>
 
           <div>
             <label className='text-sm mb-2 block'>
-              Recording Secretary Email
+              Recording Secretary Email *
             </label>
             <input
               name='lname'
               type='email'
               className='bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500'
               placeholder="Enter Land Recorder's Email"
+              required
             />
           </div>
           <div>
-            <label className='text-sm mb-2 block'>Coordinator's Email</label>
+            <label className='text-sm mb-2 block'>{`Coordinator's Email`}</label>
             <input
               name='lname'
               type='email'
@@ -129,12 +163,20 @@ const Contact = () => {
             />
           </div>
         </div>
-        <div className='!mt-10'>
+        <div className='!mt-10 flex justify-between'>
           <button
             type='button'
-            className='w-full shadow-xl py-2.5 px-4 text-sm font-semibold rounded text-white bg-[#333] hover:bg-black focus:outline-none'
+            className=' shadow-xl py-2.5 px-4 text-sm font-semibold rounded text-white bg-[#333] hover:bg-black focus:outline-none flex items-center gap-1'
+            onClick={()=> dispatch(prevStep())}
           >
-            Register
+            <GrFormPrevious /> Previous
+          </button>
+          <button
+            type='submit'
+            className=' shadow-xl py-2.5 px-4 text-sm font-semibold rounded text-white bg-[#333] hover:bg-black focus:outline-none flex items-center gap-1'
+            
+          >
+            Next <MdNavigateNext />
           </button>
         </div>
       </form>
