@@ -1,18 +1,16 @@
-import React from 'react';
+
 import MemberShipBox from './MemberShipBox';
 import { membershipType } from '../../utils/const';
-import { useSelector, useDispatch } from 'react-redux';
-import { MdNavigateNext } from 'react-icons/md';
+import {  useDispatch } from 'react-redux';
+
 import { GrFormPrevious } from 'react-icons/gr';
 import {
-  setFormData,
+  
   prevStep,
-  nextStep,
+  
 } from '../../redux/Slices/registration';
 const Membership = () => {
-  const dispatch = useDispatch();
-  const formData = useSelector((store) => store.registration.formData);
-  const step = useSelector((store) => store.registration.step);
+  const dispatch = useDispatch();  
   return (
     <div className='p-6 md:p-8 lg:p-10'>
       <form className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4'>

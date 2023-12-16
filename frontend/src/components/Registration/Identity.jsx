@@ -2,23 +2,23 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { MdNavigateNext } from 'react-icons/md';
 
-import {
-  setFormData,
-  
-  nextStep,
-} from '../../redux/Slices/registration';
+import { setFormData, nextStep } from '../../redux/Slices/registration';
 const Identity = () => {
   const dispatch = useDispatch();
   const formData = useSelector((store) => store.registration.formData);
-  
+
   const [DOB, setDOB] = useState('');
-  const [personType, setPersonType] = useState('');
 
   useEffect(() => {
     if (DOB) {
       calculateAgeFromDOB(DOB);
     }
   }, [DOB]);
+  useEffect(() => {
+    if (formData.sex) {
+      document.getElementById('sex').value = formData.sex;
+    }
+  }, [formData.sex]);
 
   function calculateAgeFromDOB(dob) {
     const today = new Date();
@@ -34,14 +34,14 @@ const Identity = () => {
     ) {
       age--;
     }
-    setPersonType(age >= 18 ? 'Adult' : 'Minor');
+    dispatch(setFormData({ personType: age >= 18 ? 'Adult' : 'Minor' }));
   }
+  
 
-  const handleSubmit = (e)=>{
+  const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(nextStep());
-
-  } 
+  };
 
   return (
     <div className='max-w-4xl mx-auto font-[sans-serif] text-[#333] p-6'>
@@ -115,8 +115,10 @@ const Identity = () => {
               onChange={(e) => dispatch(setFormData({ sex: e.target.value }))}
             >
               <option>Select your gender</option>
-              <option value='Male'>Male</option>
-              <option value='Female'>Female</option>
+              <option value='Male'>Man</option>
+              <option value='Female'>Woman</option>
+              <option value='Boy'>Boy</option>
+              <option value='Girl'>Girl</option>
             </select>
           </div>
           <div>
@@ -126,7 +128,7 @@ const Identity = () => {
               type='text'
               className='bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500'
               placeholder='Adult/Minor'
-              value={personType}
+              value={formData.personType}
               disabled
             />
           </div>
@@ -161,7 +163,6 @@ const Identity = () => {
           <button
             type='submit'
             className=' shadow-xl py-2.5 px-4 text-sm font-semibold rounded text-white bg-[#333] hover:bg-black focus:outline-none flex items-center gap-1'
-            
           >
             Next <MdNavigateNext />
           </button>

@@ -1,7 +1,7 @@
 import Login from './components/Login/Login';
 import Registration from './components/Registration/Registration';
 import Verifaication from './components/Verification/Verifaication';
-import UploadNav from './components/UploadNav/UploadNav';
+import DashBoard from './components/UserDashBoard/DashBoard';
 import Layout from './Layout/Layout';
 import Home from './components/Home/Home';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
@@ -34,6 +34,11 @@ const appRouter = createBrowserRouter([
         path: '/login',
         element: <Login />,
       },
+      {
+        path: '/dashboard',
+        element: <DashBoard />,
+      },
+
     ],
   },
 ]);

@@ -6,7 +6,7 @@ const HomePage = () => {
   };
 
   return (
-    <nav className='flex dark:bg-slate-900 items-center relative justify-between bg-white px-5 py-6 w-full'>
+    <nav className='flex dark:bg-[#121e31] items-center relative justify-between bg-white px-5 py-6 w-full'>
       <div>
         <svg
           width='41'

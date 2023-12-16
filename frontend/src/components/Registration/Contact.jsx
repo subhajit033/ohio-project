@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { MdNavigateNext } from 'react-icons/md';
 import { GrFormPrevious } from 'react-icons/gr';
+import { county } from '../../utils/const';
 import {
   setFormData,
   prevStep,
@@ -17,6 +18,17 @@ const Contact = () => {
   useEffect(() => {
     dispatch(setFormData({ mailingState: 'Ohio' }));
   }, []);
+  useEffect(() => {
+    // If formData.county is set, it means we are returning to this step,
+    // so we want to set the initial value of the <select> tag
+    if (formData.county) {
+      // Ensure the selected county is one of the valid options
+     
+        // Set the initial value of the <select> tag
+        document.getElementById('county').value = formData.county;
+      
+    }
+  }, [formData.county]);
   return (
     <div className='max-w-4xl mx-auto font-[sans-serif] text-[#333] p-6'>
       <form onSubmit={handleSubmit}>
@@ -65,13 +77,20 @@ const Contact = () => {
           </div>
           <div>
             <label className='text-sm mb-2 block'>County *</label>
-            <input
-              name='lname'
-              type='text'
-              required
+            <select
               className='bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500'
-              placeholder='County'
-            />
+              name='county'
+              id='county'
+             
+              required
+              onChange={(e) => dispatch(setFormData({ county: e.target.value }))}
+            >
+              <option>Select county</option>
+              {county.map((county)=>{
+                return <option key={county} value={county}>{county}</option>
+              })}
+              
+            </select>
           </div>
           <div>
             <label className='text-sm mb-2 block'>Mailing State</label>
