@@ -1,12 +1,13 @@
-import React from 'react'
+
 import SideBar from './SideBar'
 import Shop from './Shop'
+import UploadedFiles from './UploadedFiles'
 
 const DashBoard = () => {
   return (
-    <div>
+    <div className='flex justify-around'>
         <SideBar />
-        <Shop />
+        <UploadedFiles />
     </div>
   )
 }

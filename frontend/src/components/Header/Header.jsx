@@ -1,9 +1,8 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { setSideBarOpen } from '../../redux/Slices/tabNav';
 const HomePage = () => {
-  const [isPosupVisible, setIsPosupVisible] = useState(false);
-  const popUp = () => {
-    setIsPosupVisible(!isPosupVisible);
-  };
+  const dispatch = useDispatch();
 
   return (
     <nav className='flex dark:bg-[#121e31] items-center relative justify-between bg-white px-5 py-6 w-full'>
@@ -84,20 +83,20 @@ const HomePage = () => {
           </a>
         </li>
       </ul>
-      <div className='flex lg:order-1 max-sm:ml-auto'>
+      {/* <div className='flex lg:order-1 max-sm:ml-auto'>
         <button className='px-4 py-2 text-sm rounded-xl font-bold text-white border-2 border-[#007bff] bg-indigo-500 transition-all ease-in-out duration-300 hover:bg-transparent hover:text-[#007bff]'>
           Login
         </button>
         <button className='px-4 py-2 text-sm rounded-xl font-bold text-white border-2 border-[#007bff] bg-indigo-500 transition-all ease-in-out duration-300 hover:bg-transparent hover:text-[#007bff] ml-3'>
           Join
         </button>
-      </div>
-      {/* <div className='flex gap-3 items-center'>
+      </div> */}
+      <div className='flex gap-3 items-center'>
         <div
-          onClick={popUp}
+          onClick={()=> dispatch(setSideBarOpen())}
           className="h-10 w-10 hover:ring-4 user cursor-pointer relative ring-blue-700/30 rounded-full bg-cover bg-center bg-[url('https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80')]"
         >
-          <div
+          {/* <div
             className={`drop-down ${
               isPosupVisible ? 'block' : 'hidden'
             }  w-48 overflow-hidden bg-white rounded-md shadow absolute z-50 top-12 right-3`}
@@ -167,9 +166,9 @@ const HomePage = () => {
                 <span> Logout </span>
               </li>
             </ul>
-          </div>
+          </div> */}
         </div>
-      </div> */}
+      </div>
     </nav>
   );
 };

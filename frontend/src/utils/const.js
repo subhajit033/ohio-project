@@ -144,3 +144,68 @@ export const county = [
   'Wood ',
   'Wyandot',
 ];
+
+export const statusDocument = [
+  'Declaration Born within Physical Borders of 50 States',
+  'Declaration Born in DC-US Territory-Military Base',
+  'Declaration For Federal Persons',
+  'Declaration For Naturalized/Green Card Immigrants',
+  'Declaration Undocumented Immigrants',
+  'Declaration of Political Status',
+  'Birth Record',
+  'Witness Testimony01',
+  'Witness Testimony02',
+  'Voter Cancellation',
+  'Revocation of Election to Pay Taxes-IRS',
+  'Revocation of Election to Pay Taxes-IRO',
+  'Notice of Distraint & Levy',
+  'Letter of Status-SOSUS',
+  'Military Severance',
+  'Deed of Reconveyance',
+  'Certificate of Assumed Names',
+  'Act of Expatriation01',
+  'Act of Expatriation02',
+  'Act of Expatriation03',
+  'Cancellation Power of Attorney',
+  'Extended Cancellation Power of Attorney',
+  'Foreign Sovereign Immunites Act',
+  'DNA Paramont Claim',
+  'Common Carry Declaration',
+  'Diagram of Fraud',
+  'Fee Schedule',
+  'Lineage Treaty',
+  'Marriage Record',
+  'BabyDeed01',
+  'BabyDeed02',
+  'BabyDeed03',
+  'BabyDeed04',
+  'BabyDeed05',
+  'BabyDeed06',
+  'BabyDeed07',
+  'BabyDeed08',
+  'Death Record',
+  'Private Business Documents',
+];
+
+export const notices = [
+  'Notices Upload'
+]
+
+export const landPatent = [
+'Land Patent01',
+'Land Patent02',
+'Land Patent03',
+'Land Patent04',
+'Land Patent05',
+
+]
+
+export const incidentReport = [
+'Territorial Government (USA)',
+'Municipal  Government (US/STATE/Muni)',
+'Commercial Entities',
+]
+
+export const privateDocs = [
+  'Common Law Will'
+]

@@ -1,9 +1,15 @@
 
-
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { setTab } from '../../redux/Slices/tabNav';
 const SideBar = () => {
+  const dispatch = useDispatch();
+  const sideBarOpen = useSelector((store)=> store.tabNav.sideBarOpen);
+
+  const docSubTab = ['Status', 'Notices', 'Land', 'Incident Report', 'Private'];
   return (
-    <nav className='bg-[#121e31] shadow-lg h-screen fixed top-0 -left-72 lg:left-0 min-w-[250px] py-6 px-4 font-[sans-serif] overflow-auto'>
-      <div className='flex flex-wrap items-center cursor-pointer mb-24'>
+    <nav className={`bg-[#121e31] shadow-lg h-screen fixed top-0 ${sideBarOpen? 'left-0': '-left-72'} lg:left-0 min-w-[250px] py-6 px-4 font-[sans-serif] z-50 lg:relative overflow-auto`}>
+      <div className='flex flex-wrap items-center cursor-pointer mb-12'>
         <img
           src='https://readymadeui.com/profile.webp'
           className='w-10 h-10 rounded-full border-2 border-white'
@@ -31,31 +37,15 @@ const SideBar = () => {
           </svg>
         </div>
         <ul className='space-y-1 mt-2 pl-4'>
-          <li>
-            <a className='text-gray-400 hover:text-black transition-all text-sm flex items-center hover:bg-gray-200 rounded-md px-4 py-3'>
-              <span>Status</span>
-            </a>
-          </li>
-          <li>
-            <a className='text-gray-400 hover:text-black transition-all text-sm flex items-center hover:bg-gray-200 rounded-md px-4 py-3'>
-              <span>Notices</span>
-            </a>
-          </li>
-          <li>
-            <a className='text-gray-400 hover:text-black transition-all text-sm flex items-center hover:bg-gray-200 rounded-md px-4 py-3'>
-              <span>Land</span>
-            </a>
-          </li>
-          <li>
-            <a className='text-gray-400 hover:text-black transition-all text-sm flex items-center hover:bg-gray-200 rounded-md px-4 py-3'>
-              <span>Incident Report</span>
-            </a>
-          </li>
-          <li>
-            <a className='text-gray-400 hover:text-black transition-all text-sm flex items-center hover:bg-gray-200 rounded-md px-4 py-3'>
-              <span>Private</span>
-            </a>
-          </li>
+          {docSubTab.map((subTab) => {
+            return (
+              <li onClick={() => dispatch(setTab(subTab))} key={subTab}>
+                <a className='text-gray-400 hover:text-black transition-all text-sm cursor-pointer flex items-center hover:bg-gray-200 rounded-md px-4 py-3'>
+                  <span>{subTab}</span>
+                </a>
+              </li>
+            );
+          })}
         </ul>
       </div>
       <div className='mt-6'>
