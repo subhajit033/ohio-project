@@ -8,7 +8,7 @@ import {
   prevStep,
   nextStep,
 } from '../../redux/Slices/registration';
-const Contact = () => {
+const Contact = ({isDashBoard}) => {
   const dispatch = useDispatch();
   const formData = useSelector((store) => store.registration.formData);
   const handleSubmit = (e) => {
@@ -230,7 +230,7 @@ const Contact = () => {
             />
           </div>
         </div>
-        <div className='!mt-10 flex justify-between'>
+        {!isDashBoard && <div className='!mt-10 flex justify-between'>
           <button
             type='button'
             className=' shadow-xl py-2.5 px-4 text-sm font-semibold rounded text-white bg-[#333] hover:bg-black focus:outline-none flex items-center gap-1'
@@ -244,7 +244,7 @@ const Contact = () => {
           >
             Next <MdNavigateNext />
           </button>
-        </div>
+        </div>}
       </form>
     </div>
   );

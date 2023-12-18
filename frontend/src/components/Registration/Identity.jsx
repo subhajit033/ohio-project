@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { MdNavigateNext } from 'react-icons/md';
 
 import { setFormData, nextStep } from '../../redux/Slices/registration';
-const Identity = () => {
+const Identity = ({ isDashBoard }) => {
   const dispatch = useDispatch();
   const formData = useSelector((store) => store.registration.formData);
 
@@ -36,7 +36,6 @@ const Identity = () => {
     }
     dispatch(setFormData({ personType: age >= 18 ? 'Adult' : 'Minor' }));
   }
-  
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -159,14 +158,14 @@ const Identity = () => {
             />
           </div>
         </div>
-        <div className='!mt-10 flex justify-end'>
+        {!isDashBoard && <div className='!mt-10 flex justify-end'>
           <button
             type='submit'
             className=' shadow-xl py-2.5 px-4 text-sm font-semibold rounded text-white bg-[#333] hover:bg-black focus:outline-none flex items-center gap-1'
           >
             Next <MdNavigateNext />
           </button>
-        </div>
+        </div>}
       </form>
     </div>
   );

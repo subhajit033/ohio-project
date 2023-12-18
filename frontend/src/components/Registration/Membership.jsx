@@ -9,7 +9,7 @@ import {
   prevStep,
   
 } from '../../redux/Slices/registration';
-const Membership = () => {
+const Membership = ({isDashborad}) => {
   const dispatch = useDispatch();  
   return (
     <div className='p-6 md:p-8 lg:p-10'>
@@ -30,7 +30,7 @@ const Membership = () => {
           type='submit'
           className=' shadow-xl py-2.5 px-4 text-sm font-semibold rounded text-white bg-blue-600 hover:bg-black focus:outline-none flex items-center gap-1'
         >
-          Submit
+          {isDashborad? 'Update Changes': 'Submit'}
         </button>
       </div>
     </div>
