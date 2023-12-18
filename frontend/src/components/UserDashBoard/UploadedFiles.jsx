@@ -8,6 +8,8 @@ import {
 import FileIcon from './FileIcon';
 import { useSelector } from 'react-redux';
 import Registration from '../Registration/Registration';
+import Officials from './Officials';
+import Shop from './Shop';
 const UploadedFiles = () => {
   const tab = useSelector((store) => store.tabNav.tab);
 
@@ -39,6 +41,9 @@ const UploadedFiles = () => {
           {/* 'Personal Details', 'Contact', 'Membership' */}
         </div>
         {tab === 'My Details' && <Registration isDashborad={true} />}
+        {tab === 'officials' && <Officials />}
+        {tab === 'shop' && <Shop />}
+
       </div>
     </>
   );

@@ -209,3 +209,18 @@ export const incidentReport = [
 export const privateDocs = [
   'Common Law Will'
 ]
+
+export const officials = [
+'Nationality',
+'Status',
+'Recording Number',
+'Master Record',
+'Date Account  Created',
+'Date Updated',
+'Print Credential Card Date',
+'Master Credential Card Number',
+'Verified ',
+'Paid Credential Card',
+'Deceased Date',
+
+]

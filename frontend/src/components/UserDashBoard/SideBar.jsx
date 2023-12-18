@@ -8,7 +8,7 @@ const SideBar = () => {
   const [openSubTab, setOpenSubTab] = useState('');
 
   const docSubTab = ['Status', 'Notices', 'Land', 'Incident Report', 'Private'];
-  
+
   return (
     <nav
       className={`bg-[#121e31] shadow-lg h-screen fixed top-0 ${
@@ -26,39 +26,51 @@ const SideBar = () => {
         </div>
       </div>
 
-      
-        <div className='flex cursor-pointer group'>
-          <h6 className='text-gray-400 group-hover:text-white text-sm font-bold px-4 flex-1'>
-            Family Member
-          </h6>          
-        </div>
+      <div className='flex cursor-pointer group'>
+        <h6 className='text-gray-400 group-hover:text-white text-sm font-bold px-4 flex-1'>
+          Family Member
+        </h6>
+      </div>
 
-      <div className=''>
-        <div onClick={()=> setOpenSubTab(openSubTab === 'document'? '': 'document')} className='flex cursor-pointer group'>
+      <div className='transition-all duration-300'>
+        <div
+          onClick={() =>
+            setOpenSubTab(openSubTab === 'document' ? '' : 'document')
+          }
+          className='flex cursor-pointer group'
+        >
           <h6 className='text-gray-400 group-hover:text-white text-sm font-bold px-4 flex-1'>
             Document
           </h6>
-          {openSubTab === 'document' ? <svg
-            xmlns='http://www.w3.org/2000/svg'
-            className='w-3 fill-gray-600 group-hover:fill-white'
-            viewBox='0 0 451.847 451.847'
-          >
-            <path
-              d='M225.923 354.706c-8.098 0-16.195-3.092-22.369-9.263L9.27 151.157c-12.359-12.359-12.359-32.397 0-44.751 12.354-12.354 32.388-12.354 44.748 0l171.905 171.915 171.906-171.909c12.359-12.354 32.391-12.354 44.744 0 12.365 12.354 12.365 32.392 0 44.751L248.292 345.449c-6.177 6.172-14.274 9.257-22.369 9.257z'
-              data-original='#000000'
-            />
-          </svg>: <svg
-            xmlns='http://www.w3.org/2000/svg'
-            className='w-3 fill-gray-600 group-hover:fill-white -rotate-90'
-            viewBox='0 0 451.847 451.847'
-          >
-            <path
-              d='M225.923 354.706c-8.098 0-16.195-3.092-22.369-9.263L9.27 151.157c-12.359-12.359-12.359-32.397 0-44.751 12.354-12.354 32.388-12.354 44.748 0l171.905 171.915 171.906-171.909c12.359-12.354 32.391-12.354 44.744 0 12.365 12.354 12.365 32.392 0 44.751L248.292 345.449c-6.177 6.172-14.274 9.257-22.369 9.257z'
-              data-original='#000000'
-            />
-          </svg>}
+          {openSubTab === 'document' ? (
+            <svg
+              xmlns='http://www.w3.org/2000/svg'
+              className='w-3 fill-gray-600 group-hover:fill-white'
+              viewBox='0 0 451.847 451.847'
+            >
+              <path
+                d='M225.923 354.706c-8.098 0-16.195-3.092-22.369-9.263L9.27 151.157c-12.359-12.359-12.359-32.397 0-44.751 12.354-12.354 32.388-12.354 44.748 0l171.905 171.915 171.906-171.909c12.359-12.354 32.391-12.354 44.744 0 12.365 12.354 12.365 32.392 0 44.751L248.292 345.449c-6.177 6.172-14.274 9.257-22.369 9.257z'
+                data-original='#000000'
+              />
+            </svg>
+          ) : (
+            <svg
+              xmlns='http://www.w3.org/2000/svg'
+              className='w-3 fill-gray-600 group-hover:fill-white -rotate-90'
+              viewBox='0 0 451.847 451.847'
+            >
+              <path
+                d='M225.923 354.706c-8.098 0-16.195-3.092-22.369-9.263L9.27 151.157c-12.359-12.359-12.359-32.397 0-44.751 12.354-12.354 32.388-12.354 44.748 0l171.905 171.915 171.906-171.909c12.359-12.354 32.391-12.354 44.744 0 12.365 12.354 12.365 32.392 0 44.751L248.292 345.449c-6.177 6.172-14.274 9.257-22.369 9.257z'
+                data-original='#000000'
+              />
+            </svg>
+          )}
         </div>
-        <ul className={`space-y-1 mt-2 pl-4 ${openSubTab === 'document'? 'block': 'hidden'}`}>
+        <ul
+          className={`space-y-1 mt-2 pl-4 ${
+            openSubTab === 'document' ? 'block' : 'hidden'
+          } transition-all duration-300`}
+        >
           {docSubTab.map((subTab) => {
             return (
               <li onClick={() => dispatch(setTab(subTab))} key={subTab}>
@@ -73,12 +85,30 @@ const SideBar = () => {
 
       {/* list my details */}
 
-      <div onClick={() => dispatch(setTab('My Details'))} className='flex cursor-pointer group'>
-          <h6 className='text-gray-400 group-hover:text-white text-sm font-bold px-4 flex-1'>
-            My Details
-          </h6>          
-        </div>
-      
+      <div
+        onClick={() => dispatch(setTab('My Details'))}
+        className='flex cursor-pointer group'
+      >
+        <h6 className='text-gray-400 group-hover:text-white text-sm font-bold px-4 flex-1'>
+          My Details
+        </h6>
+      </div>
+      <div
+        onClick={() => dispatch(setTab('officials'))}
+        className='flex cursor-pointer group'
+      >
+        <h6 className='text-gray-400 group-hover:text-white text-sm font-bold px-4 flex-1'>
+          Officials
+        </h6>
+      </div>
+      <div
+        onClick={() => dispatch(setTab('shop'))}
+        className='flex cursor-pointer group'
+      >
+        <h6 className='text-gray-400 group-hover:text-white text-sm font-bold px-4 flex-1'>
+          Shop
+        </h6>
+      </div>
     </nav>
   );
 };

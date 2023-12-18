@@ -158,14 +158,16 @@ const Identity = ({ isDashBoard }) => {
             />
           </div>
         </div>
-        {!isDashBoard && <div className='!mt-10 flex justify-end'>
-          <button
-            type='submit'
-            className=' shadow-xl py-2.5 px-4 text-sm font-semibold rounded text-white bg-[#333] hover:bg-black focus:outline-none flex items-center gap-1'
-          >
-            Next <MdNavigateNext />
-          </button>
-        </div>}
+        {!isDashBoard && (
+          <div className='!mt-10 flex justify-end'>
+            <button
+              type='submit'
+              className=' shadow-xl py-2.5 px-4 text-sm font-semibold rounded text-white bg-[#333] hover:bg-black focus:outline-none flex items-center gap-1'
+            >
+              Next <MdNavigateNext />
+            </button>
+          </div>
+        )}
       </form>
     </div>
   );
