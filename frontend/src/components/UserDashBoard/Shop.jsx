@@ -46,7 +46,7 @@ const Shop = () => {
   };
 
   return (
-    <div className='p-6 grid grid-cols-2 md:grid-cols-3 gap-6 md:h-[89vh] overflow-auto'>
+    <div className='p-6 grid grid-cols-1 md:grid-cols-3 gap-6 md:h-[89vh] overflow-auto'>
       <ShopCards />
       <ShopCards />
       <ShopCards />
