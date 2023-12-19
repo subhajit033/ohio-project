@@ -44,8 +44,9 @@ const UploadedFiles = () => {
           {/* 'Personal Details', 'Contact', 'Membership' */}
         </div>
         {tab === 'My Details' && <Registration isDashborad={true} />}
-        {tab === 'officials' && <UserVerification />}
+        {tab === 'officials' && <Officials />}
         {tab === 'shop' && <Shop />}
+        
       </div>
     </>
   );

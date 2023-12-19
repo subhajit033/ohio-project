@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { setTab } from '../../redux/Slices/tabNav';
@@ -8,6 +8,9 @@ const SideBar = () => {
   const [openSubTab, setOpenSubTab] = useState('');
 
   const docSubTab = ['Status', 'Notices', 'Land', 'Incident Report', 'Private'];
+  useEffect(() => {
+    dispatch(setTab('rec-sec'));
+  }, []);
 
   return (
     <nav
@@ -107,6 +110,14 @@ const SideBar = () => {
       >
         <h6 className='text-gray-400 group-hover:text-white text-sm font-bold px-4 flex-1'>
           Shop
+        </h6>
+      </div>
+      <div
+        
+        className='flex cursor-pointer group'
+      >
+        <h6 className='text-gray-400 group-hover:text-white text-sm font-bold px-4 flex-1'>
+          Rec-Sec Dashboard
         </h6>
       </div>
     </nav>
