@@ -84,7 +84,7 @@ const HomePage = () => {
           </a>
         </li>
       </ul>
-      {/* <div
+      <div
        
         className='flex lg:order-1 max-sm:ml-auto'
       >
@@ -97,8 +97,8 @@ const HomePage = () => {
         >
           Join
         </button>
-      </div> */}
-      <div
+      </div>
+      {/* <div
         onClick={() => navigate('/dashboard')}
         className='flex gap-3 items-center'
       >
@@ -106,7 +106,7 @@ const HomePage = () => {
           onClick={() => dispatch(setSideBarOpen())}
           className="h-10 w-10 hover:ring-4 user cursor-pointer relative ring-blue-700/30 rounded-full bg-cover bg-center bg-[url('https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80')]"
         ></div>
-      </div>
+      </div> */}
     </nav>
   );
 };

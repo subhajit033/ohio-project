@@ -1,13 +1,13 @@
 
 import SideBar from './SideBar'
-import Shop from './Shop'
+import { Outlet } from 'react-router-dom'
 import UploadedFiles from './UploadedFiles'
 
 const DashBoard = () => {
   return (
     <div className='flex justify-around'>
         <SideBar />
-        <UploadedFiles />
+        <Outlet />
     </div>
   )
 }

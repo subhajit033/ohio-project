@@ -1,6 +1,9 @@
+import { useNavigate } from "react-router-dom";
 const UserStatus = () => {
+  const navigate = useNavigate();
   return (
-    <div className="grid grid-cols-2 gap-8">
+    <div className=' flex-wrap gap-4 justify-center items-start border-2 border-red-600 flex-1 py-4 px-4'>
+    <div onClick={()=> navigate('/dashboard/admin/userStatus')} className="grid grid-cols-2 gap-8">
       <div className='text-center bg-gray-200 p-4 border-b-4 border-red-600 rounded-md cursor-pointer'>
         <svg
           xmlns='http://www.w3.org/2000/svg'
@@ -37,6 +40,7 @@ const UserStatus = () => {
         <h3 className='text-4xl font-extrabold mt-5'>450+</h3>
         <p className='text-gray-700 font-semibold mt-3'>Approved Members</p>
       </div>
+    </div>
     </div>
   );
 };

@@ -2,7 +2,9 @@ import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { setTab } from '../../redux/Slices/tabNav';
+import { useNavigate } from 'react-router-dom';
 const SideBar = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const sideBarOpen = useSelector((store) => store.tabNav.sideBarOpen);
   const [openSubTab, setOpenSubTab] = useState('');
@@ -89,7 +91,7 @@ const SideBar = () => {
       {/* list my details */}
 
       <div
-        onClick={() => dispatch(setTab('My Details'))}
+        onClick={() => {navigate('/dashboard'); dispatch(setTab('My Details'))}}
         className='flex cursor-pointer group'
       >
         <h6 className='text-gray-400 group-hover:text-white text-sm font-bold px-4 flex-1'>
@@ -112,10 +114,7 @@ const SideBar = () => {
           Shop
         </h6>
       </div>
-      <div
-        
-        className='flex cursor-pointer group'
-      >
+      <div onClick={()=> navigate('/dashboard/admin')} className='flex cursor-pointer group'>
         <h6 className='text-gray-400 group-hover:text-white text-sm font-bold px-4 flex-1'>
           Rec-Sec Dashboard
         </h6>

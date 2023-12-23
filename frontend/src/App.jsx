@@ -4,7 +4,11 @@ import Verifaication from './components/Verification/Verifaication';
 import DashBoard from './components/UserDashBoard/DashBoard';
 import Layout from './Layout/Layout';
 import Home from './components/Home/Home';
+import UploadedFiles from './components/UserDashBoard/UploadedFiles';
+import UserStatus from './components/RecSecDashBoard/UserStatus';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import DashBoardTable from './components/RecSecDashBoard/DashBoardTable';
+import UserVerification from './components/RecSecDashBoard/UserVerification';
 const App = () => {
   return (
     <>
@@ -37,6 +41,24 @@ const appRouter = createBrowserRouter([
       {
         path: '/dashboard',
         element: <DashBoard />,
+        children: [
+          {
+            path: '',
+            element: <UploadedFiles />,
+          },
+          {
+            path: 'admin',
+            element: <UserStatus />,
+          },
+          {
+            path: 'admin/userStatus',
+            element: <DashBoardTable />,
+          },
+          {
+            path: 'admin/verifyuser',
+            element: <UserVerification />,
+          },
+        ],
       },
     ],
   },
