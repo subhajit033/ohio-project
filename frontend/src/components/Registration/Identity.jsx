@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { MdNavigateNext } from 'react-icons/md';
-
+import { setToast } from '../../redux/Slices/toastSlice';
 import { setFormData, nextStep } from '../../redux/Slices/registration';
 import axios from 'axios';
 const Identity = ({ isDashBoard }) => {
   const dispatch = useDispatch();
   const formData = useSelector((store) => store.registration.formData);
-  const [file, setFile] = useState(null);
-  console.log(file);
+  
+  
   const [DOB, setDOB] = useState('');
 
   useEffect(() => {
@@ -39,27 +39,34 @@ const Identity = ({ isDashBoard }) => {
     dispatch(setFormData({ personType: age >= 18 ? 'Adult' : 'Minor' }));
   }
 
-  const uploadFile = async (file) => {
+  const uploadFile = async (file, fileType) => {
     try {
+      const upload = new FormData();
+      upload.append('upload_file', file);
       const res = await axios({
         method: 'post',
         withCredentials: true,
         url: '/api/v1/upload',
-        data: file,
+        data: upload,
       });
+
+      dispatch(
+        setToast({ type: 'success', message: 'File uploaded succesfully' })
+      );
+
+      if (fileType === 'photo') {
+        dispatch(setFormData({ photo: res.data.url }));
+      } else if (fileType === 'seal') {
+        dispatch(setFormData({ seal: res.data.url }));
+      }
+
       console.log(res);
     } catch (error) {
-      console.log(error);
+      dispatch(
+        setToast({ type: 'error', message: 'Error occour while file uploading' })
+      );
     }
   };
-
-  useEffect(() => {
-    if (file) {
-      const upload = new FormData();
-      upload.append('upload_file', file);
-      uploadFile(upload);
-    }
-  }, [file]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -156,6 +163,19 @@ const Identity = ({ isDashBoard }) => {
             />
           </div>
           <div>
+            <label className='text-sm mb-2 block'>Place of Inhabitance</label>
+            <input
+              name='lname'
+              type='text'
+              className='bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500'
+              placeholder='place of inhabitance'
+              value={formData.placeOfInhabitance}
+              onChange={(e) =>
+                dispatch(setFormData({ placeOfInhabitance: e.target.value }))
+              }
+            />
+          </div>
+          <div>
             <label className='text-sm mb-2 block'>Photo</label>
             <input
               name='lname'
@@ -163,7 +183,7 @@ const Identity = ({ isDashBoard }) => {
               className='bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500'
               accept='image/*'
               placeholder='select photo'
-              onChange={(e) => setFile(e.target.files[0])}
+              onChange={(e) => uploadFile(e.target.files[0], 'photo')}
             />
           </div>
           <div>
@@ -174,6 +194,7 @@ const Identity = ({ isDashBoard }) => {
               className='bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500'
               accept='image/*'
               placeholder='select image'
+              onChange={(e) => uploadFile(e.target.files[0], 'seal')}
             />
           </div>
         </div>

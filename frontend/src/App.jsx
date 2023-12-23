@@ -9,6 +9,7 @@ import UserStatus from './components/RecSecDashBoard/UserStatus';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import DashBoardTable from './components/RecSecDashBoard/DashBoardTable';
 import UserVerification from './components/RecSecDashBoard/UserVerification';
+import Approval from './components/Registration/Approval';
 const App = () => {
   return (
     <>
@@ -37,6 +38,10 @@ const appRouter = createBrowserRouter([
       {
         path: '/login',
         element: <Login />,
+      },
+      {
+        path: '/approval',
+        element: <Approval />,
       },
       {
         path: '/dashboard',

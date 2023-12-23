@@ -225,7 +225,7 @@ const Contact = ({isDashBoard}) => {
               placeholder="Enter state Coordinater's"
               value={formData.coordinatorEmail}
               onChange={(e) =>
-                dispatch(setFormData({ coordinoterEmail: e.target.value }))
+                dispatch(setFormData({ coordinatorEmail: e.target.value }))
               }
             />
           </div>
