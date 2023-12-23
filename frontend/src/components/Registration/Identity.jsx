@@ -3,10 +3,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { MdNavigateNext } from 'react-icons/md';
 
 import { setFormData, nextStep } from '../../redux/Slices/registration';
+import axios from 'axios';
 const Identity = ({ isDashBoard }) => {
   const dispatch = useDispatch();
   const formData = useSelector((store) => store.registration.formData);
-
+  const [file, setFile] = useState(null);
+  console.log(file);
   const [DOB, setDOB] = useState('');
 
   useEffect(() => {
@@ -36,6 +38,28 @@ const Identity = ({ isDashBoard }) => {
     }
     dispatch(setFormData({ personType: age >= 18 ? 'Adult' : 'Minor' }));
   }
+
+  const uploadFile = async (file) => {
+    try {
+      const res = await axios({
+        method: 'post',
+        withCredentials: true,
+        url: '/api/v1/upload',
+        data: file,
+      });
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    if (file) {
+      const upload = new FormData();
+      upload.append('upload_file', file);
+      uploadFile(upload);
+    }
+  }, [file]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -96,9 +120,9 @@ const Identity = ({ isDashBoard }) => {
               className='bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500'
               required
               placeholder='Enter DOB'
-              value={formData.dob}
+              value={formData.born}
               onChange={(e) => {
-                dispatch(setFormData({ dob: e.target.value }));
+                dispatch(setFormData({ born: e.target.value }));
                 setDOB(e.target.value);
               }}
             />
@@ -139,9 +163,7 @@ const Identity = ({ isDashBoard }) => {
               className='bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500'
               accept='image/*'
               placeholder='select photo'
-              onChange={(e) =>
-                dispatch(setFormData({ photo: e.target.files[0] }))
-              }
+              onChange={(e) => setFile(e.target.files[0])}
             />
           </div>
           <div>
@@ -152,9 +174,6 @@ const Identity = ({ isDashBoard }) => {
               className='bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500'
               accept='image/*'
               placeholder='select image'
-              onChange={(e) =>
-                dispatch(setFormData({ seal: e.target.files[0] }))
-              }
             />
           </div>
         </div>

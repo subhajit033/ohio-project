@@ -5,7 +5,7 @@ const registrationSlice = createSlice({
   name: 'registration',
   initialState: {
     step: 1,
-    formData: {selectedCheckboxes: []},
+    formData: {memberShip: []},
   },
   reducers: {
     setFormData: (state, action) => {
@@ -13,12 +13,12 @@ const registrationSlice = createSlice({
     },
     toggleCheckbox: (state, action) => {
       const checkboxValue = action.payload;
-      const index = state.formData.selectedCheckboxes.indexOf(checkboxValue);
+      const index = state.formData.memberShip.indexOf(checkboxValue);
 
       if (index === -1) {
-        state.formData.selectedCheckboxes.push(checkboxValue);
+        state.formData.memberShip.push(checkboxValue);
       } else {
-        state.formData.selectedCheckboxes.splice(index, 1);
+        state.formData.memberShip.splice(index, 1);
       }
     },
     nextStep: (state) => {

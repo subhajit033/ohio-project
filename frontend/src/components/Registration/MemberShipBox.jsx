@@ -7,14 +7,16 @@ const MemberShipBox = ({ value }) => {
   const handleCheckboxToggle = (value) => {
     dispatch(toggleCheckbox(value));
   };
-  const selectedCheckboxes = useSelector((store)=> store.registration.formData.selectedCheckboxes);
+  const memberShip = useSelector(
+    (store) => store.registration.formData.memberShip
+  );
   return (
     <div className='flex items-center'>
       <input
         id={value}
         value={value}
         type='checkbox'
-        checked={selectedCheckboxes.includes(value)}
+        checked={memberShip.includes(value)}
         onChange={() => handleCheckboxToggle(value)}
         className='hidden peer'
       />

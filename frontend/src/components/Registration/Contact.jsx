@@ -139,8 +139,8 @@ const Contact = ({isDashBoard}) => {
               className='bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500'
               placeholder='Enter email'
               required
-              value={formData.email}
-              onChange={(e) => dispatch(setFormData({ email: e.target.value }))}
+              value={formData.primaryEmail}
+              onChange={(e) => dispatch(setFormData({ primaryEmail: e.target.value }))}
             />
           </div>
           <div>
@@ -210,9 +210,9 @@ const Contact = ({isDashBoard}) => {
               className='bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500'
               placeholder="Enter Land Recorder's Email"
               required
-              value={formData.recordingSecEmail}
+              value={formData.secretaryEmail}
               onChange={(e) =>
-                dispatch(setFormData({ recordingSecEmail: e.target.value }))
+                dispatch(setFormData({ secretaryEmail: e.target.value }))
               }
             />
           </div>
@@ -223,9 +223,9 @@ const Contact = ({isDashBoard}) => {
               type='email'
               className='bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500'
               placeholder="Enter state Coordinater's"
-              value={formData.coordinaterEmail}
+              value={formData.coordinatorEmail}
               onChange={(e) =>
-                dispatch(setFormData({ coordinaterEmail: e.target.value }))
+                dispatch(setFormData({ coordinoterEmail: e.target.value }))
               }
             />
           </div>
