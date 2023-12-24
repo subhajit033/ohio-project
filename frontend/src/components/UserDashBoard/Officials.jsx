@@ -16,10 +16,12 @@ const Officials = () => {
     );
   };
   return (
+    <div className=' flex-wrap gap-4 justify-center items-start border-2 border-red-600 flex-1 py-4 px-4'>
     <div className='grid sm:grid-cols-2 gap-y-7 gap-x-12 p-6'>
       {officials.map((fieldName) => {
         return <OfficialsTab key={fieldName} fieldName={fieldName} />;
       })}
+    </div>
     </div>
   );
 };

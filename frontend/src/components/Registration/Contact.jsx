@@ -8,11 +8,20 @@ import {
   prevStep,
   nextStep,
 } from '../../redux/Slices/registration';
-const Contact = ({isDashBoard}) => {
+import { setToast } from '../../redux/Slices/toastSlice';
+const Contact = ({ isDashBoard }) => {
   const dispatch = useDispatch();
   const formData = useSelector((store) => store.registration.formData);
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (formData.password !== formData.passwordConfirm) {
+      return dispatch(
+        setToast({
+          type: 'error',
+          message: 'Password and Confirm Password Does not match',
+        })
+      );
+    }
     dispatch(nextStep());
   };
   useEffect(() => {
@@ -23,10 +32,9 @@ const Contact = ({isDashBoard}) => {
     // so we want to set the initial value of the <select> tag
     if (formData.county) {
       // Ensure the selected county is one of the valid options
-     
-        // Set the initial value of the <select> tag
-        document.getElementById('county').value = formData.county;
-      
+
+      // Set the initial value of the <select> tag
+      document.getElementById('county').value = formData.county;
     }
   }, [formData.county]);
   return (
@@ -81,15 +89,19 @@ const Contact = ({isDashBoard}) => {
               className='bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500'
               name='county'
               id='county'
-             
               required
-              onChange={(e) => dispatch(setFormData({ county: e.target.value }))}
+              onChange={(e) =>
+                dispatch(setFormData({ county: e.target.value }))
+              }
             >
               <option>Select county</option>
-              {county.map((county)=>{
-                return <option key={county} value={county}>{county}</option>
+              {county.map((county) => {
+                return (
+                  <option key={county} value={county}>
+                    {county}
+                  </option>
+                );
               })}
-              
             </select>
           </div>
           <div>
@@ -140,7 +152,9 @@ const Contact = ({isDashBoard}) => {
               placeholder='Enter email'
               required
               value={formData.primaryEmail}
-              onChange={(e) => dispatch(setFormData({ primaryEmail: e.target.value }))}
+              onChange={(e) =>
+                dispatch(setFormData({ primaryEmail: e.target.value }))
+              }
             />
           </div>
           <div>
@@ -230,21 +244,23 @@ const Contact = ({isDashBoard}) => {
             />
           </div>
         </div>
-        {!isDashBoard && <div className='!mt-10 flex justify-between'>
-          <button
-            type='button'
-            className=' shadow-xl py-2.5 px-4 text-sm font-semibold rounded text-white bg-[#333] hover:bg-black focus:outline-none flex items-center gap-1'
-            onClick={() => dispatch(prevStep())}
-          >
-            <GrFormPrevious /> Previous
-          </button>
-          <button
-            type='submit'
-            className=' shadow-xl py-2.5 px-4 text-sm font-semibold rounded text-white bg-[#333] hover:bg-black focus:outline-none flex items-center gap-1'
-          >
-            Next <MdNavigateNext />
-          </button>
-        </div>}
+        {!isDashBoard && (
+          <div className='!mt-10 flex justify-between'>
+            <button
+              type='button'
+              className=' shadow-xl py-2.5 px-4 text-sm font-semibold rounded text-white bg-[#333] hover:bg-black focus:outline-none flex items-center gap-1'
+              onClick={() => dispatch(prevStep())}
+            >
+              <GrFormPrevious /> Previous
+            </button>
+            <button
+              type='submit'
+              className=' shadow-xl py-2.5 px-4 text-sm font-semibold rounded text-white bg-[#333] hover:bg-black focus:outline-none flex items-center gap-1'
+            >
+              Next <MdNavigateNext />
+            </button>
+          </div>
+        )}
       </form>
     </div>
   );

@@ -10,6 +10,10 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import DashBoardTable from './components/RecSecDashBoard/DashBoardTable';
 import UserVerification from './components/RecSecDashBoard/UserVerification';
 import Approval from './components/Registration/Approval';
+import Shop from './components/UserDashBoard/Shop';
+import Officials from './components/UserDashBoard/Officials';
+import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
+
 const App = () => {
   return (
     <>
@@ -45,23 +49,45 @@ const appRouter = createBrowserRouter([
       },
       {
         path: '/dashboard',
-        element: <DashBoard />,
+        element: <ProtectedRoute />,
         children: [
           {
-            path: '',
-            element: <UploadedFiles />,
-          },
-          {
-            path: 'admin',
-            element: <UserStatus />,
-          },
-          {
-            path: 'admin/userStatus',
-            element: <DashBoardTable />,
-          },
-          {
-            path: 'admin/verifyuser',
-            element: <UserVerification />,
+            element: <DashBoard />,
+            children: [
+              {
+                path: '',
+                element: <Officials />,
+              },
+              {
+                path: 'docs',
+                element: <UploadedFiles />,
+              },
+              {
+                path: 'shop',
+                element: <Shop />,
+              },
+              
+              {
+                path: 'details',
+                element: (
+                  <div className=' flex-wrap gap-4 justify-center h-[89vh] overflow-auto items-start border-2 border-red-600 flex-1 py-4 px-4'>
+                    <Registration isDashborad={true} />
+                  </div>
+                ),
+              },
+              {
+                path: 'admin',
+                element: <UserStatus />,
+              },
+              {
+                path: 'admin/userStatus',
+                element: <DashBoardTable />,
+              },
+              {
+                path: 'admin/verifyuser',
+                element: <UserVerification />,
+              },
+            ],
           },
         ],
       },

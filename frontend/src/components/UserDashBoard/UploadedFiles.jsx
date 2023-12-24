@@ -7,12 +7,7 @@ import {
 } from '../../utils/const';
 import FileIcon from './FileIcon';
 import { useSelector } from 'react-redux';
-import Registration from '../Registration/Registration';
-import Officials from './Officials';
-import Shop from './Shop';
-import UserStatus from '../RecSecDashBoard/UserStatus';
-import DashBoardTable from '../RecSecDashBoard/DashBoardTable';
-import UserVerification from '../RecSecDashBoard/UserVerification';
+
 const UploadedFiles = () => {
   const tab = useSelector((store) => store.tabNav.tab);
 
@@ -43,9 +38,7 @@ const UploadedFiles = () => {
             })}
           {/* 'Personal Details', 'Contact', 'Membership' */}
         </div>
-        {tab === 'My Details' && <Registration isDashborad={true} />}
-        {tab === 'officials' && <Officials />}
-        {tab === 'shop' && <Shop />}
+        
         
       </div>
     </>

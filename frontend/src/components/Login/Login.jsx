@@ -1,28 +1,63 @@
-
+import { useState } from 'react';
+import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { setToast } from '../../redux/Slices/toastSlice';
+import { setAuthentication } from '../../redux/Slices/authSlice';
+import { setFormDataByLogin } from '../../redux/Slices/registration';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Login = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await axios({
+        method: 'post',
+        withCredentials: true,
+        url: '/api/v1/users/login',
+        data: { email, password },
+      });
+      if (res.data.status === 'success') {
+        dispatch(setAuthentication(true));
+        dispatch(setFormDataByLogin(res.data.data.user));
+        console.log(res);
+        dispatch(setToast({ type: 'success', message: 'Login SuccessFull' }));
+        navigate('/');
+      } else {
+        throw new Error('failed');
+      }
+    } catch (error) {
+      console.log(error);
+      dispatch(
+        setToast({ type: 'error', message: error?.response?.data?.message })
+      );
+    }
+  };
+
   return (
     <div className='font-[sans-serif] text-[#333]'>
       <div className='min-h-screen flex fle-col items-center justify-center py-6 px-4'>
         <div className='grid md:grid-cols-2 items-center gap-4 max-w-7xl w-full'>
           <div className='border border-gray-300 rounded-md p-6 max-w-md shadow-[0_2px_22px_-4px_rgba(93,96,127,0.2)] max-md:mx-auto'>
-            <form className='space-y-6'>
+            <form onSubmit={handleLogin} className='space-y-6'>
               <div className='mb-10'>
-                <h3 className='text-3xl font-extrabold'>Sign in</h3>
-                <p className='text-sm mt-4'>
-                  Sign in to your account and explore a world of possibilities.
-                  Your journey begins here.
-                </p>
+                <h3 className='text-3xl font-extrabold'>Login</h3>
+                <p className='text-sm mt-4'>Login to your account</p>
               </div>
               <div>
-                <label className='text-sm mb-2 block'>User name</label>
+                <label className='text-sm mb-2 block'>User name/Email</label>
                 <div className='relative flex items-center'>
                   <input
                     name='username'
                     type='text'
                     required
                     className='w-full text-sm border border-gray-300 px-4 py-3 rounded-md outline-[#333]'
-                    placeholder='Enter user name'
+                    placeholder='Enter your email'
+                    onChange={(e) => setEmail(e.target.value)}
                   />
                   <svg
                     xmlns='http://www.w3.org/2000/svg'
@@ -53,6 +88,7 @@ const Login = () => {
                     required
                     className='w-full text-sm border border-gray-300 px-4 py-3 rounded-md outline-[#333]'
                     placeholder='Enter password'
+                    onChange={(e) => setPassword(e.target.value)}
                   />
                   <svg
                     xmlns='http://www.w3.org/2000/svg'
@@ -69,29 +105,15 @@ const Login = () => {
                 </div>
               </div>
               <div className='flex items-center justify-between gap-2'>
-                <div className='flex items-center'>
-                  <input
-                    id='remember-me'
-                    name='remember-me'
-                    type='checkbox'
-                    className='h-4 w-4 shrink-0 text-blue-600 focus:ring-blue-500 border-gray-300 rounded'
-                  />
-                  <label htmlFor='remember-me' className='ml-3 block text-sm'>
-                    Remember me
-                  </label>
-                </div>
                 <div className='text-sm'>
-                  <a
-                    href=''
-                    className='text-blue-600 hover:underline'
-                  >
+                  <a href='' className='text-blue-600 hover:underline'>
                     Forgot your password?
                   </a>
                 </div>
               </div>
               <div className='!mt-10'>
                 <button
-                  type='button'
+                  type='submit'
                   className='w-full shadow-xl py-2.5 px-4 text-sm font-semibold rounded text-white bg-[#333] hover:bg-black focus:outline-none'
                 >
                   Log in
@@ -99,12 +121,12 @@ const Login = () => {
               </div>
               <p className='text-sm !mt-10 text-center'>
                 Don't have an account{' '}
-                <a
-                  href=''
+                <Link
+                  to='/verification'
                   className='text-blue-600 hover:underline ml-1 whitespace-nowrap'
                 >
                   Register here
-                </a>
+                </Link>
               </p>
             </form>
           </div>

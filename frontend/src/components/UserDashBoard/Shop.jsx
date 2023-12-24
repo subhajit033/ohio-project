@@ -1,6 +1,7 @@
 const Shop = () => {
   const ShopCards = () => {
     return (
+      
       <div className='w-72'>
         <div className='bg-white shadow-md border border-gray-200 rounded-lg max-w-sm '>
           <a href='#'>
@@ -46,12 +47,14 @@ const Shop = () => {
   };
 
   return (
+    <div className=' flex-wrap gap-4 justify-center items-start border-2 border-red-600 flex-1 py-4 px-4'>
     <div className='p-6 grid grid-cols-1 md:grid-cols-3 gap-6 md:h-[89vh] overflow-auto'>
       <ShopCards />
       <ShopCards />
       <ShopCards />
       <ShopCards />
       <ShopCards />
+    </div>
     </div>
   );
 };

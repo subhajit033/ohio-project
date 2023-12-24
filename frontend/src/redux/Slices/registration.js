@@ -21,6 +21,9 @@ const registrationSlice = createSlice({
         state.formData.memberShip.splice(index, 1);
       }
     },
+    setFormDataByLogin: (state, action)=>{
+      state.formData = action.payload;
+    },
     nextStep: (state) => {
       state.step += 1;
     },
@@ -30,6 +33,6 @@ const registrationSlice = createSlice({
   },
 });
 
-export const { setFormData, nextStep, prevStep, toggleCheckbox } = registrationSlice.actions;
+export const { setFormData, nextStep, prevStep, toggleCheckbox, setFormDataByLogin } = registrationSlice.actions;
 // export const selectRegistration = (state) => state.registration;
 export default registrationSlice.reducer;

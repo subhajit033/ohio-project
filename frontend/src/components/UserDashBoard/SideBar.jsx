@@ -44,7 +44,7 @@ const SideBar = () => {
           }
           className='flex cursor-pointer group'
         >
-          <h6 className='text-gray-400 group-hover:text-white text-sm font-bold px-4 flex-1'>
+          <h6 onClick={()=> navigate('/dashboard/docs')} className='text-gray-400 group-hover:text-white text-sm font-bold px-4 flex-1'>
             Document
           </h6>
           {openSubTab === 'document' ? (
@@ -78,7 +78,7 @@ const SideBar = () => {
         >
           {docSubTab.map((subTab) => {
             return (
-              <li onClick={() => dispatch(setTab(subTab))} key={subTab}>
+              <li onClick={() => {navigate('/dashboard/docs'); dispatch(setTab(subTab))}} key={subTab}>
                 <a className='text-gray-400 hover:text-black transition-all text-sm cursor-pointer flex items-center hover:bg-gray-200 rounded-md px-4 py-3'>
                   <span>{subTab}</span>
                 </a>
@@ -91,7 +91,9 @@ const SideBar = () => {
       {/* list my details */}
 
       <div
-        onClick={() => {navigate('/dashboard'); dispatch(setTab('My Details'))}}
+        onClick={() => {
+          navigate('/dashboard/details');
+        }}
         className='flex cursor-pointer group'
       >
         <h6 className='text-gray-400 group-hover:text-white text-sm font-bold px-4 flex-1'>
@@ -99,7 +101,7 @@ const SideBar = () => {
         </h6>
       </div>
       <div
-        onClick={() => dispatch(setTab('officials'))}
+        onClick={() => navigate('/dashboard/officials')}
         className='flex cursor-pointer group'
       >
         <h6 className='text-gray-400 group-hover:text-white text-sm font-bold px-4 flex-1'>
@@ -107,14 +109,17 @@ const SideBar = () => {
         </h6>
       </div>
       <div
-        onClick={() => dispatch(setTab('shop'))}
+        onClick={() => navigate('/dashboard/shop')}
         className='flex cursor-pointer group'
       >
         <h6 className='text-gray-400 group-hover:text-white text-sm font-bold px-4 flex-1'>
           Shop
         </h6>
       </div>
-      <div onClick={()=> navigate('/dashboard/admin')} className='flex cursor-pointer group'>
+      <div
+        onClick={() => navigate('/dashboard/admin')}
+        className='flex cursor-pointer group'
+      >
         <h6 className='text-gray-400 group-hover:text-white text-sm font-bold px-4 flex-1'>
           Rec-Sec Dashboard
         </h6>
