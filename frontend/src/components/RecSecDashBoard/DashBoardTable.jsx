@@ -1,8 +1,9 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import UserNomination from './UserNomination';
+import { useSelector } from 'react-redux';
 
 const DashBoardTable = () => {
-  const navigate = useNavigate();
+  const unApprovedUser = useSelector((store) => store.user.unApprovedUser);
+
   return (
     <div className=' flex-wrap gap-4 justify-center items-start border-2 border-red-600 flex-1 py-4 px-4'>
       <div className='w-screen md:w-full overflow-x-auto'>
@@ -27,21 +28,9 @@ const DashBoardTable = () => {
             </tr>
           </thead>
           <tbody className='whitespace-nowrap'>
-            <tr className=''>
-              <td className='px-6 py-4 text-sm'>John Doe</td>
-              <td className='px-6 py-4 text-sm'>john@example.com</td>
-              <td className='px-6 py-4 text-sm'>Admin</td>
-              <td className='px-6 py-4 text-sm'>2022-05-15</td>
-              <td className='px-6 py-4'>
-                <button
-                  onClick={() => navigate('/dashboard/admin/verifyuser')}
-                  type='button'
-                  className='px-2 py-1.5 rounded-full  text-white text-xs bg-green-600 tracking-wider font-semibold outline-none border-2 border-green-600 hover:bg-white hover:text-black transition-all duration-300'
-                >
-                  Approve
-                </button>
-              </td>
-            </tr>
+            {unApprovedUser.map((user) => {
+              return <UserNomination key={user._id} {...user} />;
+            })}
           </tbody>
         </table>
       </div>

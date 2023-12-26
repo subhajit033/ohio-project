@@ -84,7 +84,7 @@ const appRouter = createBrowserRouter([
                 element: <DashBoardTable />,
               },
               {
-                path: 'admin/verifyuser',
+                path: 'admin/verifyuser/:userId',
                 element: <UserVerification />,
               },
             ],

@@ -1,6 +1,9 @@
 import UploadNav from './UploadNav';
+import { useParams } from 'react-router-dom';
 
 const UserVerification = () => {
+  const {userId} = useParams();
+  console.log(userId);
   return (
     <div className=' flex-wrap gap-4 justify-center items-start border-2 border-red-600 flex-1 py-4 px-4'>
       {/* user details dash board */}
