@@ -13,6 +13,7 @@ import Approval from './components/Registration/Approval';
 import Shop from './components/UserDashBoard/Shop';
 import Officials from './components/UserDashBoard/Officials';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
+import Otp from './components/RecSecDashBoard/Otp';
 
 const App = () => {
   return (
@@ -87,6 +88,10 @@ const appRouter = createBrowserRouter([
                 path: 'admin/verifyuser/:userId',
                 element: <UserVerification />,
               },
+              {
+                path: 'submitOtp',
+                element: <Otp />
+              }
             ],
           },
         ],

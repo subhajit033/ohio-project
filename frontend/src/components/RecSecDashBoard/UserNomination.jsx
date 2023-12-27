@@ -1,17 +1,15 @@
 import { useNavigate } from 'react-router-dom';
 
-
 const UserNomination = ({
   firstName,
   middleName,
   lastName,
   primaryEmail,
   createdAt,
-  _id
+  _id,
 }) => {
   const navigate = useNavigate();
-  
-  
+
   return (
     <tr className=''>
       <td className='px-6 py-4 text-sm'>{`${firstName} ${
@@ -19,10 +17,12 @@ const UserNomination = ({
       } ${lastName}`}</td>
       <td className='px-6 py-4 text-sm'>{primaryEmail}</td>
       <td className='px-6 py-4 text-sm'>Admin</td>
-      <td className='px-6 py-4 text-sm'>{new Date(createdAt).toLocaleString('en-US', {
-              month: 'long',
-              year: 'numeric',
-            })}</td>
+      <td className='px-6 py-4 text-sm'>
+        {new Date(createdAt).toLocaleString('en-US', {
+          month: 'long',
+          year: 'numeric',
+        })}
+      </td>
       <td className='px-6 py-4'>
         <button
           onClick={() => navigate(`/dashboard/admin/verifyuser/${_id}`)}

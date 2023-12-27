@@ -1,7 +1,9 @@
 import UploadNav from './UploadNav';
 import { useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const UserVerification = () => {
+  const navigate = useNavigate();
   const {userId} = useParams();
   console.log(userId);
   return (
@@ -29,6 +31,7 @@ const UserVerification = () => {
             <button
               type='button'
               className='px-6 py-2.5 rounded text-white text-sm tracking-wider font-semibold border-none outline-none bg-green-600 hover:bg-green-700 active:bg-green-600'
+              onClick={()=> navigate('/dashboard/submitOtp')}
             >
               Approve
             </button>
