@@ -5,7 +5,8 @@ const registrationSlice = createSlice({
   name: 'registration',
   initialState: {
     step: 1,
-    formData: {memberShip: []},
+    formData: { memberShip: [] },
+    docUploadedSuccess: [],
   },
   reducers: {
     setFormData: (state, action) => {
@@ -21,7 +22,17 @@ const registrationSlice = createSlice({
         state.formData.memberShip.splice(index, 1);
       }
     },
-    setFormDataByLogin: (state, action)=>{
+    setDocUpload: (state, action) => {
+      const docName = action.payload;
+      const index = state.docUploadedSuccess.indexOf(docName);
+
+      if (index === -1) {
+        state.docUploadedSuccess.push(docName);
+      } else {
+        state.docUploadedSuccess.splice(index, 1);
+      }
+    },
+    setFormDataByLogin: (state, action) => {
       state.formData = action.payload;
     },
     nextStep: (state) => {
@@ -33,6 +44,13 @@ const registrationSlice = createSlice({
   },
 });
 
-export const { setFormData, nextStep, prevStep, toggleCheckbox, setFormDataByLogin } = registrationSlice.actions;
+export const {
+  setFormData,
+  nextStep,
+  prevStep,
+  toggleCheckbox,
+  setFormDataByLogin,
+  setDocUpload
+} = registrationSlice.actions;
 // export const selectRegistration = (state) => state.registration;
 export default registrationSlice.reducer;

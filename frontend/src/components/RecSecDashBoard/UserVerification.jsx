@@ -1,11 +1,34 @@
 import UploadNav from './UploadNav';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { setToast } from '../../redux/Slices/toastSlice';
 
 const UserVerification = () => {
   const navigate = useNavigate();
-  const {userId} = useParams();
-  console.log(userId);
+  const dispatch = useDispatch();
+  const { userId } = useParams();
+  const [loading, setLoading] = useState(false);
+  const getOtp = async () => {
+    try {
+      setLoading(true);
+      const res = await axios({
+        method: 'post',
+        withCredentials: true,
+        url: '/api/v1/users/approve-user',
+      });
+      setLoading(false);
+      dispatch(
+        setToast({ type: 'success', message: 'otp sent to your email' })
+      );
+      navigate(`/dashboard/admin/approveUser/${userId}`);
+    } catch (err) {
+      setLoading(false);
+      dispatch(setToast({ type: 'error', message: 'something went wrong' }));
+    }
+  };
   return (
     <div className=' flex-wrap gap-4 justify-center items-start border-2 border-red-600 flex-1 py-4 px-4'>
       {/* user details dash board */}
@@ -31,9 +54,9 @@ const UserVerification = () => {
             <button
               type='button'
               className='px-6 py-2.5 rounded text-white text-sm tracking-wider font-semibold border-none outline-none bg-green-600 hover:bg-green-700 active:bg-green-600'
-              onClick={()=> navigate('/dashboard/submitOtp')}
+              onClick={getOtp}
             >
-              Approve
+              {loading ? 'Verifing' : 'Approve'}
             </button>
             <button
               type='button'

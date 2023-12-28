@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 
 const UploadDoc = ({ name }) => {
   const [file, setFile] = useState(null);
+  const [loading, setLoading] = useState(false);
+  
   useEffect(() => {
     if (file) {
       if (confirm('Do you want to upload this file')) {

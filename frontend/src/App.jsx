@@ -89,7 +89,7 @@ const appRouter = createBrowserRouter([
                 element: <UserVerification />,
               },
               {
-                path: 'submitOtp',
+                path: 'admin/approveUser/:userId',
                 element: <Otp />
               }
             ],

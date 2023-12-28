@@ -67,7 +67,7 @@ const UploadNav = () => {
       <div
         className={`border border-gray-100 font-light p-8 rounded text-gray-500 bg-white mt-6`}
       >
-        <UploadDocContainer tab ={activeNav} />
+        <UploadDocContainer tab={activeNav} />
       </div>
     </div>
   );
