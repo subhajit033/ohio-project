@@ -3,7 +3,8 @@ import { createSlice } from '@reduxjs/toolkit';
 const userSlice = createSlice({
     name: 'user',
     initialState:{
-        unApprovedUser: []
+        unApprovedUser: [],
+        
     },
     reducers:{
         setUnApprovedUserSlice: (state, action)=>{

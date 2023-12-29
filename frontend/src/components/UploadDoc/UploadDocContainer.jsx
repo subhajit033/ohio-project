@@ -14,20 +14,20 @@ const UploadDocContainer = ({ tab }) => {
         <div className='grid sm:grid-cols-2 gap-y-7 gap-x-12'>
           {tab === '#Status' &&
             statusDocument.map((name) => {
-              return <UploadDoc key={name} name={name} />;
+              return <UploadDoc tab={tab} key={name} name={name} />;
             })}
           {tab === '#Notices' &&
             notices.map((name) => {
-              return <UploadDoc key={name} name={name} />;
+              return <UploadDoc tab={tab} key={name} name={name} />;
             })}
           {tab === '#Land' &&
             landPatent.map((name) => {
-              return <UploadDoc key={name} name={name} />;
+              return <UploadDoc tab={tab} key={name} name={name} />;
             })}
 
           {tab === '#Incident Report' &&
             incidentReport.map((name) => {
-              return <UploadDoc key={name} name={name} />;
+              return <UploadDoc tab={tab} key={name} name={name} />;
             })}
 
           {tab === '#Private' &&

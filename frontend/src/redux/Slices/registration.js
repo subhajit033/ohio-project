@@ -6,7 +6,7 @@ const registrationSlice = createSlice({
   initialState: {
     step: 1,
     formData: { memberShip: [] },
-    docUploadedSuccess: [],
+    docUploaded: null,
   },
   reducers: {
     setFormData: (state, action) => {
@@ -23,14 +23,7 @@ const registrationSlice = createSlice({
       }
     },
     setDocUpload: (state, action) => {
-      const docName = action.payload;
-      const index = state.docUploadedSuccess.indexOf(docName);
-
-      if (index === -1) {
-        state.docUploadedSuccess.push(docName);
-      } else {
-        state.docUploadedSuccess.splice(index, 1);
-      }
+      state.docUploaded = action.payload;
     },
     setFormDataByLogin: (state, action) => {
       state.formData = action.payload;
