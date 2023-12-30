@@ -7,7 +7,8 @@ import { prevStep } from '../../redux/Slices/registration';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { setToast } from '../../redux/Slices/toastSlice';
-const Membership = ({ isDashborad }) => {
+const Membership = ({ isDashBoard }) => {
+  
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const formData = useSelector((store) => store.registration.formData);
@@ -60,7 +61,7 @@ const Membership = ({ isDashborad }) => {
         >
           <GrFormPrevious /> Previous
         </button>
-        {isDashborad ? (
+        {isDashBoard ? (
           <button
             type='submit'
             className=' shadow-xl py-2.5 px-4 text-sm font-semibold rounded text-white bg-blue-600 hover:bg-black focus:outline-none flex items-center gap-1'

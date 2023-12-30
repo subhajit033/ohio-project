@@ -38,7 +38,7 @@ const appRouter = createBrowserRouter([
       },
       {
         path: '/signup',
-        element: <Registration isDashborad={false} />,
+        element: <Registration isDashBoard={false} />,
       },
       {
         path: '/login',
@@ -72,7 +72,7 @@ const appRouter = createBrowserRouter([
                 path: 'details',
                 element: (
                   <div className=' flex-wrap gap-4 justify-center h-[89vh] overflow-auto items-start border-2 border-red-600 flex-1 py-4 px-4'>
-                    <Registration isDashborad={true} />
+                    <Registration isDashBoard={true} />
                   </div>
                 ),
               },

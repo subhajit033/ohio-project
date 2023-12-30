@@ -3,7 +3,7 @@ import Contact from './Contact';
 import Membership from './Membership';
 import { useSelector, useDispatch } from 'react-redux';
 
-const Registration = ({isDashborad}) => {
+const Registration = ({isDashBoard}) => {
   const dispatch = useDispatch();
   const step = useSelector((store) => store.registration.step);
 
@@ -68,9 +68,9 @@ const Registration = ({isDashborad}) => {
           </div>
         </div>
       </div>
-      {step === 1 && <Identity isDashborad={isDashborad} />}
-      {step === 2 && <Contact isDashborad={isDashborad} />}
-      {step === 3 && <Membership isDashborad={isDashborad} />}
+      {step === 1 && <Identity isDashBoard={isDashBoard} />}
+      {step === 2 && <Contact isDashBoard={isDashBoard} />}
+      {step === 3 && <Membership isDashBoard={isDashBoard} />}
     </div>
   );
 };

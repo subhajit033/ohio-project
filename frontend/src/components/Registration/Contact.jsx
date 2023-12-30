@@ -157,20 +157,22 @@ const Contact = ({ isDashBoard }) => {
               }
             />
           </div>
-          <div>
-            <label className='text-sm mb-2 block'>Confirm Email Id</label>
-            <input
-              name='email'
-              type='text'
-              className='bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500'
-              placeholder='Confirm email'
-              required
-              value={formData.confirmEmail}
-              onChange={(e) =>
-                dispatch(setFormData({ confirmEmail: e.target.value }))
-              }
-            />
-          </div>
+          {!isDashBoard && (
+            <div>
+              <label className='text-sm mb-2 block'>Confirm Email Id</label>
+              <input
+                name='email'
+                type='text'
+                className='bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500'
+                placeholder='Confirm email'
+                required
+                value={formData.confirmEmail}
+                onChange={(e) =>
+                  dispatch(setFormData({ confirmEmail: e.target.value }))
+                }
+              />
+            </div>
+          )}
           <div>
             <label className='text-sm mb-2 block'>Secondary Email Id</label>
             <input
@@ -185,34 +187,42 @@ const Contact = ({ isDashBoard }) => {
             />
           </div>
 
-          {isDashBoard? "": <div>
-            <label className='text-sm mb-2 block'>Password *</label>
-            <input
-              name='password'
-              type='password'
-              className='bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500'
-              placeholder='Enter password'
-              required
-              value={formData.password}
-              onChange={(e) =>
-                dispatch(setFormData({ password: e.target.value }))
-              }
-            />
-          </div>}
-          {isDashBoard? "": <div>
-            <label className='text-sm mb-2 block'>Confirm Password *</label>
-            <input
-              name='cpassword'
-              type='password'
-              className='bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500'
-              placeholder='confirm password'
-              required
-              value={formData.passwordConfirm}
-              onChange={(e) =>
-                dispatch(setFormData({ passwordConfirm: e.target.value }))
-              }
-            />
-          </div>}
+          {isDashBoard ? (
+            ''
+          ) : (
+            <div>
+              <label className='text-sm mb-2 block'>Password *</label>
+              <input
+                name='password'
+                type='password'
+                className='bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500'
+                placeholder='Enter password'
+                required
+                value={formData.password}
+                onChange={(e) =>
+                  dispatch(setFormData({ password: e.target.value }))
+                }
+              />
+            </div>
+          )}
+          {isDashBoard ? (
+            ''
+          ) : (
+            <div>
+              <label className='text-sm mb-2 block'>Confirm Password *</label>
+              <input
+                name='cpassword'
+                type='password'
+                className='bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500'
+                placeholder='confirm password'
+                required
+                value={formData.passwordConfirm}
+                onChange={(e) =>
+                  dispatch(setFormData({ passwordConfirm: e.target.value }))
+                }
+              />
+            </div>
+          )}
 
           <div>
             <label className='text-sm mb-2 block'>
@@ -244,23 +254,22 @@ const Contact = ({ isDashBoard }) => {
             />
           </div>
         </div>
-        {!isDashBoard && (
-          <div className='!mt-10 flex justify-between'>
-            <button
-              type='button'
-              className=' shadow-xl py-2.5 px-4 text-sm font-semibold rounded text-white bg-[#333] hover:bg-black focus:outline-none flex items-center gap-1'
-              onClick={() => dispatch(prevStep())}
-            >
-              <GrFormPrevious /> Previous
-            </button>
-            <button
-              type='submit'
-              className=' shadow-xl py-2.5 px-4 text-sm font-semibold rounded text-white bg-[#333] hover:bg-black focus:outline-none flex items-center gap-1'
-            >
-              Next <MdNavigateNext />
-            </button>
-          </div>
-        )}
+
+        <div className='!mt-10 flex justify-between'>
+          <button
+            type='button'
+            className=' shadow-xl py-2.5 px-4 text-sm font-semibold rounded text-white bg-[#333] hover:bg-black focus:outline-none flex items-center gap-1'
+            onClick={() => dispatch(prevStep())}
+          >
+            <GrFormPrevious /> Previous
+          </button>
+          <button
+            type='submit'
+            className=' shadow-xl py-2.5 px-4 text-sm font-semibold rounded text-white bg-[#333] hover:bg-black focus:outline-none flex items-center gap-1'
+          >
+            Next <MdNavigateNext />
+          </button>
+        </div>
       </form>
     </div>
   );

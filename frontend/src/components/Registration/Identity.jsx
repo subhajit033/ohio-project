@@ -6,6 +6,7 @@ import { setFormData, nextStep } from '../../redux/Slices/registration';
 import axios from 'axios';
 import Loader from '../Loader/Loader';
 const Identity = ({ isDashBoard }) => {
+  console.log('isDash ', isDashBoard);
   const dispatch = useDispatch();
   const formData = useSelector((store) => store.registration.formData);
   const[loading, setLoading] = useState(false);
@@ -249,7 +250,7 @@ const Identity = ({ isDashBoard }) => {
             <label htmlFor='photo'>Choose seal photo</label>
           </div>
         </div>
-        {!isDashBoard && (
+        
           <div className='!mt-10 flex justify-end'>
             <button
               type='submit'
@@ -258,7 +259,7 @@ const Identity = ({ isDashBoard }) => {
               Next <MdNavigateNext />
             </button>
           </div>
-        )}
+        
       </form>
     </div>
   );
