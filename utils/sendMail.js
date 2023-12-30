@@ -35,7 +35,7 @@ const sendMail = async (user) => {
   });
 };
 
-const sendVerificationMail = async (user) => {
+const sendVerificationMail = async (user, url) => {
   const message = {
     from: 'margiaryan@gmail.com',
     to: `${user.email}`,
@@ -44,7 +44,7 @@ const sendVerificationMail = async (user) => {
         <p>Your email has Verified</p>
         <br>
         <p>Please click on below link for fill details</p>
-        <a href="http://localhost:5173/signup">Fill Details</a>
+        <a href=${url}>Fill Details</a>
         `
     // text: 'Hi from your nodemailer project'
   };

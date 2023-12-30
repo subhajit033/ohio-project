@@ -41,7 +41,8 @@ const createAndSendToken = (user, statusCode, res) => {
 
 const verifyEmail = async (req, res, next) => {
   try {
-    await sendVerificationMail(req.body);
+    const url = `${req.protocol}://${req.get('host')}/signup`;
+    await sendVerificationMail(req.body, url);
     res.status(200).json({
       status: true,
       message: 'email sent succesfully'
