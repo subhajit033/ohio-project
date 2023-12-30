@@ -25,9 +25,7 @@ const Registration = ({isDashborad}) => {
             <h6 className='text-sm lg:text-base font-bold text-blue-500'>
               Personal Info
             </h6>
-            <p className='text-xs text-gray-400'>
-              {step > 1 ? 'Completed' : 'Pending'}
-            </p>
+            
           </div>
         </div>
         <div className='w-full'>
@@ -49,9 +47,7 @@ const Registration = ({isDashborad}) => {
             <h6 className='text-sm lg:text-base font-bold text-blue-500'>
               Contact Details
             </h6>
-            <p className='text-xs text-gray-400'>
-              {step > 1 ? 'Completed' : 'Pending'}
-            </p>
+            
           </div>
         </div>
         <div>
@@ -68,14 +64,12 @@ const Registration = ({isDashborad}) => {
             <h6 className='text-sm lg:text-base font-bold text-blue-500'>
               Membership
             </h6>
-            <p className='text-xs text-gray-400'>
-              {step >= 3 ? 'Completed' : 'Pending'}
-            </p>
+            
           </div>
         </div>
       </div>
-      {step === 1 && <Identity />}
-      {step === 2 && <Contact />}
+      {step === 1 && <Identity isDashborad={isDashborad} />}
+      {step === 2 && <Contact isDashborad={isDashborad} />}
       {step === 3 && <Membership isDashborad={isDashborad} />}
     </div>
   );

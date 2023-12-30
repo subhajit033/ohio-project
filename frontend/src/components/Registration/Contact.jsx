@@ -185,7 +185,7 @@ const Contact = ({ isDashBoard }) => {
             />
           </div>
 
-          <div>
+          {isDashBoard? "": <div>
             <label className='text-sm mb-2 block'>Password *</label>
             <input
               name='password'
@@ -198,8 +198,8 @@ const Contact = ({ isDashBoard }) => {
                 dispatch(setFormData({ password: e.target.value }))
               }
             />
-          </div>
-          <div>
+          </div>}
+          {isDashBoard? "": <div>
             <label className='text-sm mb-2 block'>Confirm Password *</label>
             <input
               name='cpassword'
@@ -212,7 +212,7 @@ const Contact = ({ isDashBoard }) => {
                 dispatch(setFormData({ passwordConfirm: e.target.value }))
               }
             />
-          </div>
+          </div>}
 
           <div>
             <label className='text-sm mb-2 block'>

@@ -38,7 +38,7 @@ const appRouter = createBrowserRouter([
       },
       {
         path: '/signup',
-        element: <Registration />,
+        element: <Registration isDashborad={false} />,
       },
       {
         path: '/login',

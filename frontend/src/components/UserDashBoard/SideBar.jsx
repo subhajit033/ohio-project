@@ -7,6 +7,8 @@ const SideBar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const sideBarOpen = useSelector((store) => store.tabNav.sideBarOpen);
+  const formData = useSelector((store) => store.registration.formData);
+  console.log('rec ' + formData.role);
   const [openSubTab, setOpenSubTab] = useState('');
 
   const docSubTab = ['Status', 'Notices', 'Land', 'Incident Report', 'Private'];
@@ -44,7 +46,10 @@ const SideBar = () => {
           }
           className='flex cursor-pointer group'
         >
-          <h6 onClick={()=> navigate('/dashboard/docs')} className='text-gray-400 group-hover:text-white text-sm font-bold px-4 flex-1'>
+          <h6
+            onClick={() => navigate('/dashboard/docs')}
+            className='text-gray-400 group-hover:text-white text-sm font-bold px-4 flex-1'
+          >
             Document
           </h6>
           {openSubTab === 'document' ? (
@@ -78,7 +83,13 @@ const SideBar = () => {
         >
           {docSubTab.map((subTab) => {
             return (
-              <li onClick={() => {navigate('/dashboard/docs'); dispatch(setTab(subTab))}} key={subTab}>
+              <li
+                onClick={() => {
+                  navigate('/dashboard/docs');
+                  dispatch(setTab(subTab));
+                }}
+                key={subTab}
+              >
                 <a className='text-gray-400 hover:text-black transition-all text-sm cursor-pointer flex items-center hover:bg-gray-200 rounded-md px-4 py-3'>
                   <span>{subTab}</span>
                 </a>
@@ -116,14 +127,16 @@ const SideBar = () => {
           Shop
         </h6>
       </div>
-      <div
-        onClick={() => navigate('/dashboard/admin')}
-        className='flex cursor-pointer group'
-      >
-        <h6 className='text-gray-400 group-hover:text-white text-sm font-bold px-4 flex-1'>
-          Rec-Sec Dashboard
-        </h6>
-      </div>
+      {formData.role === 'secretary' && (
+        <div
+          onClick={() => navigate('/dashboard/admin')}
+          className='flex cursor-pointer group'
+        >
+          <h6 className='text-gray-400 group-hover:text-white text-sm font-bold px-4 flex-1'>
+            Rec-Sec Dashboard
+          </h6>
+        </div>
+      )}
     </nav>
   );
 };

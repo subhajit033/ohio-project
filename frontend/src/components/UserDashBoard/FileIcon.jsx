@@ -19,7 +19,7 @@ const FileIcon = ({ name, url }) => {
         {viewTab && (
           <div className='absolute -right-14 rounded-md top-8 z-10 border-2 border-gray-500 p-2 bg-white space-y-1'>
             <p
-              onClick={window.open(url, '_blank')}
+              onClick={()=> window.open(url, '_blank')}
               className='text-xs cursor-pointer hover:bg-gray-300 flex items-center gap-3'
             >
               View <FaRegEye />

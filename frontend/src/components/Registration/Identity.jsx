@@ -4,11 +4,12 @@ import { MdNavigateNext } from 'react-icons/md';
 import { setToast } from '../../redux/Slices/toastSlice';
 import { setFormData, nextStep } from '../../redux/Slices/registration';
 import axios from 'axios';
+import Loader from '../Loader/Loader';
 const Identity = ({ isDashBoard }) => {
   const dispatch = useDispatch();
   const formData = useSelector((store) => store.registration.formData);
-  
-  
+  const[loading, setLoading] = useState(false);
+
   const [DOB, setDOB] = useState('');
 
   useEffect(() => {
@@ -41,15 +42,17 @@ const Identity = ({ isDashBoard }) => {
 
   const uploadFile = async (file, fileType) => {
     try {
+      setLoading(true);
       const upload = new FormData();
-      upload.append('upload_file', file);
+      upload.append('uploadPhoto', file);
       const res = await axios({
         method: 'post',
         withCredentials: true,
         url: '/api/v1/upload',
         data: upload,
       });
-
+      console.log(res);
+      setLoading(false);
       dispatch(
         setToast({ type: 'success', message: 'File uploaded succesfully' })
       );
@@ -62,8 +65,13 @@ const Identity = ({ isDashBoard }) => {
 
       console.log(res);
     } catch (error) {
+      console.log(error);
+      setLoading(false);
       dispatch(
-        setToast({ type: 'error', message: 'Error occour while file uploading' })
+        setToast({
+          type: 'error',
+          message: 'Error occour while file uploading',
+        })
       );
     }
   };
@@ -75,6 +83,7 @@ const Identity = ({ isDashBoard }) => {
 
   return (
     <div className='max-w-4xl mx-auto font-[sans-serif] text-[#333] p-6'>
+      {loading? <Loader />: ""}
       <form onSubmit={handleSubmit}>
         <div className='grid sm:grid-cols-2 gap-y-7 gap-x-12'>
           <div>
@@ -175,7 +184,7 @@ const Identity = ({ isDashBoard }) => {
               }
             />
           </div>
-          <div>
+          {/* <div>
             <label className='text-sm mb-2 block'>Photo</label>
             <input
               name='lname'
@@ -196,6 +205,48 @@ const Identity = ({ isDashBoard }) => {
               placeholder='select image'
               onChange={(e) => uploadFile(e.target.files[0], 'seal')}
             />
+          </div> */}
+          <div className='form__group form__photo-upload'>
+            <img
+              id='user-avatar'
+              className='form__user-photo'
+              src={
+                formData.photo
+                  ? formData.photo
+                  : 'https://icon-library.com/images/icon-user/icon-user-15.jpg'
+              }
+              alt='User photo'
+            />
+            <input
+              className='form__upload'
+              type='file'
+              accept='image/'
+              name='image'
+              onChange={(e) => uploadFile(e.target.files[0], 'photo')}
+              id='photo'
+            />
+            <label htmlFor='photo'>Choose user photo</label>
+          </div>
+          <div className='form__group form__photo-upload'>
+            <img
+              id='user-avatar'
+              className='form__user-photo'
+              src={
+                formData.seal
+                  ? formData.seal
+                  : 'https://icon-library.com/images/icon-user/icon-user-15.jpg'
+              }
+              alt='User photo'
+            />
+            <input
+              className='form__upload'
+              type='file'
+              accept='image/'
+              name='image'
+              onChange={(e) => uploadFile(e.target.files[0], 'seal')}
+              id='photo'
+            />
+            <label htmlFor='photo'>Choose seal photo</label>
           </div>
         </div>
         {!isDashBoard && (
