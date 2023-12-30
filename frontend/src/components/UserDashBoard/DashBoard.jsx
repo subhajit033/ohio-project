@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import SideBar from './SideBar';
 import { Outlet } from 'react-router-dom';
-import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import { setDocUpload } from '../../redux/Slices/registration';
+import axios from 'axios';
 
 const DashBoard = () => {
   const dispatch = useDispatch();
@@ -17,7 +17,7 @@ const DashBoard = () => {
         withCredentials: true,
       });
       dispatch(setDocUpload(res.data.data.data.documents));
-      console.log(res);
+      
     } catch (err) {
       console.log(err);
     }
