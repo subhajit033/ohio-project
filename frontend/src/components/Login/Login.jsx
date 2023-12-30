@@ -24,7 +24,7 @@ const Login = () => {
       if (res.data.status === 'success') {
         dispatch(setAuthentication(true));
         dispatch(setFormDataByLogin(res.data.data.user));
-        
+
         dispatch(setToast({ type: 'success', message: 'Login SuccessFull' }));
         navigate('/');
       } else {
