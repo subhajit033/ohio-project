@@ -4,6 +4,8 @@ const cors = require('cors');
 const globalErrorHandler = require('./middlewares/globalErrorHandler');
 const userRouter = require('./routes/userRoutes');
 const uploadRouter = require('./routes/fileRoutes');
+const APPError = require('./utils/appError')
+const path = require('path');
 
 const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
@@ -29,6 +31,21 @@ app.get('/', (req, res) => {
 
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/upload', uploadRouter);
+
+const clientDir = path.join(__dirname, 'frontend', 'dist');
+
+app.use(express.static(clientDir));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(clientDir, 'index.html'));
+});
+
+//console.log(x);
+
+//these are unhandled route sohold be put after all routes
+app.all('*', (req, res, next) => {
+  next(new APPError(`Cannot find ${req.originalUrl} on this server`, 404));
+});
 
 app.use(globalErrorHandler);
 

@@ -9,7 +9,7 @@ const SideBar = () => {
   const dispatch = useDispatch();
   const sideBarOpen = useSelector((store) => store.tabNav.sideBarOpen);
   const formData = useSelector((store) => store.registration.formData);
-  console.log('rec ' + formData.role);
+  
   const [openSubTab, setOpenSubTab] = useState('');
 
   const docSubTab = ['Status', 'Notices', 'Land', 'Incident Report', 'Private'];
@@ -38,12 +38,12 @@ const SideBar = () => {
 
       <div className='flex flex-wrap items-center cursor-pointer mb-12'>
         <img
-          src='https://readymadeui.com/profile.webp'
+          src={formData.photo? formData.photo: 'https://icon-library.com/images/icon-user/icon-user-15.jpg'}
           className='w-10 h-10 rounded-full border-2 border-white'
         />
         <div className='ml-4'>
-          <p className='text-sm text-gray-100'>John Doe</p>
-          <p className='text-xs text-gray-300 mt-1'>johndoe23@gmail.com</p>
+          <p className='text-sm text-gray-100'>{`${formData.firstName} ${formData.middleName? formData.middleName: ''} ${formData.lastName}`}</p>
+          <p className='text-xs text-gray-300 mt-1'>{formData.primaryEmail}</p>
         </div>
       </div>
 
