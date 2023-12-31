@@ -77,6 +77,12 @@ const Identity = ({ isDashBoard }) => {
     }
   };
 
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toISOString().split('T')[0];
+  }
+  
+
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(nextStep());
@@ -137,7 +143,7 @@ const Identity = ({ isDashBoard }) => {
               className='bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500'
               required
               placeholder='Enter DOB'
-              value={formData.born}
+              value={isDashBoard? formatDate(formData.born): formData.born}
               onChange={(e) => {
                 dispatch(setFormData({ born: e.target.value }));
                 setDOB(e.target.value);

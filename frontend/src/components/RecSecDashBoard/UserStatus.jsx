@@ -29,10 +29,10 @@ const UserStatus = () => {
   return (
     <div className=' flex-wrap gap-4 justify-center items-start border-2 border-red-600 flex-1 py-4 px-4'>
       <div
-        onClick={() => navigate('/dashboard/admin/userStatus')}
+        
         className='grid grid-cols-2 gap-8'
       >
-        <div className='text-center bg-gray-200 p-4 border-b-4 border-red-600 rounded-md cursor-pointer'>
+        <div onClick={() => navigate('/dashboard/admin/userStatus')} className='text-center bg-gray-200 p-4 border-b-4 border-red-600 rounded-md cursor-pointer'>
           <svg
             xmlns='http://www.w3.org/2000/svg'
             className='fill-red-600 w-10 inline-block'

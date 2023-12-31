@@ -35,7 +35,7 @@ router.post('/approve-user', protect, async (req, res, next) => {
     try {
       console.log('ID ', user._id);
       const debug = await User.findByIdAndUpdate(req.user.id, { otp, otpExpiration }, { new: true });
-      console.log('DEBUG AFTER OTP', debug);
+      
     } catch (err) {
       console.log('ERROR SETTING USER ', err);
     }
@@ -52,7 +52,7 @@ router.post('/confirm-otp/:userId', protect, async (req, res) => {
     const { userId } = req.params;
     const user = req.user;
     const { enteredOTP } = req.body;
-    console.log('USER', user);
+    
     // Retrieve the secretary's OTP and its expiration time
     const storedOTP = user.otp;
     const otpExpiration = user.otpExpiration;
