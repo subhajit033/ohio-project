@@ -103,7 +103,7 @@ const verifyEmail = async (req, res, next) => {
 
 const signup = async (req, res, next) => {
   const userExist = await User.findOne({
-    email: req.body.email
+    primaryEmail: req.body.primaryEmail
   });
 
   // if a user who's on hold, try to sign up again
@@ -118,6 +118,7 @@ const signup = async (req, res, next) => {
         await sendMail(newUser);
         createAndSendToken(newUser, 201, res);
       } catch (err) {
+        console.log(err);
         // general error left uncaught
         next(new APPError(err.message, 400));
       }

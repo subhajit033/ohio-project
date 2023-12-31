@@ -17,6 +17,7 @@ const Membership = ({ isDashBoard }) => {
     e.preventDefault();
     const userData = { ...formData };
     delete userData.passwordConfirm;
+    delete userData.confirmEmail;
     try {
       const res = await axios({
         method: 'post',
@@ -37,6 +38,7 @@ const Membership = ({ isDashBoard }) => {
         throw new Error('failed');
       }
     } catch (error) {
+      console.log(error);
       dispatch(
         setToast({
           type: 'error',
