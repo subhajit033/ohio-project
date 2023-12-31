@@ -14,6 +14,7 @@ import Shop from './components/UserDashBoard/Shop';
 import Officials from './components/UserDashBoard/Officials';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import Otp from './components/RecSecDashBoard/Otp';
+import UnVerifedEmail from './components/AlertPages/UnVerifedEmail';
 
 const App = () => {
   return (
@@ -30,23 +31,27 @@ const appRouter = createBrowserRouter([
     children: [
       {
         path: '',
-        element: <Home />,
+        element: <Home />
       },
       {
         path: '/verification',
-        element: <Verifaication />,
+        element: <Verifaication />
       },
       {
         path: '/signup',
-        element: <Registration isDashBoard={false} />,
+        element: <Registration isDashBoard={false} />
       },
       {
         path: '/login',
-        element: <Login />,
+        element: <Login />
       },
       {
         path: '/approval',
-        element: <Approval />,
+        element: <Approval />
+      },
+      {
+        path: '/unverifiedEmail',
+        element: <UnVerifedEmail />
       },
       {
         path: '/dashboard',
@@ -57,46 +62,46 @@ const appRouter = createBrowserRouter([
             children: [
               {
                 path: '',
-                element: <Officials />,
+                element: <Officials />
               },
               {
                 path: 'docs',
-                element: <UploadedFiles />,
+                element: <UploadedFiles />
               },
               {
                 path: 'shop',
-                element: <Shop />,
+                element: <Shop />
               },
-              
+
               {
                 path: 'details',
                 element: (
-                  <div className=' flex-wrap gap-4 justify-center h-[89vh] overflow-auto items-start border-2 border-red-600 flex-1 py-4 px-4'>
+                  <div className=" flex-wrap gap-4 justify-center h-[89vh] overflow-auto items-start border-2 border-red-600 flex-1 py-4 px-4">
                     <Registration isDashBoard={true} />
                   </div>
-                ),
+                )
               },
               {
                 path: 'admin',
-                element: <UserStatus />,
+                element: <UserStatus />
               },
               {
                 path: 'admin/userStatus',
-                element: <DashBoardTable />,
+                element: <DashBoardTable />
               },
               {
                 path: 'admin/verifyuser/:userId',
-                element: <UserVerification />,
+                element: <UserVerification />
               },
               {
                 path: 'admin/approveUser/:userId',
                 element: <Otp />
               }
-            ],
-          },
-        ],
-      },
-    ],
-  },
+            ]
+          }
+        ]
+      }
+    ]
+  }
 ]);
 export default App;

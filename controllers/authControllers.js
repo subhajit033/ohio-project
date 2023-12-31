@@ -7,9 +7,9 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const { sendMail, sendVerificationMail } = require('../utils/sendMail');
 const crypto = require('crypto');
+const VerifyUserEmail = require('../models/verifyEmailModel');
 
 const signToken = (user) => {
-  
   return jwt.sign({ id: user._id, email: user.email, role: user.role }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRES_IN //90d after jwt token will expire and user have to sign up agin if the signature
     //correct also
@@ -39,14 +39,63 @@ const createAndSendToken = (user, statusCode, res) => {
   });
 };
 
+const sendEmailCookie = async (user, res) => {
+  const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+    expiresIn: process.env.JWT_EXPIRES_IN
+  });
+
+  const cookieOptions = {
+    //in expires is saved as date in config file so we have to convert it into a mili second
+    expires: new Date(Date.now() + process.env.EMAIL_COOKIE_EXPIRES_IN * 60 * 1000),
+
+    httpOnly: true
+  };
+
+  res.cookie('emailVerify', token, cookieOptions);
+  res.status(200).json({
+    status: true,
+    message: 'email sent succesfully'
+  });
+};
+
+const authenticateEmailUser = async (req, res, next) => {
+  try {
+    let token;
+    if (req.cookies.emailVerify) {
+      token = req.cookies.emailVerify;
+    }
+    if (!token) {
+      return next(new APPError('Your Email is not verified , please verify your email first', 401));
+    }
+    //promisifying  a function with the built in module of node js
+    const verifyAsync = promisify(jwt.verify);
+    //check if the payload is altered or not, decoded jwt will have have id of that particular user
+    //which we are trying to access
+    const decoded = await verifyAsync(token, process.env.JWT_SECRET);
+
+    /**
+     * 3) if the user is still present or not
+     */
+    const currentUser = await VerifyUserEmail.findById(decoded.id);
+
+    if (!currentUser) {
+      return next(new APPError('User belonging to this token , no longer exists', 401));
+    }
+
+    //passing the user property to next middleware
+    sendJsonRes(res, 200, currentUser);
+  } catch (err) {
+    next(new APPError(err.message, 400));
+  }
+  //grant access to protected routes
+};
+
 const verifyEmail = async (req, res, next) => {
   try {
     const url = `${req.protocol}://${req.get('host')}/signup`;
-    await sendVerificationMail(req.body, url);
-    res.status(200).json({
-      status: true,
-      message: 'email sent succesfully'
-    });
+    const user = await VerifyUserEmail.create(req.body);
+    await sendVerificationMail(user, url);
+    sendEmailCookie(user, res);
   } catch (err) {
     next(new APPError(err.message, 400));
   }
@@ -89,7 +138,7 @@ const login = async (req, res, next) => {
     if (!user || !(await bcrypt.compare(password, user.password))) {
       return next(new APPError(`Incorrect email or password`, 401));
     }
-    if(user && user.isApproved === false){
+    if (user && user.isApproved === false) {
       return next(new APPError(`Your registration is currently on hold for verification`, 403));
     }
 
@@ -351,5 +400,6 @@ module.exports = {
   resetPassword,
   updatePassword,
   isLoggedIn,
-  logOut
+  logOut,
+  authenticateEmailUser
 };
