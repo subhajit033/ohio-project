@@ -10,7 +10,7 @@ const sendMail = async (user) => {
         <p>Approve this user with userId ${user._id}</p>`
     // text: 'Hi from your nodemailer project'
   };
-  console.log('USER, ', user);
+  
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     host: 'smtp.gmail.com',

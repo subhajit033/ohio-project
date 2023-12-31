@@ -11,9 +11,10 @@ const Registration = ({ isDashBoard }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const step = useSelector((store) => store.registration.step);
+  const isAuthenticated = useSelector((store) => store.auth.isAuthenticated);
   
   useEffect(() => {
-    authenticateEmail();
+    !isAuthenticated && authenticateEmail();
   }, []);
   const authenticateEmail = async () => {
     try {
