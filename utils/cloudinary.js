@@ -11,9 +11,18 @@ cloudinary.config({
 
 const uploadOnclould = async (fileName, userphoto) => {
   if (!fileName) return null;
+
+  const filePath = path.join(
+    __dirname,
+    '..',
+    'public',
+    'temp',
+    fileName
+  );
+
   let url = null;
   try {
-    const res = await cloudinary.uploader.upload(fileName, {
+    const res = await cloudinary.uploader.upload(filePath, {
       resource_type: 'auto'
     });
 
@@ -24,13 +33,13 @@ const uploadOnclould = async (fileName, userphoto) => {
         height: 500,
         crop: 'crop'
       });
-      unlinkSync(fileName);
+      unlinkSync(filePath);
       return url;
     }
-    unlinkSync(fileName);
+    unlinkSync(filePath);
     return res.url;
   } catch (err) {
-    unlinkSync(fileName);
+    unlinkSync(filePath);
     return null;
   }
 };

@@ -10,7 +10,7 @@ const uploadPhotos = upload.single('uploadPhoto');
 
 const uploadToClould = async (req, res, next) => {
   try {
-    const postUrl = await uploadOnclould(path.join(__dirname, '..', 'public', 'temp', req.filename), false);
+    const postUrl = await uploadOnclould(req.filename, false);
     if (!postUrl) return next(new APPError('Please provide file name', 404));
     const doc = { ...req.body, user: req.params.userId, url: postUrl };
     await Document.create(doc);
@@ -23,7 +23,7 @@ const uploadToClould = async (req, res, next) => {
 };
 const uploadPhotoToClould = async (req, res, next) => {
   try {
-    const postUrl = await uploadOnclould(path.join(__dirname, '..', 'public', 'temp', req.filename), true);
+    const postUrl = await uploadOnclould(req.filename, true);
     if (!postUrl) return next(new APPError('Please provide file name', 404));
 
     res.status(200).json({
