@@ -11,6 +11,10 @@ const ResetPass = () => {
 
   const resetPassword = async (e) => {
     e.preventDefault();
+    if(password !== passwordConfirm){
+        alert('Password and Password confirm does not match')
+        return;
+    }
     setLoading(true);
     try {
       const res = await axios({
