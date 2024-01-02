@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import ProgressBar from '@ramonak/react-progress-bar';
+
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -23,12 +25,10 @@ const UploadDoc = ({ name, tab }) => {
           method: 'post',
           withCredentials: true,
           url: `/api/v1/upload/${userId}`,
-          data: form,
+          data: form
         });
         console.log(res);
-        dispatch(
-          setToast({ type: 'success', message: 'File Uploaded succesfully' })
-        );
+        dispatch(setToast({ type: 'success', message: 'File Uploaded succesfully' }));
         setLoading(false);
       } catch (err) {
         console.log(err);
@@ -41,14 +41,15 @@ const UploadDoc = ({ name, tab }) => {
   };
 
   return (
-    <div className='font-[sans-serif] max-w-md '>
+    <div className="font-[sans-serif] max-w-md ">
       {loading ? <Loader /> : ''}
-      <label className='text-sm text-black mb-2 block'>{name}</label>
+      <label className="text-sm text-black mb-2 block">{name}</label>
       <input
-        type='file'
-        className='w-full text-black text-sm bg-white border file:cursor-pointer cursor-pointer file:border-0 file:py-2.5 file:px-4 file:bg-gray-100 file:hover:bg-gray-200 file:text-black rounded'
+        type="file"
+        className="w-full text-black text-sm bg-white border file:cursor-pointer cursor-pointer file:border-0 file:py-2.5 file:px-4 file:bg-gray-100 file:hover:bg-gray-200 file:text-black rounded mb-4"
         onChange={uploadFile}
       />
+      <ProgressBar completed={0} bgColor="#5e83e6" labelColor="#ffffff" maxCompleted={100} />
     </div>
   );
 };

@@ -222,5 +222,4 @@ export const officials = [
 'Verified ',
 'Paid Credential Card',
 'Deceased Date',
-
 ]
