@@ -98,4 +98,42 @@ const sendOTPMail = async (email, title, body) => {
     console.log(error.message);
   }
 };
-module.exports = { sendMail, sendOTPMail, sendVerificationMail };
+
+const sendPasswordResetMail = async (email, url) => {
+  const message = {
+    from: 'margiaryan@gmail.com',
+    to: `${email}`,
+    subject: `Password Reset`,
+    html: `<p>Hi there..</p>
+        <h3>Reset Your Password</h3>
+        <br>
+        <p>Please click on below link to Reset your password</p>
+        <a href=${url}>Fill Details</a>
+        `
+    // text: 'Hi from your nodemailer project'
+  };
+
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    host: 'smtp.gmail.com',
+    port: 587,
+    auth: {
+      user: process.env.EMAIL_USERNAME,
+      pass: process.env.EMAIL_PASSWORD
+    }
+  });
+
+  await transporter.sendMail(message, (error, info) => {
+    if (error) {
+      console.log('Error occurred');
+      console.log(error.message);
+    }
+
+    console.log('Message sent successfully!');
+    console.log(nodemailer.getTestMessageUrl(info));
+
+    // only needed when using pooled connections
+    // transporter.close();
+  });
+};
+module.exports = { sendMail, sendOTPMail, sendVerificationMail, sendPasswordResetMail };

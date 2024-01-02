@@ -1,9 +1,18 @@
 const express = require('express');
 const User = require('../models/userSchema');
 const otpGenerator = require('otp-generator');
-const { signup, login, uploadFile, protect, verifyEmail, authenticateEmailUser } = require('../controllers/authControllers');
+const {
+  signup,
+  login,
+  uploadFile,
+  protect,
+  verifyEmail,
+  authenticateEmailUser,
+  forgotPassword,
+  resetPassword
+} = require('../controllers/authControllers');
 const { sendOTPMail } = require('../utils/sendMail');
-const { getAllUsers, updateUser, deleteUser, getDocs } = require('../controllers/userController');
+const { getAllUsers, updateUser, deleteUser, getDocs, updateMe } = require('../controllers/userController');
 const APPError = require('../utils/appError');
 
 const router = express.Router();
@@ -35,7 +44,6 @@ router.post('/approve-user', protect, async (req, res, next) => {
     try {
       console.log('ID ', user._id);
       const debug = await User.findByIdAndUpdate(req.user.id, { otp, otpExpiration }, { new: true });
-      
     } catch (err) {
       console.log('ERROR SETTING USER ', err);
     }
@@ -52,7 +60,7 @@ router.post('/confirm-otp/:userId', protect, async (req, res) => {
     const { userId } = req.params;
     const user = req.user;
     const { enteredOTP } = req.body;
-    
+
     // Retrieve the secretary's OTP and its expiration time
     const storedOTP = user.otp;
     const otpExpiration = user.otpExpiration;
@@ -79,8 +87,8 @@ router.post('/login', login);
 router.post('/verifyEmail', verifyEmail);
 router.get('/authenticateEmail', authenticateEmailUser);
 // router.get('/logout', logOut);
-// router.post('/forgotPassword', forgotPassword);
-// router.patch('/resetPassword/:token', resetPassword);
+router.post('/forgotPassword', forgotPassword);
+router.patch('/resetPassword/:token', resetPassword);
 
 // //position of middleware matters
 // router.use(protect);
@@ -90,16 +98,15 @@ router.get('/authenticateEmail', authenticateEmailUser);
 // router.get('/me', getMe, getSpecificUser);
 // router.get('/me/myReviews', getMyReviews);
 
-// router.patch(
-//   '/updateMe',
-//   uploadUsersPhoto,
-//   resizeUserPhoto,
-//   uploadUserImg,
-//   updateMe
-// );
 // router.get('/myTours', getBookedTours);
 // router.delete('/deleteMe', deleteMe);
 router.use(protect);
+router.patch(
+  '/updateMe',
+  updateMe,
+  updateUser
+);
+
 router.get('/getDocs', getDocs);
 
 router.route('/').get(getAllUsers);

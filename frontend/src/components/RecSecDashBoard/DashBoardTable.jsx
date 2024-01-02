@@ -1,7 +1,7 @@
 import UserNomination from './UserNomination';
 import { useSelector } from 'react-redux';
 
-const DashBoardTable = () => {
+const DashBoardTable = ({isAdmin}) => {
   const unApprovedUser = useSelector((store) => store.user.unApprovedUser);
 
   return (
@@ -29,7 +29,7 @@ const DashBoardTable = () => {
           </thead>
           <tbody className='whitespace-nowrap'>
             {unApprovedUser.map((user) => {
-              return <UserNomination key={user._id} {...user} />;
+              return <UserNomination key={user._id} {...user} isAdmin={isAdmin} />;
             })}
           </tbody>
         </table>

@@ -9,10 +9,18 @@ const SideBar = () => {
   const dispatch = useDispatch();
   const sideBarOpen = useSelector((store) => store.tabNav.sideBarOpen);
   const formData = useSelector((store) => store.registration.formData);
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
 
   const [openSubTab, setOpenSubTab] = useState('');
 
   const docSubTab = ['Status', 'Notices', 'Land', 'Incident Report', 'Private'];
+
+  useEffect(() => {
+    setName(`${formData.firstName} ${formData.middleName ? formData.middleName : ''} ${formData.lastName}`);
+    setEmail(formData.primaryEmail);
+  }, []);
+
   useEffect(() => {
     dispatch(setTab('rec-sec'));
   }, []);
@@ -46,10 +54,8 @@ const SideBar = () => {
           className="w-10 h-10 rounded-full border-2 border-white"
         />
         <div className="ml-4">
-          <p className="text-sm text-gray-100">{`${formData.firstName} ${
-            formData.middleName ? formData.middleName : ''
-          } ${formData.lastName}`}</p>
-          <p className="text-xs text-gray-300 mt-1">{formData.primaryEmail}</p>
+          <p className="text-sm text-gray-100">{name}</p>
+          <p className="text-xs text-gray-300 mt-1">{email}</p>
         </div>
       </div>
 
@@ -62,12 +68,7 @@ const SideBar = () => {
           onClick={() => setOpenSubTab(openSubTab === 'document' ? '' : 'document')}
           className="flex cursor-pointer group"
         >
-          <h6
-            
-            className="text-gray-400 group-hover:text-white text-sm font-bold px-4 flex-1"
-          >
-            Document
-          </h6>
+          <h6 className="text-gray-400 group-hover:text-white text-sm font-bold px-4 flex-1">Document</h6>
           {openSubTab === 'document' ? (
             <svg
               xmlns="http://www.w3.org/2000/svg"

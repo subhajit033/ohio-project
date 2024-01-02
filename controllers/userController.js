@@ -15,6 +15,10 @@ const getAllUsers = async (req, res, next) => {
   }
 };
 
+const updateMe = (req, res, next)=>{
+  req.params.userId = req.user.id;
+}
+
 const updateUser = async (req, res, next) => {
   const { userId } = req.params;
   console.log(userId);
@@ -52,4 +56,6 @@ const getDocs = async (req, res, next) => {
   }
 };
 
-module.exports = { getAllUsers, updateUser, deleteUser, getDocs };
+
+
+module.exports = { getAllUsers, updateUser, deleteUser, getDocs, updateMe };

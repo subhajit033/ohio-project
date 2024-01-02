@@ -5,9 +5,10 @@ const APPError = require('../utils/appError');
 const sendJsonRes = require('../utils/sendJsonRes');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-const { sendMail, sendVerificationMail } = require('../utils/sendMail');
+const { sendMail, sendVerificationMail, sendPasswordResetMail } = require('../utils/sendMail');
 const crypto = require('crypto');
 const VerifyUserEmail = require('../models/verifyEmailModel');
+
 
 const signToken = (user) => {
   return jwt.sign({ id: user._id, email: user.email, role: user.role }, process.env.JWT_SECRET, {
@@ -242,7 +243,7 @@ const forgotPassword = async (req, res, next) => {
    * 3) sendit back via email
    */
   try {
-    const user = await User.findOne({ email: req.body.email });
+    const user = await User.findOne({ primaryEmail: req.body.email });
     if (!user) {
       return next(new APPError('no user find with this email, please check your email', 404));
     }
@@ -263,18 +264,14 @@ const forgotPassword = async (req, res, next) => {
     ${resetUrl}.\nIf you didn't forgot password then ignore this email`;
 
     try {
-      await sendEmail({
-        email: user.email,
-        subject: 'Your password reset token (valid only for 10 min)',
-        message: message
-      });
+      await sendPasswordResetMail(user.primaryEmail, resetUrl);
     } catch (error) {
       (user.passwordResetToken = undefined), (user.passwordResetExpires = undefined);
       await user.save({ validateBeforeSave: false });
       return next(new APPError('there was an error sending the mail', 500));
     }
     res.status(200).json({
-      status: 'success',
+      status: true,
       message: 'token sent to mail'
     });
   } catch (error) {
@@ -298,8 +295,7 @@ const resetPassword = async (req, res, next) => {
       return next(new APPError('Token is invalid or expired', 404));
     }
     //2) if token is expired , and there is a user , set a new password
-    user.password = req.body.password;
-    user.passwordconfirm = req.body.passwordconfirm;
+    user.password = req.body.password;    
     user.passwordResetToken = undefined;
     user.passwordResetExpires = undefined;
     //here we want to run the validatior to check whether the password and password confirm is same

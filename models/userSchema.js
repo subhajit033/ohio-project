@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+const crypto = require('crypto')
 const userSchema = new mongoose.Schema(
   {
     firstName: {
@@ -129,7 +130,10 @@ const userSchema = new mongoose.Schema(
       type: Boolean,
       default: false
     },
-    deceasedDate: Date
+    deceasedDate: Date,
+    //password part
+    passwordResetToken: String,
+    passwordResetExpires: String
   },
   //automatically added createdAt and updatedAt filed to Schema
   { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } }
@@ -143,25 +147,7 @@ userSchema.virtual('documents', {
 });
 
 
-// const userSchema = new mongoose.Schema({
-//   name: {
-//     type: String,
-//     required: [true, 'must have a name'],
-//   },
-//   email: {
-//     type: String,
-//     required: [true, 'must have a name'],
-//   },
 
-//   state: {
-//     type: String,
-//     required: [true, 'must have a state'],
-//   },
-//   password: {
-//     type: String,
-//     required: [true, 'must have a state'],
-//   },
-// });
 userSchema.pre('save', async function (next) {
   if (!this.isModified('password')) return next();
   try {
@@ -173,17 +159,9 @@ userSchema.pre('save', async function (next) {
   next();
 });
 
-userSchema.pre('save', function (next) {
-  if (!this.isModified('password') || this.isNew) return next();
-  this.passwordChangedAt = Date.now() - 1000;
-  next();
-});
 
-//instances method
 
-// userSchema.methods.setPasswordChangesAt = function () {
-//   this.passwordChangedAt = Date.now();
-// };
+
 
 userSchema.methods.changedPasswordAfter = function (JWTTimestamp) {
   if (this.passwordChangedAt) {
