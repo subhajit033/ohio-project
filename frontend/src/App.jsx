@@ -15,6 +15,8 @@ import Officials from './components/UserDashBoard/Officials';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import Otp from './components/RecSecDashBoard/Otp';
 import UnVerifedEmail from './components/AlertPages/UnVerifedEmail';
+import ForgotPass from './components/Pasword/ForgotPass';
+import ResetPass from './components/Pasword/ResetPass';
 
 const App = () => {
   return (
@@ -52,6 +54,14 @@ const appRouter = createBrowserRouter([
       {
         path: '/unverifiedEmail',
         element: <UnVerifedEmail />
+      },
+      {
+        path: '/forgot-password',
+        element: <ForgotPass />
+      },
+      {
+        path: '/reset-password/:resetToken',
+        element: <ResetPass />
       },
       {
         path: '/dashboard',

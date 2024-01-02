@@ -257,11 +257,10 @@ const forgotPassword = async (req, res, next) => {
     await user.save({ validateBeforeSave: false });
 
     //4) send mail
-    const resetUrl = `${req.protocol}://${req.get('host')}/api/v1/users/resetPassword/${resetToken}`;
+    const resetUrl = `${req.protocol}://${req.get('host')}/reset-password/${resetToken}`;
     console.log(`resrt url = ${resetUrl}`);
 
-    const message = `Forgot your password? submit a patch request with your new password and passwordConfirm to:
-    ${resetUrl}.\nIf you didn't forgot password then ignore this email`;
+    
 
     try {
       await sendPasswordResetMail(user.primaryEmail, resetUrl);
@@ -277,7 +276,7 @@ const forgotPassword = async (req, res, next) => {
   } catch (error) {
     return next(new APPError(error.message, 401));
   }
-  next();
+  
 };
 
 const resetPassword = async (req, res, next) => {
@@ -310,6 +309,7 @@ const resetPassword = async (req, res, next) => {
       token
     });
   } catch (error) {
+    console.log(error);
     return next(new APPError(error.message, 401));
   }
 };
