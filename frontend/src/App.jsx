@@ -96,12 +96,24 @@ const appRouter = createBrowserRouter([
                 element: <UserStatus />
               },
               {
-                path: 'admin/userStatus',
-                element: <DashBoardTable />
+                path: 'admin/userStatus/unapproved',
+                element: <DashBoardTable approvedUsers={false} />
+              },
+              {
+                path: 'admin/userStatus/approved',
+                element: <DashBoardTable approvedUsers={true} />
+              },
+              {
+                path: 'admin/userStatus/approved/viewDocs/:userId',
+                element: <UserVerification approvedUsers={true} viewDocs={true} />
+              },
+              {
+                path: 'admin/userStatus/approved/uploadDocs/:userId',
+                element: <UserVerification approvedUsers={true} />
               },
               {
                 path: 'admin/verifyuser/:userId',
-                element: <UserVerification />
+                element: <UserVerification approvedUsers={false}  />
               },
               {
                 path: 'admin/approveUser/:userId',

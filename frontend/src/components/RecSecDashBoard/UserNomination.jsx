@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
-const UserNomination = ({ firstName, middleName, lastName, primaryEmail, createdAt, _id, isAdmin }) => {
+const UserNomination = ({ firstName, middleName, lastName, primaryEmail, createdAt, _id, isAdmin, approvedUsers }) => {
   const navigate = useNavigate();
 
   return (
@@ -14,16 +14,8 @@ const UserNomination = ({ firstName, middleName, lastName, primaryEmail, created
           year: 'numeric'
         })}
       </td>
-      <td className="px-6 py-4">
-        {isAdmin ? (
-          <button
-            onClick={() => navigate(`/dashboard/admin/verifyuser/${_id}`)}
-            type="button"
-            className="px-2 py-1.5 rounded-full  text-white text-xs bg-green-600 tracking-wider font-semibold outline-none border-2 border-green-600 hover:bg-white hover:text-black transition-all duration-300"
-          >
-            View
-          </button>
-        ) : (
+      {!approvedUsers ? (
+        <td className="px-6 py-4">
           <button
             onClick={() => navigate(`/dashboard/admin/verifyuser/${_id}`)}
             type="button"
@@ -31,8 +23,25 @@ const UserNomination = ({ firstName, middleName, lastName, primaryEmail, created
           >
             Approve
           </button>
-        )}
-      </td>
+        </td>
+      ) : (
+        <td className="px-6 py-4 space-x-2">
+          <button
+            onClick={() => navigate(`/dashboard/admin/userStatus/approved/uploadDocs/${_id}`)}
+            type="button"
+            className="px-2 py-1.5 rounded-full  text-white text-xs bg-blue-600 tracking-wider font-semibold outline-none border-2 border-blue-600 hover:bg-white hover:text-black transition-all duration-300"
+          >
+            Upload
+          </button>
+          <button
+            onClick={() => navigate(`/dashboard/admin/userStatus/approved/viewDocs/${_id}`)}
+            type="button"
+            className="px-2 py-1.5 rounded-full  text-white text-xs bg-blue-600 tracking-wider font-semibold outline-none border-2 border-blue-600 hover:bg-white hover:text-black transition-all duration-300"
+          >
+            View
+          </button>
+        </td>
+      )}
     </tr>
   );
 };

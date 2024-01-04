@@ -6,13 +6,19 @@ import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { setToast } from '../../redux/Slices/toastSlice';
 
-const UserVerification = () => {
+const UserVerification = ({ approvedUsers, viewDocs }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { userId } = useParams();
   const unApprovedUser = useSelector((store) => store.user.unApprovedUser);
+  const approvedUser = useSelector((store) => store.user.approvedUser);
   //getting unapproved user from redux
-  const user = unApprovedUser.filter((user) => user._id === userId)[0];
+  let user;
+  if (approvedUsers) {
+    user = approvedUser.filter((user) => user._id === userId)[0];
+  } else {
+    user = user = unApprovedUser.filter((user) => user._id === userId)[0];
+  }
 
   const [loading, setLoading] = useState(false);
   const getOtp = async () => {
@@ -37,7 +43,10 @@ const UserVerification = () => {
       <div className=" h-[88vh] overflow-auto">
         <div className="flex flex-col items-center gap-4">
           <div className="flex items-center justify-center  gap-4">
-            <img src={user.photo || 'https://icon-library.com/images/icon-user/icon-user-15.jpg'} className="w-24 h-24 rounded-full" />
+            <img
+              src={user.photo || 'https://icon-library.com/images/icon-user/icon-user-15.jpg'}
+              className="w-24 h-24 rounded-full"
+            />
             <div>
               <h4 className="text-base text-[#333] font-bold ">
                 <span className="text-blue-600">
@@ -60,29 +69,38 @@ const UserVerification = () => {
               </h4>
             </div>
           </div>
-          <div className="space-x-4">
+          {!approvedUsers ? (
+            <div className="space-x-4">
+              <button
+                type="button"
+                className="px-6 py-2.5 rounded text-white text-sm tracking-wider font-semibold border-none outline-none bg-green-600 hover:bg-green-700 active:bg-green-600"
+                onClick={getOtp}
+              >
+                {loading ? 'Verifing...' : 'Approve'}
+              </button>
+              <button
+                type="button"
+                className="px-6 py-2.5 rounded text-white text-sm tracking-wider font-semibold border-none outline-none bg-red-600 hover:bg-red-700 active:bg-red-600"
+              >
+                Decline
+              </button>
+              <button
+                type="button"
+                className="px-6 py-2.5 rounded text-white text-sm tracking-wider font-semibold border-none outline-none bg-[#333] hover:bg-[#222] active:bg-[#333]"
+              >
+                Officials
+              </button>
+            </div>
+          ) : (
             <button
               type="button"
               className="px-6 py-2.5 rounded text-white text-sm tracking-wider font-semibold border-none outline-none bg-green-600 hover:bg-green-700 active:bg-green-600"
-              onClick={getOtp}
             >
-              {loading ? 'Verifing...' : 'Approve'}
+              Update User
             </button>
-            <button
-              type="button"
-              className="px-6 py-2.5 rounded text-white text-sm tracking-wider font-semibold border-none outline-none bg-red-600 hover:bg-red-700 active:bg-red-600"
-            >
-              Decline
-            </button>
-            <button
-              type="button"
-              className="px-6 py-2.5 rounded text-white text-sm tracking-wider font-semibold border-none outline-none bg-[#333] hover:bg-[#222] active:bg-[#333]"
-            >
-              Officials
-            </button>
-          </div>
+          )}
         </div>
-        <UploadNav />
+        <UploadNav viewDocs={viewDocs} />
       </div>
     </div>
   );

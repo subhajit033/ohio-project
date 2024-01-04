@@ -2,9 +2,10 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSideBarOpen } from '../../redux/Slices/tabNav';
-
+import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { setToast } from '../../redux/Slices/toastSlice';
 const HomePage = () => {
   const dispatch = useDispatch();
   const toastType = useSelector((store) => store.toast.toastType);
@@ -37,6 +38,21 @@ const HomePage = () => {
       });
     }
   }, [toastType]);
+
+  const handleLogout = async () => {
+    try {
+      const res = await axios.get('/api/v1/users/logout');
+      console.log(res);
+      dispatch(setToast({ type: 'success', message: 'Logout SuccessFull' }));
+      setTimeout(() => {
+        window.open('/', '_self');
+      }, 300);
+      
+    } catch (err) {
+      console.log(err);
+      dispatch(setToast({ type: 'error', message: 'Something went wrong' }));
+    }
+  };
 
   return (
     <>
@@ -135,26 +151,7 @@ const HomePage = () => {
           </div>
         ) : (
           <>
-            <div onClick={() => navigate('/dashboard')} className="gap-3 items-center hidden   md:block">
-              {/* <div
-                className={`h-10 w-10 hover:ring-4 user cursor-pointer relative ring-blue-700/30 rounded-full bg-cover bg-center bg-[url('https://icon-library.com/images/icon-user/icon-user-15.jpg')]`}
-              ></div> */}
-              <div
-                style={{
-                  height: '40px',
-                  width: '40px',
-                  backgroundImage: `url('${
-                    formData.photo || 'https://icon-library.com/images/icon-user/icon-user-15.jpg'
-                  }')`,
-                  backgroundSize: 'cover',
-                  backgroundPosition: 'center',
-                  borderRadius: '9999px'
-                }}
-                className="hover:ring-4 user cursor-pointer relative ring-blue-700/30"
-              ></div>
-            </div>
-
-            <div className="flex gap-3 relative items-center md:hidden">
+            <div className="flex gap-3 relative items-center">
               <div
                 onClick={() => setPopUpOpen(!popUpOpen)}
                 style={{
@@ -170,7 +167,15 @@ const HomePage = () => {
                 className="hover:ring-4 user cursor-pointer relative ring-blue-700/30"
               ></div>
               <ul className={`mt-3 bg-white rounded-lg absolute ${popUpOpen ? 'block' : 'hidden'} top-7 right-8 z-10`}>
-                <li onClick={() => navigate('/dashboard')} className="cursor-pointer">
+                <li
+                  onClick={() => {
+                    navigate('/dashboard');
+                    setTimeout(() => {
+                      setPopUpOpen(!popUpOpen);
+                    }, 300);
+                  }}
+                  className="cursor-pointer"
+                >
                   <a className="text-black hover:text-blue-600 text-sm flex items-center hover:bg-blue-50 rounded px-4 py-3 transition-all">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -186,7 +191,7 @@ const HomePage = () => {
                     <span>Profile</span>
                   </a>
                 </li>
-                <li className="cursor-pointer">
+                <li onClick={handleLogout} className="cursor-pointer">
                   <a className="text-black hover:text-blue-600 text-sm flex items-center hover:bg-blue-50 rounded px-4 py-3 transition-all">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"

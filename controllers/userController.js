@@ -15,9 +15,10 @@ const getAllUsers = async (req, res, next) => {
   }
 };
 
-const updateMe = (req, res, next)=>{
+const updateMe = (req, res, next) => {
   req.params.userId = req.user.id;
-}
+  next();
+};
 
 const updateUser = async (req, res, next) => {
   const { userId } = req.params;
@@ -43,9 +44,16 @@ const deleteUser = async (req, res, next) => {
     next(new APPError(err.message, 400));
   }
 };
+
+const getMyDocs = (req, res, next) => {
+  req.params.userId = req.user.id;
+  next();
+};
+
 const getDocs = async (req, res, next) => {
+  const { userId } = req.params;
   try {
-    const user = await User.findById(req.user.id)
+    const user = await User.findById(userId)
       .populate({
         path: 'documents'
       })
@@ -56,6 +64,4 @@ const getDocs = async (req, res, next) => {
   }
 };
 
-
-
-module.exports = { getAllUsers, updateUser, deleteUser, getDocs, updateMe };
+module.exports = { getAllUsers, updateUser, deleteUser, getDocs, updateMe, getMyDocs };

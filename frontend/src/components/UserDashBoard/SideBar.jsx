@@ -21,9 +21,7 @@ const SideBar = () => {
     setEmail(formData.primaryEmail);
   }, []);
 
-  useEffect(() => {
-    dispatch(setTab('rec-sec'));
-  }, []);
+  
 
   return (
     <nav

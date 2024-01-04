@@ -13,7 +13,7 @@ const DashBoard = () => {
   }, []);
   const getDocs = async () => {
     try {
-      const res = await axios.get('/api/v1/users/getDocs', {
+      const res = await axios.get('/api/v1/users/getMyDocs', {
         withCredentials: true,
       });
       dispatch(setDocUpload(res.data.data.data.documents));

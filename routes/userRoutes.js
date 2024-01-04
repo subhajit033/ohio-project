@@ -9,10 +9,11 @@ const {
   verifyEmail,
   authenticateEmailUser,
   forgotPassword,
-  resetPassword
+  resetPassword,
+  logOut
 } = require('../controllers/authControllers');
 const { sendOTPMail } = require('../utils/sendMail');
-const { getAllUsers, updateUser, deleteUser, getDocs, updateMe } = require('../controllers/userController');
+const { getAllUsers, updateUser, deleteUser, getDocs, updateMe, getMyDocs } = require('../controllers/userController');
 const APPError = require('../utils/appError');
 
 const router = express.Router();
@@ -86,7 +87,7 @@ router.post('/signup', signup);
 router.post('/login', login);
 router.post('/verifyEmail', verifyEmail);
 router.get('/authenticateEmail', authenticateEmailUser);
-// router.get('/logout', logOut);
+router.get('/logout', logOut);
 router.post('/forgotPassword', forgotPassword);
 router.patch('/resetPassword/:token', resetPassword);
 
@@ -100,6 +101,9 @@ router.patch('/resetPassword/:token', resetPassword);
 
 // router.get('/myTours', getBookedTours);
 // router.delete('/deleteMe', deleteMe);
+
+router.get('/getDocs/:userId', getDocs);
+
 router.use(protect);
 router.patch(
   '/updateMe',
@@ -107,7 +111,7 @@ router.patch(
   updateUser
 );
 
-router.get('/getDocs', getDocs);
+router.get('/getMyDocs', getMyDocs, getDocs);
 
 router.route('/').get(getAllUsers);
 router.route('/:userId').patch(updateUser).delete(deleteUser);

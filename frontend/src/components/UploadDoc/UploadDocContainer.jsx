@@ -1,17 +1,11 @@
 import UploadDoc from './UploadDoc';
-import {
-  statusDocument,
-  notices,
-  landPatent,
-  privateDocs,
-  incidentReport,
-} from '../../utils/const';
+import { statusDocument, notices, landPatent, privateDocs, incidentReport } from '../../utils/const';
 
 const UploadDocContainer = ({ tab }) => {
   return (
-    <div className='max-w-4xl mx-auto font-[sans-serif] text-[#333] p-6'>
+    <div className="max-w-4xl mx-auto font-[sans-serif] text-[#333] p-6">
       <form>
-        <div className='grid sm:grid-cols-2 gap-y-7 gap-x-12'>
+        <div className="grid sm:grid-cols-2 gap-y-7 gap-x-12">
           {tab === '#Status' &&
             statusDocument.map((name) => {
               return <UploadDoc tab={tab} key={name} name={name} />;
