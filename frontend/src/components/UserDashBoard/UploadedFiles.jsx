@@ -110,6 +110,12 @@ const UploadedFiles = ({ viewDocs, uploadTab }) => {
               .map((doc) => {
                 return <FileIcon key={doc._id} {...doc} />;
               })}
+          {tab === 'Archive' &&
+            docUploaded
+              .filter((doc) => doc.fileType === tab)
+              .map((doc) => {
+                return <FileIcon key={doc._id} {...doc} />;
+              })}
           {/* 'Personal Details', 'Contact', 'Membership' */}
         </div>
       </div>

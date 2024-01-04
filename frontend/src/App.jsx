@@ -109,11 +109,11 @@ const appRouter = createBrowserRouter([
               },
               {
                 path: 'admin/userStatus/approved/uploadDocs/:userId',
-                element: <UserVerification approvedUsers={true} />
+                element: <UserVerification approvedUsers={true} viewDocs={false} />
               },
               {
                 path: 'admin/verifyuser/:userId',
-                element: <UserVerification approvedUsers={false}  />
+                element: <UserVerification approvedUsers={false} viewDocs={false} />
               },
               {
                 path: 'admin/approveUser/:userId',

@@ -12,7 +12,21 @@ const uploadToClould = async (req, res, next) => {
   try {
     const postUrl = await uploadOnclould(req.filename, false);
     if (!postUrl) return next(new APPError('Please provide file name', 404));
+
     const doc = { ...req.body, user: req.params.userId, url: postUrl };
+    console.log(doc.name, doc.user);
+    const prevDoc = await Document.findOne({ name: doc.name, user: doc.user, fileType: { $ne: 'Archive' } });
+    console.log(prevDoc);
+    if (prevDoc) {
+      await Document.findByIdAndUpdate(
+        prevDoc._id,
+        { fileType: 'Archive' },
+        {
+          new: true,
+          runValidators: true
+        }
+      );
+    }
     await Document.create(doc);
     res.status(200).json({
       url: postUrl

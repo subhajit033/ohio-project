@@ -4,7 +4,7 @@ import { PiFilesLight } from 'react-icons/pi';
 import UploadDocContainer from '../UploadDoc/UploadDocContainer';
 import UploadedFiles from '../UserDashBoard/UploadedFiles';
 
-const UploadNav = ({viewDocs}) => {
+const UploadNav = ({ viewDocs }) => {
   const [activeNav, setActiveNav] = useState('Status');
   return (
     <div className="my-8">
@@ -56,8 +56,11 @@ const UploadNav = ({viewDocs}) => {
         </button>
       </div>
       <div className={`border border-gray-100 font-light p-8 rounded text-gray-500 bg-white mt-6`}>
-        {/* <UploadDocContainer tab={activeNav} /> */}
-        <UploadedFiles viewDocs={viewDocs} uploadTab={activeNav} />
+        {viewDocs ? (
+          <UploadedFiles viewDocs={viewDocs} uploadTab={activeNav} />
+        ) : (
+          <UploadDocContainer tab={activeNav} />
+        )}
       </div>
     </div>
   );

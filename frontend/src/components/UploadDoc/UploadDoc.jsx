@@ -17,7 +17,7 @@ const UploadDoc = ({ name, tab }) => {
     const form = new FormData();
     form.append('upload_file', e.target.files[0]);
     form.append('name', name);
-    form.append('fileType', tab.slice(1));
+    form.append('fileType', tab);
     if (confirm('Do you want to upload this file')) {
       setLoading(true);
       try {

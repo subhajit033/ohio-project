@@ -6,25 +6,25 @@ const UploadDocContainer = ({ tab }) => {
     <div className="max-w-4xl mx-auto font-[sans-serif] text-[#333] p-6">
       <form>
         <div className="grid sm:grid-cols-2 gap-y-7 gap-x-12">
-          {tab === '#Status' &&
+          {tab === 'Status' &&
             statusDocument.map((name) => {
               return <UploadDoc tab={tab} key={name} name={name} />;
             })}
-          {tab === '#Notices' &&
+          {tab === 'Notices' &&
             notices.map((name) => {
               return <UploadDoc tab={tab} key={name} name={name} />;
             })}
-          {tab === '#Land' &&
+          {tab === 'Land' &&
             landPatent.map((name) => {
               return <UploadDoc tab={tab} key={name} name={name} />;
             })}
 
-          {tab === '#Incident Report' &&
+          {tab === 'Incident Report' &&
             incidentReport.map((name) => {
               return <UploadDoc tab={tab} key={name} name={name} />;
             })}
 
-          {tab === '#Private' &&
+          {tab === 'Private' &&
             privateDocs.map((name) => {
               return <UploadDoc key={name} name={name} />;
             })}

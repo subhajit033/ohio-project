@@ -14,7 +14,7 @@ const SideBar = () => {
 
   const [openSubTab, setOpenSubTab] = useState('');
 
-  const docSubTab = ['Status', 'Notices', 'Land', 'Incident Report', 'Private'];
+  const docSubTab = ['Status', 'Notices', 'Land', 'Incident Report', 'Private', 'Archive'];
 
   useEffect(() => {
     setName(`${formData.firstName} ${formData.middleName ? formData.middleName : ''} ${formData.lastName}`);
