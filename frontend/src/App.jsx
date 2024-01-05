@@ -87,7 +87,7 @@ const appRouter = createBrowserRouter([
                 path: 'details',
                 element: (
                   <div className=" flex-wrap gap-4 justify-center h-[89vh] overflow-auto items-start border-2 border-red-600 flex-1 py-4 px-4">
-                    <Registration isDashBoard={true} />
+                    <Registration isDashBoard={true} me={true} viewUser={false} />
                   </div>
                 )
               },
@@ -110,6 +110,14 @@ const appRouter = createBrowserRouter([
               {
                 path: 'admin/userStatus/approved/uploadDocs/:userId',
                 element: <UserVerification approvedUsers={true} viewDocs={false} />
+              },
+              {
+                path: 'admin/viewuser/:userId',
+                element: (
+                  <div className=" flex-wrap gap-4 justify-center h-[89vh] overflow-auto items-start border-2 border-red-600 flex-1 py-4 px-4">
+                    <Registration isDashBoard={true} viewUser={true} me={false} />
+                  </div>
+                )
               },
               {
                 path: 'admin/verifyuser/:userId',

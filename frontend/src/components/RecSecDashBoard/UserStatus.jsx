@@ -43,7 +43,7 @@ const UserStatus = () => {
           <h3 className="text-4xl font-extrabold mt-5">{unApprovedUser.length}</h3>
           <p className="text-gray-700 font-semibold mt-3">Unapproved Members</p>
         </div>
-        <div onClick={() => navigate('/dashboard/admin/userStatus/approved')} className="text-center bg-gray-200 p-4 border-b-4 border-green-600 rounded-md">
+        <div onClick={() => navigate('/dashboard/admin/userStatus/approved')} className="text-center bg-gray-200 p-4 border-b-4 border-green-600 rounded-md cursor-pointer">
           <svg xmlns="http://www.w3.org/2000/svg" className="fill-green-600 w-10 inline-block" viewBox="0 0 512 512">
             <path
               d="M437 268.152h-50.118c-6.821 0-13.425.932-19.71 2.646-12.398-24.372-37.71-41.118-66.877-41.118h-88.59c-29.167 0-54.479 16.746-66.877 41.118a74.798 74.798 0 0 0-19.71-2.646H75c-41.355 0-75 33.645-75 75v80.118c0 24.813 20.187 45 45 45h422c24.813 0 45-20.187 45-45v-80.118c0-41.355-33.645-75-75-75zm-300.295 36.53v133.589H45c-8.271 0-15-6.729-15-15v-80.118c0-24.813 20.187-45 45-45h50.118c4.072 0 8.015.553 11.769 1.572a75.372 75.372 0 0 0-.182 4.957zm208.59 133.589h-178.59v-133.59c0-24.813 20.187-45 45-45h88.59c24.813 0 45 20.187 45 45v133.59zm136.705-15c0 8.271-6.729 15-15 15h-91.705v-133.59a75.32 75.32 0 0 0-.182-4.957 44.899 44.899 0 0 1 11.769-1.572H437c24.813 0 45 20.187 45 45v80.119z"

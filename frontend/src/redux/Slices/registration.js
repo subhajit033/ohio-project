@@ -34,6 +34,9 @@ const registrationSlice = createSlice({
     prevStep: (state) => {
       state.step -= 1;
     },
+    setFirstStep: (state)=>{
+      state.step = 1;
+    }
   },
 });
 
@@ -43,7 +46,7 @@ export const {
   prevStep,
   toggleCheckbox,
   setFormDataByLogin,
-  setDocUpload
+  setDocUpload, setFirstStep
 } = registrationSlice.actions;
 // export const selectRegistration = (state) => state.registration;
 export default registrationSlice.reducer;

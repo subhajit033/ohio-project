@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { setToast } from '../../redux/Slices/toastSlice';
 import Loader from '../Loader/Loader';
-const Membership = ({ isDashBoard }) => {
+const Membership = ({ isDashBoard, formDisable }) => {
   const [loading, setLoading] = useState(false);
 
   const dispatch = useDispatch();
@@ -57,7 +57,11 @@ const Membership = ({ isDashBoard }) => {
   return (
     <div className="p-6 md:p-8 lg:p-10">
       {loading ? <Loader /> : ''}
-      <form className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+      <form
+        className={`grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 ${
+          formDisable ? 'pointer-events-none' : 'pointer-events-auto'
+        }`}
+      >
         {membershipType.map((merberShip, i) => {
           return <MemberShipBox key={i} value={merberShip} />;
         })}
@@ -65,7 +69,7 @@ const Membership = ({ isDashBoard }) => {
       <div className="!mt-10 flex justify-between">
         <button
           type="button"
-          className=" shadow-xl py-2.5 px-4 text-sm font-semibold rounded text-white bg-[#333] hover:bg-black focus:outline-none flex items-center gap-1"
+          className=" shadow-xl py-2.5 px-4 text-sm font-semibold rounded text-white bg-[#333] hover:bg-black focus:outline-none flex items-center gap-1 pointer-events-auto"
           onClick={() => dispatch(prevStep())}
         >
           <GrFormPrevious /> Previous
@@ -73,14 +77,14 @@ const Membership = ({ isDashBoard }) => {
         {isDashBoard ? (
           <button
             type="submit"
-            className=" shadow-xl py-2.5 px-4 text-sm font-semibold rounded text-white bg-blue-600 hover:bg-black focus:outline-none flex items-center gap-1"
+            className=" shadow-xl py-2.5 px-4 text-sm font-semibold rounded text-white bg-blue-600 hover:bg-black focus:outline-none flex items-center gap-1 pointer-events-auto"
           >
             Update Changes
           </button>
         ) : (
           <button
             type="submit"
-            className=" shadow-xl py-2.5 px-4 text-sm font-semibold rounded text-white bg-blue-600 hover:bg-black focus:outline-none flex items-center gap-1"
+            className=" shadow-xl py-2.5 px-4 text-sm font-semibold rounded text-white bg-blue-600 hover:bg-black focus:outline-none flex items-center gap-1 pointer-events-auto"
             onClick={handleRegistration}
           >
             {loading ? 'Validating...' : 'Submit'}

@@ -8,7 +8,8 @@ const SideBar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const sideBarOpen = useSelector((store) => store.tabNav.sideBarOpen);
-  const formData = useSelector((store) => store.registration.formData);
+  // const myDetails = useSelector((store) => store.registration.myDetails);
+  const myDetails = useSelector((store) => store.user.myDetails);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
 
@@ -17,11 +18,9 @@ const SideBar = () => {
   const docSubTab = ['Status', 'Notices', 'Land', 'Incident Report', 'Private', 'Archive'];
 
   useEffect(() => {
-    setName(`${formData.firstName} ${formData.middleName ? formData.middleName : ''} ${formData.lastName}`);
-    setEmail(formData.primaryEmail);
+    setName(`${myDetails.firstName} ${myDetails.middleName ? myDetails.middleName : ''} ${myDetails.lastName}`);
+    setEmail(myDetails.primaryEmail);
   }, []);
-
-  
 
   return (
     <nav
@@ -48,7 +47,7 @@ const SideBar = () => {
 
       <div className="flex flex-wrap items-center cursor-pointer mb-12">
         <img
-          src={formData.photo ? formData.photo : 'https://icon-library.com/images/icon-user/icon-user-15.jpg'}
+          src={myDetails.photo ? myDetails.photo : 'https://icon-library.com/images/icon-user/icon-user-15.jpg'}
           className="w-10 h-10 rounded-full border-2 border-white"
         />
         <div className="ml-4">
@@ -130,7 +129,7 @@ const SideBar = () => {
       <div onClick={() => navigate('/dashboard/shop')} className="flex cursor-pointer group">
         <h6 className="text-gray-400 group-hover:text-white text-sm font-bold px-4 flex-1">Shop</h6>
       </div>
-      {formData.role === 'secretary' && (
+      {myDetails.role === 'secretary' && (
         <div onClick={() => navigate('/dashboard/admin')} className="flex cursor-pointer group">
           <h6 className="text-gray-400 group-hover:text-white text-sm font-bold px-4 flex-1">Rec-Sec Dashboard</h6>
         </div>

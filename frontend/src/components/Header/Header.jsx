@@ -9,7 +9,8 @@ import { setToast } from '../../redux/Slices/toastSlice';
 const HomePage = () => {
   const dispatch = useDispatch();
   const toastType = useSelector((store) => store.toast.toastType);
-  const formData = useSelector((store) => store.registration.formData);
+  // const myDetails = useSelector((store) => store.registration.myDetails);
+  const myDetails = useSelector((store) => store.user.myDetails);
   const navigate = useNavigate();
   const isAuthenticated = useSelector((store) => store.auth.isAuthenticated);
   const [popUpOpen, setPopUpOpen] = useState(false);
@@ -158,7 +159,7 @@ const HomePage = () => {
                   height: '40px',
                   width: '40px',
                   backgroundImage: `url('${
-                    formData.photo || 'https://icon-library.com/images/icon-user/icon-user-15.jpg'
+                    myDetails.photo || 'https://icon-library.com/images/icon-user/icon-user-15.jpg'
                   }')`,
                   backgroundSize: 'cover',
                   backgroundPosition: 'center',

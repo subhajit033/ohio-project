@@ -4,7 +4,8 @@ const userSlice = createSlice({
     name: 'user',
     initialState:{
         unApprovedUser: [],
-        approvedUser: []
+        approvedUser: [],
+        myDetails: {}
         
     },
     reducers:{
@@ -14,9 +15,12 @@ const userSlice = createSlice({
         setAprovedUserSlice: (state, action)=>{
             state.approvedUser = action.payload
         },
+        setMyDetails: (state, action)=>{
+            state.myDetails = action.payload;
+        }
     }
 })
 
-export const {setUnApprovedUserSlice, setAprovedUserSlice} = userSlice.actions;
+export const {setUnApprovedUserSlice, setAprovedUserSlice, setMyDetails} = userSlice.actions;
 
 export default userSlice.reducer;

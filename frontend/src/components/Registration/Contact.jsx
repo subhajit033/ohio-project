@@ -3,13 +3,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import { MdNavigateNext } from 'react-icons/md';
 import { GrFormPrevious } from 'react-icons/gr';
 import { county } from '../../utils/const';
-import {
-  setFormData,
-  prevStep,
-  nextStep,
-} from '../../redux/Slices/registration';
+import { setFormData, prevStep, nextStep } from '../../redux/Slices/registration';
 import { setToast } from '../../redux/Slices/toastSlice';
-const Contact = ({ isDashBoard }) => {
+const Contact = ({ isDashBoard, formDisable }) => {
   const dispatch = useDispatch();
   const formData = useSelector((store) => store.registration.formData);
   const handleSubmit = (e) => {
@@ -18,7 +14,7 @@ const Contact = ({ isDashBoard }) => {
       return dispatch(
         setToast({
           type: 'error',
-          message: 'Password and Confirm Password Does not match',
+          message: 'Password and Confirm Password Does not match'
         })
       );
     }
@@ -38,61 +34,53 @@ const Contact = ({ isDashBoard }) => {
     }
   }, [formData.county]);
   return (
-    <div className='max-w-4xl mx-auto font-[sans-serif] text-[#333] p-6'>
-      <form onSubmit={handleSubmit}>
-        <div className='grid sm:grid-cols-2 gap-y-7 gap-x-12'>
+    <div className="max-w-4xl mx-auto font-[sans-serif] text-[#333] p-6">
+      <form className={`${formDisable ? 'pointer-events-none' : 'pointer-events-auto'}`} onSubmit={handleSubmit}>
+        <div className="grid sm:grid-cols-2 gap-y-7 gap-x-12">
           <div>
-            <label className='text-sm mb-2 block'>Mailing address *</label>
+            <label className="text-sm mb-2 block">Mailing address *</label>
             <input
-              name='lname'
-              type='text'
+              name="lname"
+              type="text"
               required
-              className='bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500'
-              placeholder='mailing address'
+              className="bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500"
+              placeholder="mailing address"
               value={formData.mailingAddress}
-              onChange={(e) =>
-                dispatch(setFormData({ mailingAddress: e.target.value }))
-              }
+              onChange={(e) => dispatch(setFormData({ mailingAddress: e.target.value }))}
             />
           </div>
           <div>
-            <label className='text-sm mb-2 block'>Mailing address line 2</label>
+            <label className="text-sm mb-2 block">Mailing address line 2</label>
             <input
-              name='lname'
-              type='text'
-              className='bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500'
-              placeholder='mailing address line 2'
+              name="lname"
+              type="text"
+              className="bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500"
+              placeholder="mailing address line 2"
               value={formData.SecMailingAddress}
-              onChange={(e) =>
-                dispatch(setFormData({ SecMailingAddress: e.target.value }))
-              }
+              onChange={(e) => dispatch(setFormData({ SecMailingAddress: e.target.value }))}
             />
           </div>
 
           <div>
-            <label className='text-sm mb-2 block'>Mailing City *</label>
+            <label className="text-sm mb-2 block">Mailing City *</label>
             <input
-              name='lname'
-              type='text'
+              name="lname"
+              type="text"
               required
-              className='bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500'
-              placeholder='Mailing city'
+              className="bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500"
+              placeholder="Mailing city"
               value={formData.mailingCity}
-              onChange={(e) =>
-                dispatch(setFormData({ mailingCity: e.target.value }))
-              }
+              onChange={(e) => dispatch(setFormData({ mailingCity: e.target.value }))}
             />
           </div>
           <div>
-            <label className='text-sm mb-2 block'>County *</label>
+            <label className="text-sm mb-2 block">County *</label>
             <select
-              className='bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500'
-              name='county'
-              id='county'
+              className="bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500"
+              name="county"
+              id="county"
               required
-              onChange={(e) =>
-                dispatch(setFormData({ county: e.target.value }))
-              }
+              onChange={(e) => dispatch(setFormData({ county: e.target.value }))}
             >
               <option>Select county</option>
               {county.map((county) => {
@@ -105,85 +93,75 @@ const Contact = ({ isDashBoard }) => {
             </select>
           </div>
           <div>
-            <label className='text-sm mb-2 block'>Mailing State</label>
+            <label className="text-sm mb-2 block">Mailing State</label>
             <input
-              name='lname'
-              type='text'
-              className='bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500'
-              placeholder='Enter mailing state'
-              value='Ohio'
+              name="lname"
+              type="text"
+              className="bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500"
+              placeholder="Enter mailing state"
+              value="Ohio"
               disabled
             />
           </div>
           <div>
-            <label className='text-sm mb-2 block'>Mailing Postal Code</label>
+            <label className="text-sm mb-2 block">Mailing Postal Code</label>
             <input
-              name='lname'
-              type='text'
-              className='bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500'
-              placeholder='Postal code'
+              name="lname"
+              type="text"
+              className="bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500"
+              placeholder="Postal code"
               required
               value={formData.postalCode}
-              onChange={(e) =>
-                dispatch(setFormData({ postalCode: e.target.value }))
-              }
+              onChange={(e) => dispatch(setFormData({ postalCode: e.target.value }))}
             />
           </div>
           <div>
-            <label className='text-sm mb-2 block'>Phone No.</label>
+            <label className="text-sm mb-2 block">Phone No.</label>
             <input
-              name='lname'
-              type='text'
-              className='bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500'
-              placeholder='Enter Phone no'
+              name="lname"
+              type="text"
+              className="bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500"
+              placeholder="Enter Phone no"
               required
               value={formData.mobileNo}
-              onChange={(e) =>
-                dispatch(setFormData({ mobileNo: e.target.value }))
-              }
+              onChange={(e) => dispatch(setFormData({ mobileNo: e.target.value }))}
             />
           </div>
           <div>
-            <label className='text-sm mb-2 block'>Email Id</label>
+            <label className="text-sm mb-2 block">Email Id</label>
             <input
-              name='email'
-              type='email'
-              className='bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500'
-              placeholder='Enter email'
+              name="email"
+              type="email"
+              className="bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500"
+              placeholder="Enter email"
               required
               value={formData.primaryEmail}
-              onChange={(e) =>
-                dispatch(setFormData({ primaryEmail: e.target.value }))
-              }
+              onChange={(e) => dispatch(setFormData({ primaryEmail: e.target.value }))}
             />
           </div>
           {!isDashBoard && (
             <div>
-              <label className='text-sm mb-2 block'>Confirm Email Id</label>
+              <label className="text-sm mb-2 block">Confirm Email Id</label>
               <input
-                name='email'
-                type='text'
-                className='bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500'
-                placeholder='Confirm email'
+                name="email"
+                type="text"
+                className="bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500"
+                placeholder="Confirm email"
                 required
                 value={formData.confirmEmail}
-                onChange={(e) =>
-                  dispatch(setFormData({ confirmEmail: e.target.value }))
-                }
+                onChange={(e) => dispatch(setFormData({ confirmEmail: e.target.value }))}
               />
             </div>
           )}
           <div>
-            <label className='text-sm mb-2 block'>Secondary Email Id</label>
+            <label className="text-sm mb-2 block">Secondary Email Id</label>
             <input
-              name='email'
-              type='text'
-              className='bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500'
-              placeholder='Secondary email'
+              name="email"
+              type="text"
+              className="bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500"
+              placeholder="Secondary email"
               value={formData.secondaryEmail}
-              onChange={(e) =>
-                dispatch(setFormData({ secondaryEmail: e.target.value }))
-              }
+              onChange={(e) => dispatch(setFormData({ secondaryEmail: e.target.value }))}
             />
           </div>
 
@@ -191,17 +169,15 @@ const Contact = ({ isDashBoard }) => {
             ''
           ) : (
             <div>
-              <label className='text-sm mb-2 block'>Password *</label>
+              <label className="text-sm mb-2 block">Password *</label>
               <input
-                name='password'
-                type='password'
-                className='bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500'
-                placeholder='Enter password'
+                name="password"
+                type="password"
+                className="bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500"
+                placeholder="Enter password"
                 required
                 value={formData.password}
-                onChange={(e) =>
-                  dispatch(setFormData({ password: e.target.value }))
-                }
+                onChange={(e) => dispatch(setFormData({ password: e.target.value }))}
               />
             </div>
           )}
@@ -209,63 +185,55 @@ const Contact = ({ isDashBoard }) => {
             ''
           ) : (
             <div>
-              <label className='text-sm mb-2 block'>Confirm Password *</label>
+              <label className="text-sm mb-2 block">Confirm Password *</label>
               <input
-                name='cpassword'
-                type='password'
-                className='bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500'
-                placeholder='confirm password'
+                name="cpassword"
+                type="password"
+                className="bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500"
+                placeholder="confirm password"
                 required
                 value={formData.passwordConfirm}
-                onChange={(e) =>
-                  dispatch(setFormData({ passwordConfirm: e.target.value }))
-                }
+                onChange={(e) => dispatch(setFormData({ passwordConfirm: e.target.value }))}
               />
             </div>
           )}
 
           <div>
-            <label className='text-sm mb-2 block'>
-              Recording Secretary Email *
-            </label>
+            <label className="text-sm mb-2 block">Recording Secretary Email *</label>
             <input
-              name='lname'
-              type='email'
-              className='bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500'
+              name="lname"
+              type="email"
+              className="bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500"
               placeholder="Enter Land Recorder's Email"
               required
               value={formData.secretaryEmail}
-              onChange={(e) =>
-                dispatch(setFormData({ secretaryEmail: e.target.value }))
-              }
+              onChange={(e) => dispatch(setFormData({ secretaryEmail: e.target.value }))}
             />
           </div>
           <div>
-            <label className='text-sm mb-2 block'>{`Coordinator's Email`}</label>
+            <label className="text-sm mb-2 block">{`Coordinator's Email`}</label>
             <input
-              name='lname'
-              type='email'
-              className='bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500'
+              name="lname"
+              type="email"
+              className="bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500"
               placeholder="Enter state Coordinater's"
               value={formData.coordinatorEmail}
-              onChange={(e) =>
-                dispatch(setFormData({ coordinatorEmail: e.target.value }))
-              }
+              onChange={(e) => dispatch(setFormData({ coordinatorEmail: e.target.value }))}
             />
           </div>
         </div>
 
-        <div className='!mt-10 flex justify-between'>
+        <div className="!mt-10 flex justify-between">
           <button
-            type='button'
-            className=' shadow-xl py-2.5 px-4 text-sm font-semibold rounded text-white bg-[#333] hover:bg-black focus:outline-none flex items-center gap-1'
+            type="button"
+            className=" shadow-xl py-2.5 px-4 text-sm font-semibold rounded text-white bg-[#333] hover:bg-black focus:outline-none flex items-center gap-1 pointer-events-auto"
             onClick={() => dispatch(prevStep())}
           >
             <GrFormPrevious /> Previous
           </button>
           <button
-            type='submit'
-            className=' shadow-xl py-2.5 px-4 text-sm font-semibold rounded text-white bg-[#333] hover:bg-black focus:outline-none flex items-center gap-1'
+            type="submit"
+            className=" shadow-xl py-2.5 px-4 text-sm font-semibold rounded text-white bg-[#333] hover:bg-black focus:outline-none flex items-center gap-1 pointer-events-auto"
           >
             Next <MdNavigateNext />
           </button>

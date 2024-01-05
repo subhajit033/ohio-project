@@ -5,11 +5,11 @@ import { setToast } from '../../redux/Slices/toastSlice';
 import { setFormData, nextStep } from '../../redux/Slices/registration';
 import axios from 'axios';
 import Loader from '../Loader/Loader';
-const Identity = ({ isDashBoard }) => {
+const Identity = ({ isDashBoard, formDisable }) => {
   console.log('isDash ', isDashBoard);
   const dispatch = useDispatch();
   const formData = useSelector((store) => store.registration.formData);
-  const[loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const [DOB, setDOB] = useState('');
 
@@ -33,8 +33,7 @@ const Identity = ({ isDashBoard }) => {
     // Check if the birthday has occurred this year
     if (
       today.getMonth() < birthDate.getMonth() ||
-      (today.getMonth() === birthDate.getMonth() &&
-        today.getDate() < birthDate.getDate())
+      (today.getMonth() === birthDate.getMonth() && today.getDate() < birthDate.getDate())
     ) {
       age--;
     }
@@ -50,13 +49,11 @@ const Identity = ({ isDashBoard }) => {
         method: 'post',
         withCredentials: true,
         url: '/api/v1/upload',
-        data: upload,
+        data: upload
       });
       console.log(res);
       setLoading(false);
-      dispatch(
-        setToast({ type: 'success', message: 'File uploaded succesfully' })
-      );
+      dispatch(setToast({ type: 'success', message: 'File uploaded succesfully' }));
 
       if (fileType === 'photo') {
         dispatch(setFormData({ photo: res.data.url }));
@@ -71,7 +68,7 @@ const Identity = ({ isDashBoard }) => {
       dispatch(
         setToast({
           type: 'error',
-          message: 'Error occour while file uploading',
+          message: 'Error occour while file uploading'
         })
       );
     }
@@ -80,8 +77,7 @@ const Identity = ({ isDashBoard }) => {
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     return date.toISOString().split('T')[0];
-  }
-  
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -89,109 +85,102 @@ const Identity = ({ isDashBoard }) => {
   };
 
   return (
-    <div className='max-w-4xl mx-auto font-[sans-serif] text-[#333] p-6'>
-      {loading? <Loader />: ""}
-      <form onSubmit={handleSubmit}>
-        <div className='grid sm:grid-cols-2 gap-y-7 gap-x-12'>
-          <div>
-            <label className='text-sm mb-2 block'>First Name *</label>
-            <input
-              name='name'
-              type='text'
-              className='bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500'
-              placeholder='First Name'
-              value={formData.firstName}
-              required
-              onChange={(e) =>
-                dispatch(setFormData({ firstName: e.target.value }))
-              }
-            />
-          </div>
-          <div>
-            <label className='text-sm mb-2 block'>Middle Name</label>
-            <input
-              name='mname'
-              type='text'
-              className='bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500'
-              placeholder='middle name'
-              value={formData.middleName}
-              onChange={(e) =>
-                dispatch(setFormData({ middleName: e.target.value }))
-              }
-            />
-          </div>
-          <div>
-            <label className='text-sm mb-2 block'>Last Name *</label>
-            <input
-              name='lname'
-              type='text'
-              className='bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500'
-              placeholder='Last name'
-              value={formData.lastName}
-              required
-              onChange={(e) =>
-                dispatch(setFormData({ lastName: e.target.value }))
-              }
-            />
-          </div>
+    <div className="max-w-4xl mx-auto font-[sans-serif] text-[#333] p-6">
+      {loading ? <Loader /> : ''}
+      <form className={`${formDisable ? 'pointer-events-none' : 'pointer-events-auto'}`} onSubmit={handleSubmit}>
+        <fieldset>
+          <div className="grid sm:grid-cols-2 gap-y-7 gap-x-12">
+            <div>
+              <label className="text-sm mb-2 block">First Name *</label>
+              <input
+                name="name"
+                type="text"
+                className="bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500"
+                placeholder="First Name"
+                value={formData.firstName}
+                required
+                onChange={(e) => dispatch(setFormData({ firstName: e.target.value }))}
+              />
+            </div>
+            <div>
+              <label className="text-sm mb-2 block">Middle Name</label>
+              <input
+                name="mname"
+                type="text"
+                className="bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500"
+                placeholder="middle name"
+                value={formData.middleName}
+                onChange={(e) => dispatch(setFormData({ middleName: e.target.value }))}
+              />
+            </div>
+            <div>
+              <label className="text-sm mb-2 block">Last Name *</label>
+              <input
+                name="lname"
+                type="text"
+                className="bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500"
+                placeholder="Last name"
+                value={formData.lastName}
+                required
+                onChange={(e) => dispatch(setFormData({ lastName: e.target.value }))}
+              />
+            </div>
 
-          <div>
-            <label className='text-sm mb-2 block'>Date of Birth *</label>
-            <input
-              name='cpassword'
-              type='date'
-              className='bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500'
-              required
-              placeholder='Enter DOB'
-              value={isDashBoard? formatDate(formData.born): formData.born}
-              onChange={(e) => {
-                dispatch(setFormData({ born: e.target.value }));
-                setDOB(e.target.value);
-              }}
-            />
-          </div>
+            <div>
+              <label className="text-sm mb-2 block">Date of Birth *</label>
+              <input
+                name="cpassword"
+                type="date"
+                className="bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500"
+                required
+                placeholder="Enter DOB"
+                value={isDashBoard ? formatDate(formData.born) : formData.born}
+                onChange={(e) => {
+                  dispatch(setFormData({ born: e.target.value }));
+                  setDOB(e.target.value);
+                }}
+              />
+            </div>
 
-          <div>
-            <label className='text-sm mb-2 block'>Sex *</label>
-            <select
-              className='bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500'
-              name='sex'
-              id='sex'
-              required
-              onChange={(e) => dispatch(setFormData({ sex: e.target.value }))}
-            >
-              <option>Select your gender</option>
-              <option value='Male'>Man</option>
-              <option value='Female'>Woman</option>
-              <option value='Boy'>Boy</option>
-              <option value='Girl'>Girl</option>
-            </select>
-          </div>
-          <div>
-            <label className='text-sm mb-2 block'>Adult/Minor</label>
-            <input
-              name='lname'
-              type='text'
-              className='bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500'
-              placeholder='Adult/Minor'
-              value={formData.personType}
-              disabled
-            />
-          </div>
-          <div>
-            <label className='text-sm mb-2 block'>Place of Inhabitance</label>
-            <input
-              name='lname'
-              type='text'
-              className='bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500'
-              placeholder='place of inhabitance'
-              value={formData.placeOfInhabitance}
-              onChange={(e) =>
-                dispatch(setFormData({ placeOfInhabitance: e.target.value }))
-              }
-            />
-          </div>
-          {/* <div>
+            <div>
+              <label className="text-sm mb-2 block">Sex *</label>
+              <select
+                className="bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500"
+                name="sex"
+                id="sex"
+                required
+                onChange={(e) => dispatch(setFormData({ sex: e.target.value }))}
+              >
+                <option>Select your gender</option>
+                <option value="Male">Man</option>
+                <option value="Female">Woman</option>
+                <option value="Boy">Boy</option>
+                <option value="Girl">Girl</option>
+              </select>
+            </div>
+            <div>
+              <label className="text-sm mb-2 block">Adult/Minor</label>
+              <input
+                name="lname"
+                type="text"
+                className="bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500"
+                placeholder="Adult/Minor"
+                value={formData.personType}
+                disabled
+              />
+            </div>
+            <div>
+              <label className="text-sm mb-2 block">Place of Inhabitance</label>
+              <input
+                name="lname"
+                type="text"
+                className="bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500"
+                placeholder="place of inhabitance"
+                value={formData.placeOfInhabitance}
+                onChange={(e) => dispatch(setFormData({ placeOfInhabitance: e.target.value }))}
+              />
+            </div>
+            {/* <div>
             <label className='text-sm mb-2 block'>Photo</label>
             <input
               name='lname'
@@ -213,59 +202,51 @@ const Identity = ({ isDashBoard }) => {
               onChange={(e) => uploadFile(e.target.files[0], 'seal')}
             />
           </div> */}
-          <div className='form__group form__photo-upload'>
-            <img
-              id='user-avatar'
-              className='form__user-photo'
-              src={
-                formData.photo
-                  ? formData.photo
-                  : 'https://icon-library.com/images/icon-user/icon-user-15.jpg'
-              }
-              alt='User photo'
-            />
-            <input
-              className='form__upload'
-              type='file'
-              accept='image/'
-              name='image'
-              onChange={(e) => uploadFile(e.target.files[0], 'photo')}
-              id='photo'
-            />
-            <label htmlFor='photo'>Choose user photo</label>
+            <div className="form__group form__photo-upload">
+              <img
+                id="user-avatar"
+                className="form__user-photo"
+                src={formData.photo ? formData.photo : 'https://icon-library.com/images/icon-user/icon-user-15.jpg'}
+                alt="User photo"
+              />
+              <input
+                className="form__upload"
+                type="file"
+                accept="image/"
+                name="image"
+                onChange={(e) => uploadFile(e.target.files[0], 'photo')}
+                id="photo"
+              />
+              <label htmlFor="photo">Choose user photo</label>
+            </div>
+            <div className="form__group form__photo-upload">
+              <img
+                id="user-avatar"
+                className="form__user-photo"
+                src={formData.seal ? formData.seal : 'https://icon-library.com/images/icon-user/icon-user-15.jpg'}
+                alt="User photo"
+              />
+              <input
+                className="form__upload"
+                type="file"
+                accept="image/"
+                name="image"
+                onChange={(e) => uploadFile(e.target.files[0], 'seal')}
+                id="photo"
+              />
+              <label htmlFor="photo">Choose seal photo</label>
+            </div>
           </div>
-          <div className='form__group form__photo-upload'>
-            <img
-              id='user-avatar'
-              className='form__user-photo'
-              src={
-                formData.seal
-                  ? formData.seal
-                  : 'https://icon-library.com/images/icon-user/icon-user-15.jpg'
-              }
-              alt='User photo'
-            />
-            <input
-              className='form__upload'
-              type='file'
-              accept='image/'
-              name='image'
-              onChange={(e) => uploadFile(e.target.files[0], 'seal')}
-              id='photo'
-            />
-            <label htmlFor='photo'>Choose seal photo</label>
-          </div>
-        </div>
-        
-          <div className='!mt-10 flex justify-end'>
+
+          <div className="!mt-10 flex justify-end">
             <button
-              type='submit'
-              className=' shadow-xl py-2.5 px-4 text-sm font-semibold rounded text-white bg-[#333] hover:bg-black focus:outline-none flex items-center gap-1'
+              type="submit"
+              className="shadow-xl py-2.5 px-4 text-sm font-semibold rounded text-white bg-[#333] hover:bg-black focus:outline-none flex items-center gap-1 pointer-events-auto"
             >
               Next <MdNavigateNext />
             </button>
           </div>
-        
+        </fieldset>
       </form>
     </div>
   );

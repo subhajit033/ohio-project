@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { setToast } from '../../redux/Slices/toastSlice';
 import { setAuthentication } from '../../redux/Slices/authSlice';
 import { setFormDataByLogin } from '../../redux/Slices/registration';
+import { setMyDetails } from '../../redux/Slices/userSlice';
 import { Link, useNavigate } from 'react-router-dom';
 import Loader from '../Loader/Loader';
 
@@ -28,6 +29,7 @@ const Login = () => {
         setLoading(false);
         dispatch(setAuthentication(true));
         dispatch(setFormDataByLogin(res.data.data.user));
+        dispatch(setMyDetails(res.data.data.user));
 
         dispatch(setToast({ type: 'success', message: 'Login SuccessFull' }));
         navigate('/');

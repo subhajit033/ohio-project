@@ -1,21 +1,36 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Identity from './Identity';
 import Contact from './Contact';
 import Membership from './Membership';
 import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { setFormData } from '../../redux/Slices/registration';
+import { setFormData, setFormDataByLogin, setFirstStep } from '../../redux/Slices/registration';
+import { useParams } from 'react-router-dom';
 
-const Registration = ({ isDashBoard }) => {
+const Registration = ({ isDashBoard, viewUser, me }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { userId } = useParams();
   const step = useSelector((store) => store.registration.step);
   const isAuthenticated = useSelector((store) => store.auth.isAuthenticated);
-  
+  const approvedUser = useSelector((store) => store.user.approvedUser);
+  const myDetails = useSelector((store) => store.user.myDetails);
+  const user = approvedUser.filter((user) => user._id === userId)[0];
+  const [formDisable, setFormDisable] = useState(false);
   useEffect(() => {
     !isAuthenticated && authenticateEmail();
-  }, []);
+    if (viewUser) {
+      dispatch(setFormDataByLogin(user));
+      setFormDisable(true);
+    }
+    if (me) {
+      console.log(myDetails);
+      dispatch(setFormDataByLogin(myDetails));
+      setFormDisable(false)
+    }
+    dispatch(setFirstStep())
+  }, [viewUser, me]);
   const authenticateEmail = async () => {
     try {
       const res = await axios.get('/api/v1/users/authenticateEmail', { withCredentials: true });
@@ -90,9 +105,9 @@ const Registration = ({ isDashBoard }) => {
           </div>
         </div>
       </div>
-      {step === 1 && <Identity isDashBoard={isDashBoard} />}
-      {step === 2 && <Contact isDashBoard={isDashBoard} />}
-      {step === 3 && <Membership isDashBoard={isDashBoard} />}
+      {step === 1 && <Identity isDashBoard={isDashBoard} formDisable={formDisable} />}
+      {step === 2 && <Contact isDashBoard={isDashBoard} formDisable={formDisable} />}
+      {step === 3 && <Membership isDashBoard={isDashBoard} formDisable={formDisable} />}
     </div>
   );
 };

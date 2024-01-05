@@ -92,12 +92,25 @@ const UserVerification = ({ approvedUsers, viewDocs }) => {
               </button>
             </div>
           ) : (
-            <button
-              type="button"
-              className="px-6 py-2.5 rounded text-white text-sm tracking-wider font-semibold border-none outline-none bg-green-600 hover:bg-green-700 active:bg-green-600"
-            >
-              Update User
-            </button>
+            <div className="space-x-4">
+              <button
+                type="button"
+                onClick={() => {
+                  dispatch(setToast({ type: 'success', message: 'User updated succesfully' }));
+                  navigate('/dashboard/admin');
+                }}
+                className="px-6 py-2.5 rounded text-white text-sm tracking-wider font-semibold border-none outline-none bg-green-600 hover:bg-green-700 active:bg-green-600"
+              >
+                Update User
+              </button>
+              <button
+                type="button"
+                onClick={() => navigate(`/dashboard/admin/viewuser/${userId}`)}
+                className="px-6 py-2.5 rounded text-white text-sm tracking-wider font-semibold border-none outline-none bg-blue-600 hover:bg-blue-700 active:bg-green-600"
+              >
+                View User
+              </button>
+            </div>
           )}
         </div>
         <UploadNav viewDocs={viewDocs} />

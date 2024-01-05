@@ -105,11 +105,7 @@ router.patch('/resetPassword/:token', resetPassword);
 router.get('/getDocs/:userId', getDocs);
 
 router.use(protect);
-router.patch(
-  '/updateMe',
-  updateMe,
-  updateUser
-);
+router.patch('/updateMe', updateMe, updateUser);
 
 router.get('/getMyDocs', getMyDocs, getDocs);
 
