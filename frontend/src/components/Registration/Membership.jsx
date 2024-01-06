@@ -9,6 +9,9 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { setToast } from '../../redux/Slices/toastSlice';
 import Loader from '../Loader/Loader';
+import { setFormDataByLogin } from '../../redux/Slices/registration';
+import { setMyDetails } from '../../redux/Slices/userSlice';
+
 const Membership = ({ isDashBoard, formDisable }) => {
   const [loading, setLoading] = useState(false);
 
@@ -54,6 +57,40 @@ const Membership = ({ isDashBoard, formDisable }) => {
     }
   };
 
+  const updateMe = async () => {
+    setLoading(true);
+    try {
+      const res = await axios({
+        method: 'patch',
+        withCredentials: true,
+        url: '/api/v1/users/updateMe',
+        data: formData
+      });
+      setLoading(false);
+      if (res.data.status) {
+        dispatch(setFormDataByLogin(res.data.data.data));
+        dispatch(setMyDetails(res.data.data.data));
+        dispatch(
+          setToast({
+            type: 'success',
+            message: 'Data Updated Successfully'
+          })
+        );
+      } else {
+        throw new Error('failed');
+      }
+    } catch (err) {
+      setLoading(false);
+      dispatch(
+        setToast({
+          type: 'error',
+          message: 'Something went wrong'
+        })
+      );
+      console.log(err);
+    }
+  };
+
   return (
     <div className="p-6 md:p-8 lg:p-10">
       {loading ? <Loader /> : ''}
@@ -76,10 +113,11 @@ const Membership = ({ isDashBoard, formDisable }) => {
         </button>
         {isDashBoard ? (
           <button
+            onClick={updateMe}
             type="submit"
             className=" shadow-xl py-2.5 px-4 text-sm font-semibold rounded text-white bg-blue-600 hover:bg-black focus:outline-none flex items-center gap-1 pointer-events-auto"
           >
-            Update Changes
+            {loading ? 'Updaing changes..' : 'Update Changes'}
           </button>
         ) : (
           <button

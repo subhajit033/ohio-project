@@ -12,6 +12,7 @@ const SideBar = () => {
   const myDetails = useSelector((store) => store.user.myDetails);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [photo, setPhoto] = useState('');
 
   const [openSubTab, setOpenSubTab] = useState('');
 
@@ -20,7 +21,8 @@ const SideBar = () => {
   useEffect(() => {
     setName(`${myDetails.firstName} ${myDetails.middleName ? myDetails.middleName : ''} ${myDetails.lastName}`);
     setEmail(myDetails.primaryEmail);
-  }, []);
+    setPhoto(myDetails.photo ? myDetails.photo : 'https://icon-library.com/images/icon-user/icon-user-15.jpg')
+  }, [myDetails]);
 
   return (
     <nav
@@ -47,7 +49,7 @@ const SideBar = () => {
 
       <div className="flex flex-wrap items-center cursor-pointer mb-12">
         <img
-          src={myDetails.photo ? myDetails.photo : 'https://icon-library.com/images/icon-user/icon-user-15.jpg'}
+          src={photo}
           className="w-10 h-10 rounded-full border-2 border-white"
         />
         <div className="ml-4">

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
-const crypto = require('crypto')
+const crypto = require('crypto');
 const userSchema = new mongoose.Schema(
   {
     firstName: {
@@ -75,7 +75,6 @@ const userSchema = new mongoose.Schema(
       type: String
     },
     secondaryEmail: {
-      required: true,
       type: String
     },
     password: {
@@ -121,6 +120,7 @@ const userSchema = new mongoose.Schema(
     recordingNumber: String,
     masterRecord: String,
     credentialCardPrintDate: Date,
+    nationality: String,
     masterCredentialCardNumber: String,
     verified: {
       type: Boolean,
@@ -139,14 +139,11 @@ const userSchema = new mongoose.Schema(
   { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );
 
-
 userSchema.virtual('documents', {
   ref: 'Document',
   foreignField: 'user',
-  localField: '_id',
+  localField: '_id'
 });
-
-
 
 userSchema.pre('save', async function (next) {
   if (!this.isModified('password')) return next();
@@ -158,10 +155,6 @@ userSchema.pre('save', async function (next) {
 
   next();
 });
-
-
-
-
 
 userSchema.methods.changedPasswordAfter = function (JWTTimestamp) {
   if (this.passwordChangedAt) {
