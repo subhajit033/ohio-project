@@ -119,6 +119,10 @@ const userSchema = new mongoose.Schema(
     //for recording secretary part(will update by rec-sec)
     recordingNumber: String,
     masterRecord: String,
+    status:{
+      type: String,
+      default: 'In process'
+    },
     credentialCardPrintDate: Date,
     nationality: String,
     masterCredentialCardNumber: String,

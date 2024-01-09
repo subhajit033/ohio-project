@@ -1,13 +1,14 @@
-import React from 'react';
+import { useSelector } from 'react-redux';
 
 const CredentialCard = () => {
+  const myDetails = useSelector((store) => store.user.myDetails);
   return (
     <div className=" flex-wrap gap-4 justify-center h-[89vh] overflow-auto items-start border-2 border-red-600 flex-1 py-4 px-4">
       <div className="flex justify-center items-start gap-20 border-2 border-dashed border-black py-10">
-        <div className='space-y-4'>
+        <div className="space-y-4">
           <img
             className="w-28 h-28 rounded-full"
-            src='https://icon-library.com/images/icon-user/icon-user-15.jpg'
+            src="https://icon-library.com/images/icon-user/icon-user-15.jpg"
             alt="avatar"
           />
           <img
@@ -17,24 +18,95 @@ const CredentialCard = () => {
           />
         </div>
         <div>
-          <p className='font-semibold text-xl'>Name - Subhajit Kundu</p>
-          <p className='font-semibold text-xl'>Born - 20 Dec, 2004</p>
-          <p className='font-semibold text-xl'>Sex - male</p>
-          <p className='font-semibold text-xl'>Place Of Inhabitance - Delhi, In</p>
-          <p className='font-semibold text-xl'>Mailing Address - Dummy</p>
-          <p className='font-semibold text-xl'>Mailing Address 2 - dummy</p>
-          <p className='font-semibold text-xl'>Mailing City - dummy</p>
-          <p className='font-semibold text-xl'>County - dummy</p>
-          <p className='font-semibold text-xl'>Mailing State - dummy</p>
-          <p className='font-semibold text-xl'>Mailing Postal Code - dummy</p>
-          <p className='font-semibold text-xl'>Nationality - Us</p>
-          <p className='font-semibold text-xl'>Status - dummy</p>
-          <p className='font-semibold text-xl'>Recording Number - dummy</p>
-          <p className='font-semibold text-xl'>Master Record - dummy</p>
-          <p className='font-semibold text-xl'>Account Created - dummy</p>
-          <p className='font-semibold text-xl'>Date Updated - dummy</p>
-          <p className='font-semibold text-xl'>Print Credential Card Date - dummy</p>
-          <p className='font-semibold text-xl'>Master Credential Card Number - dummy</p>
+          <p className="font-semibold lg:text-xl text-blue-500">
+            Name -{' '}
+            <span className='text-purple-500'>{`${myDetails.firstName} ${myDetails.middleName ? myDetails.middleName : ''} ${
+              myDetails.lastName
+            }`}</span>
+          </p>
+          <p className="font-semibold lg:text-xl text-blue-500">
+            Born -{' '}
+            <span className='text-purple-500'>
+              {new Date(myDetails?.born).toLocaleString('en-US', {
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric'
+              })}
+            </span>
+          </p>
+          <p className="font-semibold lg:text-xl text-blue-500">
+            Sex - <span className='text-purple-500'> {myDetails.sex}</span>
+          </p>
+          <p className="font-semibold lg:text-xl text-blue-500">
+            Place Of Inhabitance - <span className='text-purple-500'> {myDetails.placeOfInhabitance}</span>
+          </p>
+          <p className="font-semibold lg:text-xl text-blue-500">
+            Mailing Address - <span className='text-purple-500'> {myDetails.mailingAddress}</span>
+          </p>
+          {myDetails.SecMailingAddress && (
+            <p className="font-semibold lg:text-xl text-blue-500">
+              Mailing Address 2 - <span className='text-purple-500'> {myDetails.SecMailingAddress}</span>
+            </p>
+          )}
+          <p className="font-semibold lg:text-xl text-blue-500">
+            Mailing City - <span className='text-purple-500'> {myDetails.mailingCity}</span>
+          </p>
+          <p className="font-semibold lg:text-xl text-blue-500">
+            County - <span className='text-purple-500'> {myDetails.county}</span>
+          </p>
+          <p className="font-semibold lg:text-xl text-blue-500">
+            Mailing State - <span className='text-purple-500'> {myDetails.mailingState}</span>
+          </p>
+          <p className="font-semibold lg:text-xl text-blue-500">
+            Mailing Postal Code - <span className='text-purple-500'> {myDetails.postalCode}</span>
+          </p>
+          <p className="font-semibold lg:text-xl text-blue-500">
+            Nationality - <span className='text-purple-500'> {myDetails.nationality}</span>
+          </p>
+          <p className="font-semibold lg:text-xl text-blue-500">
+            Status - <span className='text-purple-500'> {myDetails.status}</span>
+          </p>
+          <p className="font-semibold lg:text-xl text-blue-500">
+            Recording Number - <span className='text-purple-500'> {myDetails.recordingNumber}</span>
+          </p>
+          <p className="font-semibold lg:text-xl text-blue-500">
+            Master Record - <span className='text-purple-500'> {myDetails.masterRecord}</span>
+          </p>
+          <p className="font-semibold lg:text-xl text-blue-500">
+            Account Created -{' '}
+            <span className='text-purple-500'>
+              {new Date(myDetails?.createdAt).toLocaleString('en-US', {
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric'
+              })}
+            </span>
+          </p>
+          <p className="font-semibold lg:text-xl text-blue-500">
+            Date Updated -{' '}
+            <span className='text-purple-500'>
+              {new Date(myDetails?.updatedAt).toLocaleString('en-US', {
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric'
+              })}
+            </span>
+          </p>
+          <p className="font-semibold lg:text-xl text-blue-500">
+            Print Credential Card Date -{' '}
+            <span className='text-purple-500'>
+              {myDetails.credentialCardPrintDate
+                ? new Date(myDetails?.credentialCardPrintDate).toLocaleString('en-US', {
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric'
+                  })
+                : 'NA'}
+            </span>
+          </p>
+          <p className="font-semibold lg:text-xl text-blue-500">
+            Master Credential Card Number - <span className='text-purple-500'> {myDetails.masterCredentialCardNumber}</span>
+          </p>
         </div>
       </div>
     </div>
