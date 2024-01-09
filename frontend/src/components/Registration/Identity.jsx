@@ -40,40 +40,81 @@ const Identity = ({ isDashBoard, formDisable }) => {
     dispatch(setFormData({ personType: age >= 18 ? 'Adult' : 'Minor' }));
   }
 
-  const uploadFile = async (file, fileType) => {
-    try {
-      setLoading(true);
-      const upload = new FormData();
-      upload.append('uploadPhoto', file);
-      const res = await axios({
-        method: 'post',
-        withCredentials: true,
-        url: '/api/v1/upload',
-        data: upload
-      });
-      console.log(res);
-      setLoading(false);
-      dispatch(setToast({ type: 'success', message: 'File uploaded succesfully' }));
+  const uploadFile = async (file) => {
+    if (confirm('Do you want to upload file')) {
+      try {
+        setLoading(true);
+        const upload = new FormData();
+        upload.append('uploadPhoto', file);
+        const res = await axios({
+          method: 'post',
+          withCredentials: true,
+          url: '/api/v1/upload',
+          data: upload
+        });
+        console.log(res);
+        setLoading(false);
+        dispatch(setToast({ type: 'success', message: 'File uploaded succesfully' }));
+        dispatch(setFormData({ photo: res.data.url }));       
 
-      if (fileType === 'photo') {
-        dispatch(setFormData({ photo: res.data.url }));
-      } else if (fileType === 'seal') {
-        dispatch(setFormData({ seal: res.data.url }));
+        console.log(res);
+      } catch (error) {
+        console.log(error);
+        setLoading(false);
+        dispatch(
+          setToast({
+            type: 'error',
+            message: 'Error occour while file uploading'
+          })
+        );
       }
-
-      console.log(res);
-    } catch (error) {
-      console.log(error);
-      setLoading(false);
+    } else {
       dispatch(
         setToast({
           type: 'error',
-          message: 'Error occour while file uploading'
+          message: 'Upload Cancelled'
         })
       );
     }
   };
 
+  const uploadSeal = async (file) => {
+    if (confirm('Do you want to upload file')) {
+      try {
+        setLoading(true);
+        const upload = new FormData();
+        upload.append('uploadPhoto', file);
+        const res = await axios({
+          method: 'post',
+          withCredentials: true,
+          url: '/api/v1/upload',
+          data: upload
+        });
+        console.log(res);
+        setLoading(false);
+        dispatch(setToast({ type: 'success', message: 'File uploaded succesfully' }));
+        dispatch(setFormData({ seal: res.data.url }));        
+
+        console.log(res);
+      } catch (error) {
+        console.log(error);
+        setLoading(false);
+        dispatch(
+          setToast({
+            type: 'error',
+            message: 'Error occour while file uploading'
+          })
+        );
+      }
+    } else {
+      dispatch(
+        setToast({
+          type: 'error',
+          message: 'Upload Cancelled'
+        })
+      );
+    }
+  };
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     return date.toISOString().split('T')[0];
@@ -214,7 +255,7 @@ const Identity = ({ isDashBoard, formDisable }) => {
                 type="file"
                 accept="image/"
                 name="image"
-                onChange={(e) => uploadFile(e.target.files[0], 'photo')}
+                onChange={(e) => uploadFile(e.target.files[0])}
                 id="photo"
               />
               <label htmlFor="photo">Choose user photo</label>
@@ -224,17 +265,17 @@ const Identity = ({ isDashBoard, formDisable }) => {
                 id="user-avatar"
                 className="form__user-photo"
                 src={formData.seal ? formData.seal : 'https://icon-library.com/images/icon-user/icon-user-15.jpg'}
-                alt="User photo"
+                alt="Seal photo"
               />
               <input
                 className="form__upload"
                 type="file"
                 accept="image/"
                 name="image"
-                onChange={(e) => uploadFile(e.target.files[0], 'seal')}
-                id="photo"
+                onChange={(e) => uploadSeal(e.target.files[0])}
+                id="seal"
               />
-              <label htmlFor="photo">Choose seal photo</label>
+              <label htmlFor="seal">Choose seal photo</label>
             </div>
           </div>
 
