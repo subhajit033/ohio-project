@@ -11,13 +11,16 @@ import { setToast } from '../../redux/Slices/toastSlice';
 import Loader from '../Loader/Loader';
 import { setFormDataByLogin } from '../../redux/Slices/registration';
 import { setMyDetails } from '../../redux/Slices/userSlice';
+import { useParams } from 'react-router-dom';
 
-const Membership = ({ isDashBoard, formDisable }) => {
+const Membership = ({ isDashBoard, formDisable, me }) => {
   const [loading, setLoading] = useState(false);
-
+  const { userId } = useParams();
+  console.log('Reg - ', userId);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const formData = useSelector((store) => store.registration.formData);
+  const myDetails = useSelector((store) => store.user.myDetails);
 
   const handleRegistration = async (e) => {
     e.preventDefault();
@@ -90,6 +93,37 @@ const Membership = ({ isDashBoard, formDisable }) => {
       console.log(err);
     }
   };
+  const updateUser = async () => {
+    setLoading(true);
+    try {
+      const res = await axios({
+        method: 'patch',
+        withCredentials: true,
+        url: `/api/v1/users/${userId}`,
+        data: formData
+      });
+      setLoading(false);
+      if (res.data.status) {
+        dispatch(
+          setToast({
+            type: 'success',
+            message: 'User data Updated Successfully'
+          })
+        );
+      } else {
+        throw new Error('failed');
+      }
+    } catch (err) {
+      setLoading(false);
+      dispatch(
+        setToast({
+          type: 'error',
+          message: 'Something went wrong'
+        })
+      );
+      console.log(err);
+    }
+  };
 
   return (
     <div className="p-6 md:p-8 lg:p-10">
@@ -112,13 +146,15 @@ const Membership = ({ isDashBoard, formDisable }) => {
           <GrFormPrevious /> Previous
         </button>
         {isDashBoard ? (
-          <button
-            onClick={updateMe}
-            type="submit"
-            className=" shadow-xl py-2.5 px-4 text-sm font-semibold rounded text-white bg-blue-600 hover:bg-black focus:outline-none flex items-center gap-1 pointer-events-auto"
-          >
-            {loading ? 'Updaing changes..' : 'Update Changes'}
-          </button>
+          !formDisable && (
+            <button
+              onClick={me ? updateMe : updateUser}
+              type="submit"
+              className=" shadow-xl py-2.5 px-4 text-sm font-semibold rounded text-white bg-blue-600 hover:bg-black focus:outline-none flex items-center gap-1 pointer-events-auto"
+            >
+              {loading ? 'Updaing changes..' : 'Update Changes'}
+            </button>
+          )
         ) : (
           <button
             type="submit"

@@ -22,7 +22,7 @@ const Registration = ({ isDashBoard, viewUser, me }) => {
     !isAuthenticated && authenticateEmail();
     if (viewUser) {
       dispatch(setFormDataByLogin(user));
-      setFormDisable(true);
+      setFormDisable(myDetails.role === 'secretary');
     }
     if (me) {
       console.log(myDetails);
@@ -107,7 +107,7 @@ const Registration = ({ isDashBoard, viewUser, me }) => {
       </div>
       {step === 1 && <Identity isDashBoard={isDashBoard} formDisable={formDisable} />}
       {step === 2 && <Contact isDashBoard={isDashBoard} formDisable={formDisable} />}
-      {step === 3 && <Membership isDashBoard={isDashBoard} formDisable={formDisable} />}
+      {step === 3 && <Membership isDashBoard={isDashBoard} formDisable={formDisable} me={me} />}
     </div>
   );
 };

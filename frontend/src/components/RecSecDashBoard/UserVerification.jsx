@@ -12,6 +12,7 @@ const UserVerification = ({ approvedUsers, viewDocs }) => {
   const { userId } = useParams();
   const unApprovedUser = useSelector((store) => store.user.unApprovedUser);
   const approvedUser = useSelector((store) => store.user.approvedUser);
+  const myDetails = useSelector((store) => store.user.myDetails);
   //getting unapproved user from redux
   let user;
   if (approvedUsers) {
@@ -93,16 +94,18 @@ const UserVerification = ({ approvedUsers, viewDocs }) => {
             </div>
           ) : (
             <div className="space-x-4">
-              <button
-                type="button"
-                onClick={() => {
-                  dispatch(setToast({ type: 'success', message: 'User updated succesfully' }));
-                  navigate('/dashboard/admin');
-                }}
-                className="px-6 py-2.5 rounded text-white text-sm tracking-wider font-semibold border-none outline-none bg-green-600 hover:bg-green-700 active:bg-green-600"
-              >
-                Update User
-              </button>
+              {myDetails.role === 'secretary' && !viewDocs && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    dispatch(setToast({ type: 'success', message: 'User updated succesfully' }));
+                    navigate('/dashboard/admin');
+                  }}
+                  className="px-6 py-2.5 rounded text-white text-sm tracking-wider font-semibold border-none outline-none bg-green-600 hover:bg-green-700 active:bg-green-600"
+                >
+                  Update User
+                </button>
+              )}
               <button
                 type="button"
                 onClick={() => navigate(`/dashboard/admin/viewuser/${userId}`)}
@@ -113,7 +116,7 @@ const UserVerification = ({ approvedUsers, viewDocs }) => {
             </div>
           )}
         </div>
-        <UploadNav viewDocs={viewDocs} />
+        {myDetails.role === 'secretary' && <UploadNav viewDocs={viewDocs} />}
       </div>
     </div>
   );

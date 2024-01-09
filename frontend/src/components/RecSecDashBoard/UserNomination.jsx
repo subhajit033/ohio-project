@@ -1,7 +1,9 @@
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const UserNomination = ({ firstName, middleName, lastName, primaryEmail, createdAt, _id, isAdmin, approvedUsers }) => {
   const navigate = useNavigate();
+  const myDetails = useSelector((store) => store.user.myDetails);
 
   return (
     <tr className="">
@@ -26,13 +28,13 @@ const UserNomination = ({ firstName, middleName, lastName, primaryEmail, created
         </td>
       ) : (
         <td className="px-6 py-4 space-x-2">
-          <button
+          {myDetails.role === 'secretary' && <button
             onClick={() => navigate(`/dashboard/admin/userStatus/approved/uploadDocs/${_id}`)}
             type="button"
             className="px-2 py-1.5 rounded-full  text-white text-xs bg-blue-600 tracking-wider font-semibold outline-none border-2 border-blue-600 hover:bg-white hover:text-black transition-all duration-300"
           >
             Upload
-          </button>
+          </button>}
           <button
             onClick={() => navigate(`/dashboard/admin/userStatus/approved/viewDocs/${_id}`)}
             type="button"

@@ -21,7 +21,7 @@ const SideBar = () => {
   useEffect(() => {
     setName(`${myDetails.firstName} ${myDetails.middleName ? myDetails.middleName : ''} ${myDetails.lastName}`);
     setEmail(myDetails.primaryEmail);
-    setPhoto(myDetails.photo ? myDetails.photo : 'https://icon-library.com/images/icon-user/icon-user-15.jpg')
+    setPhoto(myDetails.photo ? myDetails.photo : 'https://icon-library.com/images/icon-user/icon-user-15.jpg');
   }, [myDetails]);
 
   return (
@@ -48,10 +48,7 @@ const SideBar = () => {
       </div>
 
       <div className="flex flex-wrap items-center cursor-pointer mb-12">
-        <img
-          src={photo}
-          className="w-10 h-10 rounded-full border-2 border-white"
-        />
+        <img src={photo} className="w-10 h-10 rounded-full border-2 border-white" />
         <div className="ml-4">
           <p className="text-sm text-gray-100">{name}</p>
           <p className="text-xs text-gray-300 mt-1">{email}</p>
@@ -134,6 +131,11 @@ const SideBar = () => {
       {myDetails.role === 'secretary' && (
         <div onClick={() => navigate('/dashboard/admin')} className="flex cursor-pointer group">
           <h6 className="text-gray-400 group-hover:text-white text-sm font-bold px-4 flex-1">Rec-Sec Dashboard</h6>
+        </div>
+      )}
+      {myDetails.role === 'admin' && (
+        <div onClick={() => navigate('/dashboard/admin1')} className="flex cursor-pointer group">
+          <h6 className="text-gray-400 group-hover:text-white text-sm font-bold px-4 flex-1">Admin Dashboard</h6>
         </div>
       )}
     </nav>

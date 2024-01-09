@@ -93,15 +93,15 @@ const appRouter = createBrowserRouter([
               },
               {
                 path: 'admin',
-                element: <UserStatus />
+                element: <UserStatus mainAdmin={false} />
               },
               {
                 path: 'admin/userStatus/unapproved',
-                element: <DashBoardTable approvedUsers={false} />
+                element: <DashBoardTable approvedUsers={false} mainAdmin={false} />
               },
               {
                 path: 'admin/userStatus/approved',
-                element: <DashBoardTable approvedUsers={true} />
+                element: <DashBoardTable approvedUsers={true} mainAdmin={false} />
               },
               {
                 path: 'admin/userStatus/approved/viewDocs/:userId',
@@ -126,7 +126,18 @@ const appRouter = createBrowserRouter([
               {
                 path: 'admin/approveUser/:userId',
                 element: <Otp />
-              }
+              },
+              //admin path
+              {
+                path: 'admin1',
+                element: <UserStatus mainAdmin={true} />
+              },
+              {
+                path: 'admin1/users',
+                element: <DashBoardTable mainAdmin={true} />
+              },
+              
+              
             ]
           }
         ]

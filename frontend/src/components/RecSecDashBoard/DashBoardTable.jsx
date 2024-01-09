@@ -1,9 +1,12 @@
 import UserNomination from './UserNomination';
 import { useSelector } from 'react-redux';
+import axios from 'axios';
+import { useState } from 'react';
 
 const DashBoardTable = ({ isAdmin, approvedUsers }) => {
   const unApprovedUser = useSelector((store) => store.user.unApprovedUser);
   const approvedUser = useSelector((store) => store.user.approvedUser);
+  
 
   return (
     <div className=" flex-wrap gap-4 justify-center items-start border-2 border-red-600 flex-1 py-4 px-4">
@@ -21,7 +24,7 @@ const DashBoardTable = ({ isAdmin, approvedUsers }) => {
           <tbody className="whitespace-nowrap">
             {!approvedUsers
               ? unApprovedUser.map((user) => {
-                  return <UserNomination key={user._id} {...user} isAdmin={isAdmin} approvedUsers={approvedUsers}  />;
+                  return <UserNomination key={user._id} {...user} isAdmin={isAdmin} approvedUsers={approvedUsers} />;
                 })
               : approvedUser.map((user) => {
                   return <UserNomination key={user._id} {...user} isAdmin={isAdmin} approvedUsers={approvedUsers} />;
