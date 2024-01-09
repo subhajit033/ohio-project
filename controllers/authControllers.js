@@ -8,7 +8,8 @@ const bcrypt = require('bcryptjs');
 const { sendMail, sendVerificationMail, sendPasswordResetMail } = require('../utils/sendMail');
 const crypto = require('crypto');
 const VerifyUserEmail = require('../models/verifyEmailModel');
-
+const otpGenerator = require('otp-generator');
+const { DateToJulian } = require('julian-to-date');
 
 const signToken = (user) => {
   return jwt.sign({ id: user._id, email: user.email, role: user.role }, process.env.JWT_SECRET, {
@@ -102,7 +103,108 @@ const verifyEmail = async (req, res, next) => {
   }
 };
 
+const countyList = [
+  'Adams',
+  'Allen',
+  'Ashland',
+  'Ashtabula',
+  'Athens',
+  'Auglaize',
+  'Belmont',
+  'Brown',
+  'Butler',
+  'Carroll',
+  'Champaign',
+  'Clark',
+  'Clermont',
+  'Clinton',
+  'Columbiana',
+  'Coshocton',
+  'Crawford',
+  'Cuyahoga',
+  'Darke',
+  'Defiance',
+  'Delaware',
+  'Erie',
+  'Fairfield',
+  'Fayette',
+  'Franklin',
+  'Fulton',
+  'Gallia',
+  'Geauga',
+  'Greene',
+  'Guernsey',
+  'Hamilton',
+  'Hancock',
+  'Hardin',
+  'Harrison',
+  'Henry',
+  'Highland',
+  'Hocking',
+  'Holmes',
+  'Huron',
+  'Jackson',
+  'Jefferson',
+  'Knox',
+  'Lake',
+  'Lawrence',
+  'Licking',
+  'Logan',
+  'Lorain',
+  'Lucas',
+  'Madison',
+  'Mahoning',
+  'Marion',
+  'Medina',
+  'Meigs',
+  'Mercer',
+  'Miami',
+  'Monroe',
+  'Montgomery',
+  'Morgan',
+  'Morrow',
+  'Muskingum',
+  'Noble',
+  'Ottawa',
+  'Paulding',
+  'Perry',
+  'Pickaway',
+  'Pike',
+  'Portage',
+  'Preble',
+  'Putnam',
+  'Richland',
+  'Ross',
+  'Sandusky',
+  'Scioto',
+  'Seneca',
+  'Shelby',
+  'Stark',
+  'Summit',
+  'Trumbull',
+  'Tuscarawas',
+  'Union',
+  'Van Wert',
+  'Vinton',
+  'Warren',
+  'Washington',
+  'Wayne',
+  'Williams',
+  'Wood ',
+  'Wyandot'
+];
+
 const signup = async (req, res, next) => {
+  const { county, born } = req.body;
+  console.log(county, born);
+  const index = countyList.indexOf(county) + 1;
+  const randomString1 = otpGenerator.generate(6, { lowerCaseAlphabets: false, specialChars: false });
+  const randomString2 = otpGenerator.generate(6, { lowerCaseAlphabets: false, specialChars: false });
+  const recNo = `oh${index}-${DateToJulian(born)}-${randomString1}`;
+  const masterRec = `${index}-${randomString2}`;
+  req.body.recordingNumber = recNo;
+  req.body.masterRecord = masterRec;
+
   const userExist = await User.findOne({
     primaryEmail: req.body.primaryEmail
   });
@@ -260,8 +362,6 @@ const forgotPassword = async (req, res, next) => {
     const resetUrl = `${req.protocol}://${req.get('host')}/reset-password/${resetToken}`;
     console.log(`resrt url = ${resetUrl}`);
 
-    
-
     try {
       await sendPasswordResetMail(user.primaryEmail, resetUrl);
     } catch (error) {
@@ -276,7 +376,6 @@ const forgotPassword = async (req, res, next) => {
   } catch (error) {
     return next(new APPError(error.message, 401));
   }
-  
 };
 
 const resetPassword = async (req, res, next) => {
@@ -294,7 +393,7 @@ const resetPassword = async (req, res, next) => {
       return next(new APPError('Token is invalid or expired', 404));
     }
     //2) if token is expired , and there is a user , set a new password
-    user.password = req.body.password;    
+    user.password = req.body.password;
     user.passwordResetToken = undefined;
     user.passwordResetExpires = undefined;
     //here we want to run the validatior to check whether the password and password confirm is same
