@@ -17,6 +17,7 @@ import Otp from './components/RecSecDashBoard/Otp';
 import UnVerifedEmail from './components/AlertPages/UnVerifedEmail';
 import ForgotPass from './components/Pasword/ForgotPass';
 import ResetPass from './components/Pasword/ResetPass';
+import CredentialCard from './components/UserDashBoard/CredentialCard';
 
 const App = () => {
   return (
@@ -81,6 +82,10 @@ const appRouter = createBrowserRouter([
               {
                 path: 'shop',
                 element: <Shop />
+              },
+              {
+                path: 'credentialCard',
+                element: <CredentialCard />
               },
 
               {

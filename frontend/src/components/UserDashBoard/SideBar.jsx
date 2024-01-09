@@ -128,6 +128,9 @@ const SideBar = () => {
       <div onClick={() => navigate('/dashboard/shop')} className="flex cursor-pointer group">
         <h6 className="text-gray-400 group-hover:text-white text-sm font-bold px-4 flex-1">Shop</h6>
       </div>
+      <div onClick={() => navigate('/dashboard/credentialCard')} className="flex cursor-pointer group">
+        <h6 className="text-gray-400 group-hover:text-white text-sm font-bold px-4 flex-1">Credential Card</h6>
+      </div>
       {myDetails.role === 'secretary' && (
         <div onClick={() => navigate('/dashboard/admin')} className="flex cursor-pointer group">
           <h6 className="text-gray-400 group-hover:text-white text-sm font-bold px-4 flex-1">Rec-Sec Dashboard</h6>
