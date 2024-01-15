@@ -4,6 +4,7 @@ const cors = require('cors');
 const globalErrorHandler = require('./middlewares/globalErrorHandler');
 const userRouter = require('./routes/userRoutes');
 const uploadRouter = require('./routes/fileRoutes');
+const adminRouter = require('./routes/adminRoutes');
 const APPError = require('./utils/appError')
 const path = require('path');
 
@@ -29,6 +30,7 @@ const port = 3000;
 
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/upload', uploadRouter);
+app.use('/api/v1/admin', adminRouter);
 
 const clientDir = path.join(__dirname, 'frontend', 'dist');
 

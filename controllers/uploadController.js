@@ -50,4 +50,23 @@ const uploadPhotoToClould = async (req, res, next) => {
   }
 };
 
-module.exports = { uploadFiles, uploadToClould, uploadPhotoToClould, uploadPhotos };
+const uploadByAdmin = async (req, res, next) => {
+  try {
+    const postUrl = await uploadOnclould(req.filename, false);
+    if (!postUrl) return next(new APPError('Please provide file name', 404));
+
+    res.status(200).json({
+      success: 1,
+      file: {
+        url: postUrl
+      }
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(400).json({
+      success: 0
+    });
+  }
+};
+
+module.exports = { uploadFiles, uploadToClould, uploadPhotoToClould, uploadPhotos, uploadByAdmin };
