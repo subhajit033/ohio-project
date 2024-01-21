@@ -51,7 +51,7 @@ export const membershipType = [
   'Sewing',
   'Teaching',
   'Transportation',
-  'Woodworking',
+  'Woodworking'
 ];
 
 export const county = [
@@ -142,7 +142,7 @@ export const county = [
   'Wayne',
   'Williams',
   'Wood ',
-  'Wyandot',
+  'Wyandot'
 ];
 
 export const statusDocument = [
@@ -184,42 +184,84 @@ export const statusDocument = [
   'BabyDeed07',
   'BabyDeed08',
   'Death Record',
-  'Private Business Documents',
+  'Private Business Documents'
 ];
 
-export const notices = [
-  'Notices Upload'
-]
+export const notices = ['Notices Upload'];
 
-export const landPatent = [
-'Land Patent01',
-'Land Patent02',
-'Land Patent03',
-'Land Patent04',
-'Land Patent05',
-
-]
+export const landPatent = ['Land Patent01', 'Land Patent02', 'Land Patent03', 'Land Patent04', 'Land Patent05'];
 
 export const incidentReport = [
-'Territorial Government (USA)',
-'Municipal  Government (US/STATE/Muni)',
-'Commercial Entities',
-]
+  'Territorial Government (USA)',
+  'Municipal  Government (US/STATE/Muni)',
+  'Commercial Entities'
+];
 
-export const privateDocs = [
-  'Common Law Will'
-]
+export const privateDocs = ['Common Law Will'];
+
+export const states = [
+  'Alabama',
+  'Alaska',
+  'Arizona',
+  'Arkansas',
+  'California',
+  'Colorado',
+  'Connecticut',
+  'Delaware',
+  'Florida',
+  'Georgia',
+  'Hawaii',
+  'Idaho',
+  'Illinois',
+  'Indiana',
+  'Iowa',
+  'Kansas',
+  'Kentucky',
+  'Louisiana',
+  'Maine',
+  'Maryland',
+  'Massachusetts',
+  'Michigan',
+  'Minnesota',
+  'Mississippi',
+  'Missouri',
+  'Montana',
+  'Nebraska',
+  'Nevada',
+  'New Hampshire',
+  'New Jersey',
+  'New Mexico',
+  'New York',
+  'North Carolina',
+  'North Dakota',
+  'Ohio',
+  'Oklahoma',
+  'Oregon',
+  'Pennsylvania',
+  'Rhode Island',
+  'South Carolina',
+  'South Dakota',
+  'Tennessee',
+  'Texas',
+  'Utah',
+  'Vermont',
+  'Virginia',
+  'Washington',
+  'West Virginia',
+  'Wisconsin',
+  'Wyoming'
+];
 
 export const officials = [
-'Nationality',
-'Status',
-'Recording Number',
-'Master Record',
-'Date Account  Created',
-'Date Updated',
-'Print Credential Card Date',
-'Master Credential Card Number',
-'Verified ',
-'Paid Credential Card',
-'Deceased Date',
-]
+  'Nationality',
+  'Status',
+  'Recording Number',
+  'Master Record',
+  'Date Account  Created',
+  'Date Updated',
+  'Print Credential Card Date',
+  'Master Credential Card Number',
+  'Verified ',
+  'Paid Credential Card',
+  'Deceased Date'
+];

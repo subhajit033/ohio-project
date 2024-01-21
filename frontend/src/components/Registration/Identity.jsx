@@ -9,6 +9,7 @@ const Identity = ({ isDashBoard, formDisable }) => {
   console.log('isDash ', isDashBoard);
   const dispatch = useDispatch();
   const formData = useSelector((store) => store.registration.formData);
+  const isAuthenticated = useSelector((store) => store.auth.isAuthenticated);
   const [loading, setLoading] = useState(false);
 
   const [DOB, setDOB] = useState('');
@@ -128,7 +129,7 @@ const Identity = ({ isDashBoard, formDisable }) => {
   return (
     <div className="max-w-4xl mx-auto font-[sans-serif] text-[#333] p-6">
       {loading ? <Loader /> : ''}
-      <form className={`${formDisable ? 'pointer-events-none' : 'pointer-events-auto'}`} onSubmit={handleSubmit}>
+      <form autoComplete='off' className={`${formDisable ? 'pointer-events-none' : 'pointer-events-auto'}`} onSubmit={handleSubmit}>
         <fieldset>
           <div className="grid sm:grid-cols-2 gap-y-7 gap-x-12">
             <div>
@@ -138,6 +139,7 @@ const Identity = ({ isDashBoard, formDisable }) => {
                 type="text"
                 className="bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500"
                 placeholder="First Name"
+                disabled={!isAuthenticated}
                 value={formData.firstName}
                 required
                 onChange={(e) => dispatch(setFormData({ firstName: e.target.value }))}
@@ -150,6 +152,7 @@ const Identity = ({ isDashBoard, formDisable }) => {
                 type="text"
                 className="bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500"
                 placeholder="middle name"
+                disabled={!isAuthenticated}
                 value={formData.middleName}
                 onChange={(e) => dispatch(setFormData({ middleName: e.target.value }))}
               />
@@ -161,6 +164,7 @@ const Identity = ({ isDashBoard, formDisable }) => {
                 type="text"
                 className="bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500"
                 placeholder="Last name"
+                disabled={!isAuthenticated}
                 value={formData.lastName}
                 required
                 onChange={(e) => dispatch(setFormData({ lastName: e.target.value }))}

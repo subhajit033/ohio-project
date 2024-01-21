@@ -60,7 +60,7 @@ router.post('/confirm-otp/:userId', protect, async (req, res) => {
   try {
     const { userId } = req.params;
     const user = req.user;
-    const { enteredOTP } = req.body;
+    const { enteredOTP, nationality } = req.body;
 
     // Retrieve the secretary's OTP and its expiration time
     const storedOTP = user.otp;
@@ -71,7 +71,7 @@ router.post('/confirm-otp/:userId', protect, async (req, res) => {
       // remove the otp from secretary fields
       const secretary = await User.findByIdAndUpdate(user._id, { otp: '', otpExpiration: '' });
       // If the OTP is valid, update the user's status to 'approved' in the database
-      const updatedUser = await User.findByIdAndUpdate(userId, { isApproved: true });
+      const updatedUser = await User.findByIdAndUpdate(userId, { isApproved: true, status: 'American State National', nationality });
 
       res.status(200).json({ status: true, message: 'User approved successfully' });
     } else {

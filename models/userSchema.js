@@ -121,7 +121,7 @@ const userSchema = new mongoose.Schema(
     masterRecord: String,
     status:{
       type: String,
-      default: 'In process'
+      default: 'In process' //American State National if approved
     },
     credentialCardPrintDate: Date,
     nationality: String,

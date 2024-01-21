@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setToast } from '../../redux/Slices/toastSlice';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
@@ -10,6 +10,8 @@ const Otp = () => {
   const navigate = useNavigate();
   const { userId } = useParams();
   const [loading, setLoading] = useState(false);
+  const nationality = useSelector((store) => store.user.nationality);
+
 
   const verifyOtp = async (e) => {
     e.preventDefault();
@@ -19,7 +21,7 @@ const Otp = () => {
         method: 'post',
         withCredentials: true,
         url: `/api/v1/users/confirm-otp/${userId}`,
-        data: { enteredOTP },
+        data: { enteredOTP, nationality },
       });
       console.log(res);
       setLoading(false);

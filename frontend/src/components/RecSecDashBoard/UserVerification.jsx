@@ -5,12 +5,15 @@ import { useState } from 'react';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { setToast } from '../../redux/Slices/toastSlice';
+import { setNationality } from '../../redux/Slices/userSlice';
+import { states } from '../../utils/const';
 
 const UserVerification = ({ approvedUsers, viewDocs }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { userId } = useParams();
   const unApprovedUser = useSelector((store) => store.user.unApprovedUser);
+  const nationality = useSelector((store) => store.user.nationality);
   const approvedUser = useSelector((store) => store.user.approvedUser);
   const myDetails = useSelector((store) => store.user.myDetails);
   //getting unapproved user from redux
@@ -23,6 +26,10 @@ const UserVerification = ({ approvedUsers, viewDocs }) => {
 
   const [loading, setLoading] = useState(false);
   const getOtp = async () => {
+    if (!nationality || nationality === 'Nationality') {
+      return dispatch(setToast({ type: 'error', message: 'Select Nationality before approving user' }));
+    }
+
     try {
       setLoading(true);
       const res = await axios({
@@ -85,12 +92,28 @@ const UserVerification = ({ approvedUsers, viewDocs }) => {
               >
                 Decline
               </button>
-              <button
+              {/* <button
                 type="button"
                 className="px-6 py-2.5 rounded text-white text-sm tracking-wider font-semibold border-none outline-none bg-[#333] hover:bg-[#222] active:bg-[#333]"
               >
                 Officials
-              </button>
+              </button> */}
+
+              <select
+                onChange={(e) => dispatch(setNationality(e.target.value))}
+                className="border-2 border-black px-4 py-1.5 rounded-lg"
+                name="nationality"
+                id="nationality"
+              >
+                <option value="Nationality">Nationality</option>
+                {states.map((state) => {
+                  return (
+                    <option key={state} value={state}>
+                      {state}
+                    </option>
+                  );
+                })}
+              </select>
             </div>
           ) : (
             <div className="space-x-4">

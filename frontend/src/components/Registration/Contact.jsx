@@ -8,6 +8,7 @@ import { setToast } from '../../redux/Slices/toastSlice';
 const Contact = ({ isDashBoard, formDisable }) => {
   const dispatch = useDispatch();
   const formData = useSelector((store) => store.registration.formData);
+  const isAuthenticated = useSelector((store) => store.auth.isAuthenticated);
   const handleSubmit = (e) => {
     e.preventDefault();
     if (formData.password !== formData.passwordConfirm) {
@@ -35,13 +36,14 @@ const Contact = ({ isDashBoard, formDisable }) => {
   }, [formData.county]);
   return (
     <div className="max-w-4xl mx-auto font-[sans-serif] text-[#333] p-6">
-      <form className={`${formDisable ? 'pointer-events-none' : 'pointer-events-auto'}`} onSubmit={handleSubmit}>
+      <form autoComplete='off' className={`${formDisable ? 'pointer-events-none' : 'pointer-events-auto'}`} onSubmit={handleSubmit}>
         <div className="grid sm:grid-cols-2 gap-y-7 gap-x-12">
           <div>
             <label className="text-sm mb-2 block">Mailing address *</label>
             <input
               name="lname"
               type="text"
+              autoComplete='off'
               required
               className="bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500"
               placeholder="mailing address"
@@ -54,6 +56,7 @@ const Contact = ({ isDashBoard, formDisable }) => {
             <input
               name="lname"
               type="text"
+              autoComplete='off'
               className="bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500"
               placeholder="mailing address line 2"
               value={formData.SecMailingAddress}
@@ -66,6 +69,7 @@ const Contact = ({ isDashBoard, formDisable }) => {
             <input
               name="lname"
               type="text"
+              autoComplete='off'
               required
               className="bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500"
               placeholder="Mailing city"
@@ -97,6 +101,7 @@ const Contact = ({ isDashBoard, formDisable }) => {
             <input
               name="lname"
               type="text"
+              autoComplete='off'
               className="bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500"
               placeholder="Enter mailing state"
               value="Ohio"
@@ -108,6 +113,7 @@ const Contact = ({ isDashBoard, formDisable }) => {
             <input
               name="lname"
               type="text"
+              autoComplete='off'
               className="bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500"
               placeholder="Postal code"
               required
@@ -120,6 +126,7 @@ const Contact = ({ isDashBoard, formDisable }) => {
             <input
               name="lname"
               type="text"
+              autoComplete='off'
               className="bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500"
               placeholder="Enter Phone no"
               required
@@ -134,6 +141,7 @@ const Contact = ({ isDashBoard, formDisable }) => {
               type="email"
               className="bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500"
               placeholder="Enter email"
+              disabled={!isAuthenticated}
               required
               value={formData.primaryEmail}
               onChange={(e) => dispatch(setFormData({ primaryEmail: e.target.value }))}
@@ -145,8 +153,10 @@ const Contact = ({ isDashBoard, formDisable }) => {
               <input
                 name="email"
                 type="text"
+                autoComplete='off'
                 className="bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500"
                 placeholder="Confirm email"
+                disabled={!isAuthenticated}
                 required
                 value={formData.confirmEmail}
                 onChange={(e) => dispatch(setFormData({ confirmEmail: e.target.value }))}
@@ -158,6 +168,7 @@ const Contact = ({ isDashBoard, formDisable }) => {
             <input
               name="email"
               type="text"
+              autoComplete='off'
               className="bg-gray-100 w-full text-sm px-4 py-3.5 rounded-md outline-blue-500"
               placeholder="Secondary email"
               value={formData.secondaryEmail}
