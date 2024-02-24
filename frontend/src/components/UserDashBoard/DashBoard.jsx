@@ -9,15 +9,14 @@ const DashBoard = () => {
   const dispatch = useDispatch();
   const docUploaded = useSelector((store) => store.registration.docUploaded);
   useEffect(() => {
-   !docUploaded && getDocs();
+    !docUploaded && getDocs();
   }, []);
   const getDocs = async () => {
     try {
       const res = await axios.get('/api/v1/users/getMyDocs', {
-        withCredentials: true,
+        withCredentials: true
       });
       dispatch(setDocUpload(res.data.data.data.documents));
-
     } catch (err) {
       console.log(err);
     }
@@ -26,7 +25,9 @@ const DashBoard = () => {
   return (
     <div className="flex justify-around">
       <SideBar />
-      <Outlet />
+      <div className=" flex-wrap gap-4 justify-center h-[89vh] overflow-auto items-start border-2 border-red-600 flex-1 py-4 px-4">
+        {<Outlet />}
+      </div>
     </div>
   );
 };

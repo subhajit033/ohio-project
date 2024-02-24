@@ -141,6 +141,9 @@ const SideBar = () => {
           <h6 className="text-gray-400 group-hover:text-white text-sm font-bold px-4 flex-1">Admin Dashboard</h6>
         </div>
       )}
+      <div onClick={() => navigate('/dashboard/events')} className="flex cursor-pointer group">
+        <h6 className="text-gray-400 group-hover:text-white text-sm font-bold px-4 flex-1">Events</h6>
+      </div>
     </nav>
   );
 };

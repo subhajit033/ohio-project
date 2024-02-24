@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 const CredentialCard = () => {
   const myDetails = useSelector((store) => store.user.myDetails);
   return (
-    <div className=" flex-wrap gap-4 justify-center h-[89vh] overflow-auto items-start border-2 border-red-600 flex-1 py-4 px-4">
+    
       <div className="flex justify-center items-start gap-20 border-2 border-dashed border-black py-10">
         <div className="space-y-4">
           <img
@@ -113,7 +113,7 @@ const CredentialCard = () => {
           </p>
         </div>
       </div>
-    </div>
+    
   );
 };
 

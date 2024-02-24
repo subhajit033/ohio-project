@@ -9,7 +9,7 @@ const DashBoardTable = ({ isAdmin, approvedUsers }) => {
   
 
   return (
-    <div className=" flex-wrap gap-4 justify-center items-start border-2 border-red-600 flex-1 py-4 px-4">
+    
       <div className="w-screen md:w-full overflow-x-auto">
         <table className="min-w-full bg-white font-[sans-serif]">
           <thead className="bg-gray-800 whitespace-nowrap">
@@ -32,7 +32,7 @@ const DashBoardTable = ({ isAdmin, approvedUsers }) => {
           </tbody>
         </table>
       </div>
-    </div>
+    
   );
 };
 

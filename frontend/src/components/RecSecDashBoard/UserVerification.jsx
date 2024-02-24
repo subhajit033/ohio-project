@@ -46,7 +46,7 @@ const UserVerification = ({ approvedUsers, viewDocs }) => {
     }
   };
   return (
-    <div className=" flex-wrap gap-4 justify-center items-start border-2 border-red-600 flex-1 py-4 px-4">
+    <div>
       {/* user details dash board */}
       <div className=" h-[88vh] overflow-auto">
         <div className="flex flex-col items-center gap-4">

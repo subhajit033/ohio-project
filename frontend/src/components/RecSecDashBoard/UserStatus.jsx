@@ -24,7 +24,7 @@ const UserStatus = ({ mainAdmin }) => {
     getUsers();
   }, []);
   return (
-    <div className=" flex-wrap gap-4 justify-center items-start border-2 border-red-600 flex-1 py-4 px-4">
+    
       <div className="grid grid-cols-2 gap-8">
         {!mainAdmin && (
           <div
@@ -63,7 +63,7 @@ const UserStatus = ({ mainAdmin }) => {
           <p className="text-gray-700 font-semibold mt-3">Approved Members</p>
         </div>
       </div>
-    </div>
+    
   );
 };
 

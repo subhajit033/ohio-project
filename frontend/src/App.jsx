@@ -18,6 +18,7 @@ import UnVerifedEmail from './components/AlertPages/UnVerifedEmail';
 import ForgotPass from './components/Pasword/ForgotPass';
 import ResetPass from './components/Pasword/ResetPass';
 import CredentialCard from './components/UserDashBoard/CredentialCard';
+import Calender from './components/UserDashBoard/Calender';
 
 const App = () => {
   return (
@@ -87,13 +88,17 @@ const appRouter = createBrowserRouter([
                 path: 'credentialCard',
                 element: <CredentialCard />
               },
+              {
+                path: 'events',
+                element: <Calender />
+              },
 
               {
                 path: 'details',
                 element: (
-                  <div className=" flex-wrap gap-4 justify-center h-[89vh] overflow-auto items-start border-2 border-red-600 flex-1 py-4 px-4">
+                  
                     <Registration isDashBoard={true} me={true} viewUser={false} />
-                  </div>
+                  
                 )
               },
               {
@@ -140,9 +145,7 @@ const appRouter = createBrowserRouter([
               {
                 path: 'admin1/users',
                 element: <DashBoardTable mainAdmin={true} />
-              },
-              
-              
+              }
             ]
           }
         ]

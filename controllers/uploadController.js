@@ -3,6 +3,8 @@ const { uploadOnclould } = require('../utils/cloudinary');
 const path = require('path');
 const APPError = require('../utils/appError');
 const Document = require('../models/documentModel');
+const Announcement = require('../models/announcementModel');
+const { default: mongoose } = require('mongoose');
 
 const uploadFiles = upload.single('upload_file');
 
@@ -69,4 +71,55 @@ const uploadByAdmin = async (req, res, next) => {
   }
 };
 
-module.exports = { uploadFiles, uploadToClould, uploadPhotoToClould, uploadPhotos, uploadByAdmin };
+const setAnnouncement = async (req, res, next) => {
+  try {
+    const now = new Date();
+    const tomorrow = new Date(now);
+    tomorrow.setDate(now.getDate() + 1);
+
+    const announcement = await Announcement.findOne({
+      expiresAt: { $gte: now, $lte: tomorrow }
+    });
+
+    if (announcement) {
+      return next(new APPError('One announcement can be set within a day'), 400);
+    }
+
+    await Announcement.create(req.body);
+    res.status(200).json({
+      status: true
+    });
+  } catch (err) {
+    next(new APPError(err.message, 400));
+  }
+};
+
+const getAnnouncement = async (req, res, next) => {
+  try {
+    const now = new Date();
+    const tomorrow = new Date(now);
+    tomorrow.setDate(now.getDate() + 1);
+
+    const announcement = await Announcement.findOne({
+      expiresAt: { $gte: now, $lte: tomorrow }
+    });
+
+    if (!announcement) {
+      return res.status(404).json({ message: 'No announcement found' });
+    }
+
+    res.status(200).json({ announcement });
+  } catch (err) {
+    next(new APPError(err.message, 400));
+  }
+};
+
+module.exports = {
+  uploadFiles,
+  uploadToClould,
+  uploadPhotoToClould,
+  uploadPhotos,
+  uploadByAdmin,
+  setAnnouncement,
+  getAnnouncement
+};

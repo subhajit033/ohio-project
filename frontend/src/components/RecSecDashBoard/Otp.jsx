@@ -38,7 +38,7 @@ const Otp = () => {
   };
 
   return (
-    <div className=' flex-wrap gap-4 justify-center items-start border-2 border-red-600 flex-1 py-4 px-4'>
+    
       <div className='relative bg-white px-6 pt-10 pb-9 shadow-xl mx-auto w-full max-w-lg rounded-2xl'>
         <div className='mx-auto flex w-full max-w-md flex-col space-y-16'>
           <div className='flex flex-col items-center justify-center text-center space-y-2'>
@@ -82,7 +82,7 @@ const Otp = () => {
           </div>
         </div>
       </div>
-    </div>
+  
   );
 };
 
