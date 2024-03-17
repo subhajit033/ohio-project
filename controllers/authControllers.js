@@ -329,7 +329,7 @@ const isSuperAdmin = (req, res, next) => {
 
 const restrictTo = (...roles) => {
   return (req, res, next) => {
-    //roles is an array ['admin', 'lead-guide']
+    //roles is an array ['user', 'admin', 'super admin', 'secretary']
     //as this middle ware runs after the protect middleware so we have acess to the req.user property
     if (!roles.includes(req.user.role)) {
       return next(new APPError('you do not have permission to access this routes', 403));

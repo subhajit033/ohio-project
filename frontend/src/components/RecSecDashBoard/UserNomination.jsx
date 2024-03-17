@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-const UserNomination = ({ firstName, middleName, lastName, primaryEmail, createdAt, _id, isAdmin, approvedUsers }) => {
+const UserNomination = ({ firstName, middleName, lastName, primaryEmail, createdAt, _id, isAdmin, approvedUsers, recordingNumber}) => {
   const navigate = useNavigate();
   const myDetails = useSelector((store) => store.user.myDetails);
 
@@ -9,7 +9,7 @@ const UserNomination = ({ firstName, middleName, lastName, primaryEmail, created
     <tr className="">
       <td className="px-6 py-4 text-sm">{`${firstName} ${middleName ? middleName : ''} ${lastName}`}</td>
       <td className="px-6 py-4 text-sm">{primaryEmail}</td>
-      <td className="px-6 py-4 text-sm">Admin</td>
+      <td className="px-6 py-4 text-sm">{recordingNumber? recordingNumber: 'test-user'}</td>
       <td className="px-6 py-4 text-sm">
         {new Date(createdAt).toLocaleString('en-US', {
           month: 'long',

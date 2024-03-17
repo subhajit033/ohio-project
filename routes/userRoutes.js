@@ -10,6 +10,7 @@ const {
   authenticateEmailUser,
   forgotPassword,
   resetPassword,
+  restrictTo,
   logOut
 } = require('../controllers/authControllers');
 const { sendOTPMail } = require('../utils/sendMail');
@@ -19,15 +20,13 @@ const APPError = require('../utils/appError');
 const router = express.Router();
 
 // Route to approve a user by a secretary
-router.post('/approve-user', protect, async (req, res, next) => {
+router.post('/approve-user', protect, restrictTo('secretary'), async (req, res, next) => {
   //here user is either secretary or admin
   const user = req.user;
 
   try {
     // Check if the user has the role of 'secretary'
-    if (req.user.role !== 'secretary') {
-      return next(new APPError('Only secretary can perform this function'));
-    }
+    
     const otp = otpGenerator.generate(6, {
       lowerCaseAlphabets: false,
       upperCaseAlphabets: false,
@@ -56,7 +55,7 @@ router.post('/approve-user', protect, async (req, res, next) => {
 });
 
 // Route for confirming OTP entered by secretary
-router.post('/confirm-otp/:userId', protect, async (req, res) => {
+router.post('/confirm-otp/:userId', protect, restrictTo('secretary'), async (req, res) => {
   try {
     const { userId } = req.params;
     const user = req.user;
