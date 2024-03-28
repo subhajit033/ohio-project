@@ -5,6 +5,7 @@ const globalErrorHandler = require('./middlewares/globalErrorHandler');
 const userRouter = require('./routes/userRoutes');
 const uploadRouter = require('./routes/fileRoutes');
 const adminRouter = require('./routes/adminRoutes');
+const productRouter = require('./routes/productRoutes');
 const APPError = require('./utils/appError')
 const path = require('path');
 
@@ -31,6 +32,7 @@ const port = 3000;
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/upload', uploadRouter);
 app.use('/api/v1/admin', adminRouter);
+app.use('/api/v1/products', productRouter);
 
 const clientDir = path.join(__dirname, 'frontend', 'dist');
 

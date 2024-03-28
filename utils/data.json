@@ -1,0 +1,22 @@
+[
+  {
+    "name": "Product 1",
+    "image": "'https://flowbite.com/docs/images/blog/image-1.jpg'",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed facilisis ligula pharetra dolor aliquet dapibus. Suspendisse potenti. Integer venenatis nunc lectus, a dictum risus posuere eu"
+  },
+  {
+    "name": "Product 2",
+    "image": "'https://flowbite.com/docs/images/blog/image-1.jpg'",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed facilisis ligula pharetra dolor aliquet dapibus. Suspendisse potenti. Integer venenatis nunc lectus, a dictum risus posuere eu"
+  },
+  {
+    "name": "Product 3",
+    "image": "'https://flowbite.com/docs/images/blog/image-1.jpg'",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed facilisis ligula pharetra dolor aliquet dapibus. Suspendisse potenti. Integer venenatis nunc lectus, a dictum risus posuere eu"
+  },
+  {
+    "name": "Product 4",
+    "image": "'https://flowbite.com/docs/images/blog/image-1.jpg'",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed facilisis ligula pharetra dolor aliquet dapibus. Suspendisse potenti. Integer venenatis nunc lectus, a dictum risus posuere eu"
+  }
+]
