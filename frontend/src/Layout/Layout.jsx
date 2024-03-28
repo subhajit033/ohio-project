@@ -6,7 +6,7 @@ import { setAuthentication } from '../redux/Slices/authSlice';
 import { setFormDataByLogin } from '../redux/Slices/registration';
 import { setMyDetails } from '../redux/Slices/userSlice';
 
-// import Loader from '../Loader/Loader';
+import Loader from '../components/Loader/Loader';
 
 import { Outlet } from 'react-router-dom';
 import { useState, useEffect } from 'react';
@@ -29,12 +29,17 @@ const Layout = () => {
       }
     } catch (err) {
       console.log(err);
+      dispatch(setAuthentication(false));
     }
   };
 
   useEffect(() => {
     !isAuthenticated && checkLoggedIn();
   }, []);
+
+  if (isAuthenticated === null) {
+    return <Loader />;
+  }
   return (
     <>
       <Header />
