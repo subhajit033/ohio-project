@@ -303,7 +303,6 @@ const protect = async (req, res, next) => {
   next();
 };
 
-
 //authorization
 const restrictTo = (...roles) => {
   return (req, res, next) => {
@@ -446,6 +445,8 @@ const isLoggedIn = async (req, res, next) => {
           user: currentUser
         }
       });
+    } else {
+      throw new Error('No cookie found');
     }
   } catch (err) {
     next(new APPError(err.message, 400));
