@@ -303,30 +303,8 @@ const protect = async (req, res, next) => {
   next();
 };
 
-const isAdmin = (req, res, next) => {
-  if (req.user && req.user.role === 'admin') {
-    return next();
-  } else {
-    return res.status(403).json({ message: 'Forbidden' });
-  }
-};
 
-const isSecretary = (req, res, next) => {
-  if (req.user && req.user.role === 'secretary') {
-    return next();
-  } else {
-    return res.status(403).json({ message: 'Forbidden' });
-  }
-};
-
-const isSuperAdmin = (req, res, next) => {
-  if (req.user && req.user.role === 'superadmin') {
-    return next();
-  } else {
-    return res.status(403).json({ message: 'Forbidden' });
-  }
-};
-
+//authorization
 const restrictTo = (...roles) => {
   return (req, res, next) => {
     //roles is an array ['user', 'admin', 'super admin', 'secretary']

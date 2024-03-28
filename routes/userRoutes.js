@@ -11,7 +11,8 @@ const {
   forgotPassword,
   resetPassword,
   restrictTo,
-  logOut
+  logOut,
+  isLoggedIn
 } = require('../controllers/authControllers');
 const { sendOTPMail } = require('../utils/sendMail');
 const { getAllUsers, updateUser, deleteUser, getDocs, updateMe, getMyDocs } = require('../controllers/userController');
@@ -84,6 +85,7 @@ router.post('/confirm-otp/:userId', protect, restrictTo('secretary'), async (req
 
 router.post('/signup', signup);
 router.post('/login', login);
+router.get('/isloggedin', isLoggedIn);
 router.post('/verifyEmail', verifyEmail);
 router.get('/authenticateEmail', authenticateEmailUser);
 router.get('/logout', logOut);
