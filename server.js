@@ -9,6 +9,7 @@ const productRouter = require('./routes/productRoutes');
 const bookingRouter = require('./routes/bookingRoutes');
 const APPError = require('./utils/appError');
 const path = require('path');
+const { webhookCheckout } = require('./controllers/bookingController');
 
 const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
@@ -24,6 +25,9 @@ app.use(morgan('dev'));
 app.use(cookieParser());
 
 app.use(cors(corsOption));
+
+app.post('/webhook', express.raw({ type: 'application/json' }), webhookCheckout);
+
 app.use(express.json());
 connectDB();
 
