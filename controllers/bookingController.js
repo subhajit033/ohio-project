@@ -12,8 +12,15 @@ const getCheckOutSession = async (req, res, next) => {
   try {
     const tour = await Product.findById(req.params.pdtId);
     console.log(tour.price);
+    const customer = await stripe.customers.create({
+      name: 'Jenny Rosen',
+      email: 'jennyrosen@example.com',
+      
+    });
+    console.log(customer);
+    
     const price = await stripe.prices.create({
-      currency: 'usd',
+      currency: 'inr',
       unit_amount: tour.price * 100,
 
       product_data: {
@@ -25,7 +32,7 @@ const getCheckOutSession = async (req, res, next) => {
       }
     });
 
-    console.log(price);
+    // console.log(price);
 
     const session = await stripe.checkout.sessions.create({
       line_items: [
@@ -38,10 +45,15 @@ const getCheckOutSession = async (req, res, next) => {
       mode: 'payment',
       payment_method_types: ['card'],
       //not a secure way, in deployed websoute we can integrate stripe webkooks for payment success
-      success_url: `${req.protocol}://${req.get('host')}`,
-      cancel_url: `${req.protocol}://${req.get('host')}`,
+      // success_url: `${req.protocol}://${req.get('host')}`,
+      success_url: `http://localhost:5173/dashboard`,
+      // cancel_url: `${req.protocol}://${req.get('host')}`,
+      cancel_url: `http://localhost:5173`,
+      
+      billing_address_collection: 'required',
       //customer_name: req.user.name,
-      customer_email: req.user.primaryEmail,
+      customer: customer.id,
+      // customer_email: customer.email,
       //during accessing single doc id is always id not _id
       client_reference_id: tour.id,
       metadata: {
