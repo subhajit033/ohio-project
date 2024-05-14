@@ -15,7 +15,13 @@ const getCheckOutSession = async (req, res, next) => {
     const customer = await stripe.customers.create({
       name: 'Jenny Rosen',
       email: 'jennyrosen@example.com',
-      
+      address: {
+        line1: '510 Townsend St',
+        postal_code: '98140',
+        city: 'San Francisco',
+        state: 'CA',
+        country: 'US',
+      },
     });
     console.log(customer);
     
